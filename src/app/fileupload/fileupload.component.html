@@ -1,6 +1,12 @@
-<div class="form-group">
-  <label for="file">Choose File</label>
+<div class="drop-div"><img src="assets/images/cube.svg" class="image">
+  <div class="text-block">To get started with MiraBox, drag &amp; drop file here</div>
+  <!--<a href="#" class="link w-button">Open file</a>-->
+  <label for="file" class="link w-button">Open file</label>
   <input type="file"
          id="file"
+         style="display:none;"
          (change)="handleFileInput($event.target.files)">
+<!--<div class="drop-div"><img src="images/cube.svg" class="image">-->
+  <!--<div class="text-block">To get started with MiraBox, drag &amp; drop file here</div>-->
+  <!--<a href="dashboard-free.html" class="link w-button">Open file</a>-->
 </div>

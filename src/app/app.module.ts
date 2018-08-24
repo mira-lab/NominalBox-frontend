@@ -4,11 +4,13 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FileUploadModule } from './fileupload/fileupload.module';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    DashboardPageComponent
   ],
   imports: [
     BrowserModule,
