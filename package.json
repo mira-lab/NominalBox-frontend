@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "node patch.js"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +22,11 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
+    "crypto-js": "^3.1.9-1",
+    "eth-lib": "^0.2.8",
+    "ethereumjs-util": "^5.2.0",
     "rxjs": "^6.0.0",
+    "web3": "^1.0.0-beta.35",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -31,7 +36,7 @@
     "@angular/language-service": "^6.1.0",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
+    "@types/node": "^8.9.5",
     "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
