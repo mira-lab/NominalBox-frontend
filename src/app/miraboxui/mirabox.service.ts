@@ -181,10 +181,11 @@ export class MiraboxService {
   openMiraBox(miraBox: MiraBox) {
     return new Promise((resolve, reject) => {
       this.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0], miraBox.getMiraBoxItems()[0].address)
-        .then(res => this.openMiraBoxItem)
+        .then(res =>  this.openMiraBoxItem(miraBox, miraBox.getMiraBoxItems()[0]) )
         .then((receipt) => {
             const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
             const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBox.getMiraBoxItems()[0].contract);
+            console.log(receipt);
             miraBoxContract.events.PrivateKey((err, ev) => {
               if (!err) {
                 return resolve(ev);
