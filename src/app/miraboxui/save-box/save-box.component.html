@@ -5,28 +5,27 @@
     </div>
     <div class="form">
       <div class="form-block w-form">
-        <form id="email-form" name="email-form" data-name="Email Form"><label for="Title-3">Box Title</label><input
-          type="text" class="authorization-field w-input" maxlength="256" name="Title-3" data-name="Title 3"
-          placeholder="Untitled Box" id="Title-3" required="">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          <label for="Title-3">Box Title</label>
+          <input type="text" class="authorization-field w-input" [(ngModel)]="miraBoxTitle" maxlength="256" name="Title-3" data-name="Title 3" placeholder="Untitled Box" id="Title-3" required="">
           <div class="_2-pins-div">
-            <div class="pin-div"><label for="PIN-3">PIN</label><input type="password"
-                                                                      class="authorization-field w-input"
-                                                                      maxlength="256" name="PIN-1" data-name="PIN 1"
-                                                                      placeholder="1234567890" id="PIN" required="">
+            <div class="pin-div">
+              <label for="PIN-3">PIN</label>
+              <input type="password" class="authorization-field w-input" maxlength="256" name="PIN-1" data-name="PIN 1" placeholder="1234567890" id="PIN" required="">
             </div>
-            <div class="pin-div"><label for="PIN-3">Repeat PIN</label><input type="password"
-                                                                             class="authorization-field w-input"
-                                                                             maxlength="256" name="PIN-2"
-                                                                             data-name="PIN 2" placeholder="1234567890"
-                                                                             id="PIN-2" required=""></div>
+            <div class="pin-div">
+              <label for="PIN-3">Repeat PIN</label>
+              <input type="password" class="authorization-field w-input" maxlength="256" name="PIN-2" data-name="PIN 2" placeholder="1234567890" id="PIN-2" required="">
+            </div>
           </div>
-          <label for="Email-4">Email</label><input type="email" class="authorization-field w-input" maxlength="256"
-                                                   name="Email-4" data-name="Email 4" placeholder="Your Email"
-                                                   id="Email-4" required=""><label for="Email-5">Repeat
-            Email</label><input type="email" class="authorization-field w-input" maxlength="256" name="Email-2"
-                                data-name="Email 2" placeholder="Repeat Your Email" id="Email-2" required=""><input
-            type="submit" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button"><input
-            type="submit" value="Save and download" data-wait="Please wait..." class="save-form-button w-button"></form>
+          <label for="Email-4">Email</label>
+          <input type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4" placeholder="Your Email" id="Email-4" required="">
+          <label for="Email-5">Repeat Email</label>
+          <input type="email" class="authorization-field w-input" maxlength="256" name="Email-2" data-name="Email 2" placeholder="Repeat Your Email" id="Email-2" required="">
+          <input (click)="navigateEmail()" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <a id="download-mirabox" style="display: none"></a>
+          <input (click)="navigateDownload()" type="button" value="Save and download" data-wait="Please wait..." class="save-form-button w-button">
+        </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
         </div>
@@ -36,6 +35,7 @@
       </div>
     </div>
   </div>
-  <a (click)="closePopUp()" class="link-block w-inline-block" data-ix="close-save-form"><img
-    src="assets/images/cancel.svg" data-ix="close-authorization"></a>
+  <a (click)="closePopUp()" class="link-block w-inline-block" data-ix="close-save-form">
+    <img src="assets/images/cancel.svg" data-ix="close-authorization"></a>
 </div>
+

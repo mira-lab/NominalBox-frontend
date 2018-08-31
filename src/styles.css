@@ -2389,8 +2389,6 @@ label {
 
 .currency-icon {
   width: 24px;
-  -webkit-filter: saturate(0%);
-  filter: saturate(0%);
 }
 
 .currency-title {

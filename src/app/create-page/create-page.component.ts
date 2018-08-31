@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {CurrencyComponent} from '../miraboxui/currency/currency.component';
 
 @Component({
   selector: 'app-create-page',
@@ -6,7 +7,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./create-page.component.css']
 })
 export class CreatePageComponent implements OnInit {
-  public showSaveBox: boolean = false;
+  @ViewChild(CurrencyComponent)
+  private currencyComponent: CurrencyComponent;
+
 
   constructor() {
   }

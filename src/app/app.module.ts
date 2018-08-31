@@ -8,6 +8,8 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { CreatePageComponent } from './create-page/create-page.component';
 import {MiraboxuiModule} from './miraboxui/miraboxui.module';
 import { DashboardAuthorizedComponent } from './dashboard-authorized/dashboard-authorized.component';
+import { DashboardAuthorizedDirective } from './dashboard-authorized.directive';
+import { CurrencyImageDirective } from './miraboxui/mirabox-currency/currency-image.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { DashboardAuthorizedComponent } from './dashboard-authorized/dashboard-a
     HomePageComponent,
     DashboardPageComponent,
     CreatePageComponent,
-    DashboardAuthorizedComponent
+    DashboardAuthorizedComponent,
+    DashboardAuthorizedDirective,
   ],
   imports: [
     BrowserModule,

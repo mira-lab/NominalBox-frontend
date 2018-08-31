@@ -1,16 +1,72 @@
 <div data-w-id="b45b685b-72f5-5870-2757-7981a86fda70" class="sidebar-dashboard">
-  <a routerLink="" class="w-inline-block">
+  <a href="index.html" class="w-inline-block">
     <div class="logo-div"><img src="assets/images/mira_logo_animation.gif" width="70" class="logo"></div>
   </a>
-  <div class="nav-bar"><a routerLink="" class="nav-link w-inline-block"><img src="assets/images/add.svg" class="nav-link-icon"><div>Create</div></a></div>
+  <div class="nav-bar"><a href="#" class="nav-link w-inline-block"><img src="assets/images/add.svg" class="nav-link-icon"><div>Create</div></a></div>
 </div>
-<app-save-box></app-save-box>
 <div class="dashboard-div">
-  <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
-    <app-currency></app-currency>
-
-    <div class="open-box-div"><img src="assets/images/cube.svg" class="box-icon">
-      <div class="text-block">To open new MiraBox drag &amp; drop file here, or</div>
+  <div class="account">
+    <div class="account-text">Available:</div>
+    <div class="account-info"><strong>{{ miraLicenseBalance }}</strong></div>
+    <div class="account-info">License</div>
+    <div class="account-info"><strong>{{ miraBalance }}</strong></div>
+    <div class="account-info">Action Coins</div>
+    <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
+      <app-mirabox-currency [miraBox]="miraBox"></app-mirabox-currency>
+    </div>
+  <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b"  class="left-div">
+    <div class="actions-div">
+      <div class="block-heading">
+        <h5 class="block-header">Actions with Box</h5>
+      </div>
+      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a><a (click)="getAllPrivateKeys()" class="action-button _2 w-button">Get All Private Keys</a></div>
+    </div>
+    <div class="tips-div">
+      <div class="block-heading">
+        <h5 class="block-header">Tips</h5>
+      </div>
+      <div class="block-content">
+        <p class="tips-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+      </div>
+    </div>
+    <div class="last-actions-div">
+      <div class="block-heading">
+        <h5 class="block-header">Last Actions</h5>
+      </div>
+      <div class="block-content">
+        <div class="last-actions-line">
+          <div class="action-title">Added ETH Wallet</div>
+          <div class="action-value">-100 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Added LTC Wallet</div>
+          <div class="action-value">-100 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Changed PIN</div>
+          <div class="action-value">-50 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Sent Box</div>
+          <div class="action-value">-200 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Added BCH Wallet</div>
+          <div class="action-value">-100 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Changed PIN</div>
+          <div class="action-value">-50 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Sent Box</div>
+          <div class="action-value">-200 AC</div>
+        </div>
+        <div class="last-actions-line">
+          <div class="action-title">Sent Box</div>
+          <div class="action-value">-200 AC</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
