@@ -13,12 +13,30 @@ export class MiraBox {
     this.version = '3.0';
 
   }
+
   private static fromJsonObj(jsonObj): MiraBox {
-    return new MiraBox(
-      jsonObj.version,
-      jsonObj.title,
-      jsonObj.privateKey,
-      jsonObj.miraBoxItems);
+    const miraBoxProperties = [
+      'version', 'title', 'privateKey', 'miraBoxItems'
+    ];
+    const miraBoxItemProperties = [
+      'currency', 'address', 'contract'
+    ];
+    // ToDo Make more readable code here:
+    const isCorrectMiraBox = miraBoxProperties.filter(property => jsonObj.hasOwnProperty(property)).length === miraBoxProperties.length;
+    const isCorrectMiraBoxItems = jsonObj.miraBoxItems.filter((miraBoxItem) => {
+      return miraBoxItemProperties.filter((property) => {
+        return miraBoxItem.hasOwnProperty(property);
+      }).length === miraBoxItemProperties.length;
+    }).length === jsonObj.miraBoxItems.length;
+    if (isCorrectMiraBox && isCorrectMiraBoxItems) {
+      return new MiraBox(
+        jsonObj.version,
+        jsonObj.title,
+        jsonObj.privateKey,
+        jsonObj.miraBoxItems);
+    } else {
+      throw Error('Bad MiraBox');
+    }
   }
 
   static fromString(input: string) {
