@@ -6,7 +6,6 @@ import {CurrencyService} from '../currency/currency.service';
 import {MiraBox} from '../mirabox';
 import {MiraboxDataService} from '../mirabox-data.service';
 
-
 @Component({
   selector: 'app-save-box',
   templateUrl: './save-box.component.html',
@@ -21,7 +20,7 @@ export class SaveBoxComponent implements OnInit {
    private currencySvc: CurrencyService,
    private miraBoxDataSvc: MiraboxDataService) {
   }
-
+  miraboxCreating = false;
   miraBoxTitle = 'Untitled Box';
   currencies;
   show$;
@@ -32,13 +31,16 @@ export class SaveBoxComponent implements OnInit {
   }
 
   navigateDownload() {
-    this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.miraBoxTitle)
+    this.miraboxCreating = true;
+    return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.miraBoxTitle)
       .then((miraBox: MiraBox) => {
         this.miraBoxDataSvc.setMiraBox(miraBox);
         this.downloadMiraBox(miraBox);
-        this.router.navigate(['dashboard-authorized']);
+        this.miraboxCreating = false;
+        return this.router.navigate(['dashboard-authorized']);
       })
       .catch(err => {
+        this.miraboxCreating = false;
         console.log(err);
         alert('Error while creating mirabox!');
       });

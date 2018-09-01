@@ -186,13 +186,14 @@ export class MiraboxService {
             const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
             const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBox.getMiraBoxItems()[0].contract);
             console.log(receipt);
-            miraBoxContract.events.PrivateKey((err, ev) => {
+            miraBoxContract.once('PrivateKey', {}, (err, ev) => {
+              console.log(ev);
               if (!err) {
                 return resolve(ev);
               } else {
                 return reject(err);
               }
-            }).on('error', (err) => reject(err));
+            })
           }
         )
         .catch((err) => {

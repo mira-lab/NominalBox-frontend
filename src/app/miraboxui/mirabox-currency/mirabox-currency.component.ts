@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MiraBox} from '../mirabox';
 import {CURRENCIES} from '../currency/currency-list';
+import {PubkeyToAddressService} from '../pubkey-to-address.service';
 
 @Component({
   selector: 'app-mirabox-currency',
@@ -9,11 +10,20 @@ import {CURRENCIES} from '../currency/currency-list';
 })
 export class MiraboxCurrencyComponent implements OnInit {
   @Input() miraBox: MiraBox;
+  miraBoxShowObj;
 
-  constructor() {
+  constructor(private pubToAddressSvc: PubkeyToAddressService) {
   }
 
   ngOnInit() {
+    this.miraBoxShowObj = this.miraBox.getMiraBoxItems().map((item) => {
+      return {
+        currencySymbol: item.currency,
+        address: this.pubToAddressSvc.publicKeyToAddress(item.currency, item.address),
+        currencyImage: CURRENCIES.find(currency => currency.symbol === item.currency).icon,
+        currencyName: CURRENCIES.find(currency => currency.symbol === item.currency).name
+      };
+    });
   }
 
   nothing() {
