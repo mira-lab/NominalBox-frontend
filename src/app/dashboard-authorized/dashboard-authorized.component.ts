@@ -15,6 +15,8 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   miraBalance: any = '0';
   miraLicenseBalance: any = '0';
   miraBox: MiraBox;
+  privateKey;
+  gettingPrivateKeys = false;
 
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
@@ -26,7 +28,23 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       return this.router.navigate(['create']);
     }
     this.miraBox = this.miraBoxDataSvc.getMiraBox();
-
+    this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
+      .then((res) => {
+        if (res) {
+          return this.miraBoxSvc.getOpenedMiraBoxItemPK(this.miraBox.getMiraBoxItems()[0]);
+        } else {
+          return Promise.reject('Mirabox not opened');
+        }
+      })
+      .then((event: any) => {
+        if (event.length > 0 && event[0].returnValues['_value']) {
+          this.privateKey = this.miraBoxSvc.decodePrivateKey(this.miraBox.getPrivateKey(), event[0].returnValues['_value']);
+          this.gettingPrivateKeys = true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     console.log(this.miraBox);
 
     const intervalSource = interval(5000);
@@ -46,13 +64,18 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   }
 
   getAllPrivateKeys() {
+    this.gettingPrivateKeys = true;
     this.miraBoxSvc.openMiraBox(this.miraBox)
-      .then((res) => {
-        console.log(res);
+      .then((pk) => {
+        this.privateKey = pk;
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  navigateToCreate() {
+    return this.router.navigate(['create']);
   }
 
   ngOnDestroy() {

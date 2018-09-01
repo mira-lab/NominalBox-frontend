@@ -2773,7 +2773,6 @@ label {
   right: 0px;
   bottom: 0px;
   z-index: 9999;
-  //display: none;
   padding-top: 10vh;
   padding-left: 40px;
   -webkit-box-pack: center;
@@ -2785,7 +2784,6 @@ label {
   -ms-flex-align: start;
   align-items: flex-start;
   background-color: rgba(0, 0, 0, .9);
-  //opacity: 0;
 }
 
 .pin-div {

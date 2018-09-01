@@ -2,19 +2,29 @@
   <div class="block-heading">
     <h5 class="block-header">{{ miraBox.getTitle() }}</h5>
   </div>
-  <div *ngFor="let miraBoxItem of miraBoxShowObj" class="currency-line">
-    <div class="currency-icon-div"><img  src = '{{miraBoxItem.currencyImage}}' class="currency-icon" ></div>
-    <div class="currency-title">
-      <div><strong>{{ miraBoxItem.currencyName }} </strong>{{ miraBoxItem.currencySymbol }}</div>
+  <div *ngFor="let miraBoxItem of miraBoxShowObj">
+    <div class="currency-line">
+      <div class="currency-icon-div"><img src='{{miraBoxItem.currencyImage}}' class="currency-icon"></div>
+      <div class="currency-title">
+        <div><strong>{{ miraBoxItem.currencyName }} </strong>{{ miraBoxItem.currencySymbol }}</div>
+      </div>
+      <div class="wallet-address-div">
+        <div>{{ miraBoxItem.address}}</div>
+      </div>
+      <div class="buttons-div"></div>
+      <div class="delete-div"></div>
     </div>
-    <div class="wallet-address-div">
-      <div>{{ miraBoxItem.address}}</div>
+
+    <div *ngIf="privateKey" class="currency-line">
+      <div class="currency-icon-div"><img src='' class="currency-icon">
+      </div>
+      <div class="currency-title">
+        <div><strong>Private Key:</strong></div>
+      </div>
+      <div class="wallet-address-div">
+        <div> {{ privateKey }}</div>
+      </div>
+      <div class="buttons-div"></div>
+      <div class="delete-div"></div>
     </div>
-    <div class="buttons-div"></div>
-    <div class="delete-div"></div>
   </div>
-  <!--<a class="link-2 w-button" data-ix="open-save-form" (click)="nothing()">SAVE</a>-->
-</div>
-<!--<div class="open-box-div"><img src="assets/images/cube.svg" class="box-icon">-->
-  <!--<div class="text-block">To open new MiraBox drag &amp; drop file here, or</div>-->
-<!--</div>-->

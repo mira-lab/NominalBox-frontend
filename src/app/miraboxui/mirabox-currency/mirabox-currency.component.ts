@@ -10,20 +10,23 @@ import {PubkeyToAddressService} from '../pubkey-to-address.service';
 })
 export class MiraboxCurrencyComponent implements OnInit {
   @Input() miraBox: MiraBox;
+  @Input() privateKey;
   miraBoxShowObj;
 
   constructor(private pubToAddressSvc: PubkeyToAddressService) {
   }
 
   ngOnInit() {
-    this.miraBoxShowObj = this.miraBox.getMiraBoxItems().map((item) => {
-      return {
-        currencySymbol: item.currency,
-        address: this.pubToAddressSvc.publicKeyToAddress(item.currency, item.address),
-        currencyImage: CURRENCIES.find(currency => currency.symbol === item.currency).icon,
-        currencyName: CURRENCIES.find(currency => currency.symbol === item.currency).name
-      };
-    });
+    if (this.miraBox) {
+      this.miraBoxShowObj = this.miraBox.getMiraBoxItems().map((item) => {
+        return {
+          currencySymbol: item.currency,
+          address: this.pubToAddressSvc.publicKeyToAddress(item.currency, item.address),
+          currencyImage: CURRENCIES.find(currency => currency.symbol === item.currency).icon,
+          currencyName: CURRENCIES.find(currency => currency.symbol === item.currency).name
+        };
+      });
+    }
   }
 
   nothing() {

@@ -3,7 +3,7 @@
     <div class="logo-div"><img src="assets/images/mira_logo_animation.gif" width="70" class="logo"></div>
   </a>
   <div class="nav-bar">
-    <a routerLink="create" class="nav-link w-inline-block"><img src="assets/images/add.svg" class="nav-link-icon"><div>Create</div></a></div>
+    <a (click)="navigateToCreate()" class="nav-link w-inline-block"><img src="assets/images/add.svg" class="nav-link-icon"><div>Create</div></a></div>
 </div>
 <div class="dashboard-div">
   <div class="account">
@@ -13,14 +13,14 @@
     <div class="account-info"><strong>{{ miraBalance }}</strong></div>
     <div class="account-info">Action Coins</div>
     <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
-      <app-mirabox-currency [miraBox]="miraBox"></app-mirabox-currency>
+      <app-mirabox-currency [miraBox]="miraBox" [privateKey]="privateKey"></app-mirabox-currency>
     </div>
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b"  class="left-div">
     <div class="actions-div">
       <div class="block-heading">
         <h5 class="block-header">Actions with Box</h5>
       </div>
-      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a><a (click)="getAllPrivateKeys()" class="action-button _2 w-button">Get All Private Keys</a></div>
+      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a><input type="button" [disabled]="gettingPrivateKeys" (click)="getAllPrivateKeys()" value="Get All Private Keys" class="action-button _2 w-button" [ngStyle]="{ 'background-color': (gettingPrivateKeys ? 'grey':'#7833cc') }"></div>
     </div>
     <div class="tips-div">
       <div class="block-heading">
