@@ -1,12 +1,9 @@
-<div class="drop-div"><img src="assets/images/cube.svg" class="image">
-  <div class="text-block">To get started with MiraBox, drag &amp; drop file here</div>
-  <!--<a href="#" class="link w-button">Open file</a>-->
-  <label for="file" class="link w-button">Open file</label>
-  <input type="file"
+<div [ngClass]="size == 'small' ? 'open-box-div' : (size == 'large' ? 'drop-div' : '')" appDnd (filesChangeEmiter)="onFileDrop($event)">
+  <img src="assets/images/cube.svg" class="image">
+  <div class="text-block">{{text}}</div>
+  <label *ngIf="downloadButton" for="file" class="link w-button">Open file</label>
+  <input *ngIf="downloadButton" type="file"
          id="file"
          style="display:none;"
          (change)="handleFileInput($event.target.files)">
-<!--<div class="drop-div"><img src="images/cube.svg" class="image">-->
-  <!--<div class="text-block">To get started with MiraBox, drag &amp; drop file here</div>-->
-  <!--<a href="dashboard-free.html" class="link w-button">Open file</a>-->
 </div>

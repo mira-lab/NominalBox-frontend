@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
 import {MiraBox} from '../miraboxui/mirabox';
 import {Router} from '@angular/router';
@@ -10,6 +10,9 @@ import {Router} from '@angular/router';
 })
 export class FileUploadComponent implements OnInit {
   fileToUpload: File = null;
+  @Input() size = 'large';
+  @Input() text = 'To get started with MiraBox, drag & drop file here';
+  @Input() downloadButton = true;
 
   constructor(private miraBoxDataSvc: MiraboxDataService,
               private router: Router) {
@@ -28,8 +31,25 @@ export class FileUploadComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsText(this.fileToUpload);
     reader.onload = () => {
-      this.miraBoxDataSvc.setMiraBox(MiraBox.fromString(reader.result));
-      return this.router.navigate(['dashboard-authorized']);
+      try {
+        this.miraBoxDataSvc.setMiraBox(MiraBox.fromString(reader.result));
+        return this.router.navigate(['dashboard-authorized']);
+      } catch (err) {
+        alert('Bad MiraBox File!');
+      }
+    };
+  }
+
+  onFileDrop(file: File) {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      try {
+        this.miraBoxDataSvc.setMiraBox(MiraBox.fromString(reader.result));
+        return this.router.navigate(['dashboard-authorized']);
+      } catch (err) {
+        alert('Bad MiraBox File!');
+      }
     };
   }
 }

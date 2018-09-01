@@ -8,12 +8,14 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import { MiraboxCurrencyComponent } from './mirabox-currency/mirabox-currency.component';
 import {CurrencyImageDirective} from './mirabox-currency/currency-image.directive';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   declarations: [CurrencyComponent, SaveBoxComponent, SendBoxComponent, MiraboxCurrencyComponent, CurrencyImageDirective],
   exports: [

@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { FileUploadModule } from './fileupload/fileupload.module';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import {MiraboxuiModule} from './miraboxui/miraboxui.module';
 import { DashboardAuthorizedComponent } from './dashboard-authorized/dashboard-authorized.component';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { DashboardAuthorizedComponent } from './dashboard-authorized/dashboard-a
   imports: [
     BrowserModule,
     routing,
-    FileUploadModule,
+    SharedModule,
     MiraboxuiModule
   ],
   providers: [],
