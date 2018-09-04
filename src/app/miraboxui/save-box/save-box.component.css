@@ -2,3 +2,15 @@
   display:none;
   opacity: 0;
 }
+.loading-spinner{
+  object-fit: cover;
+  width: 100px;
+  height: 50px;
+  display: block;
+  margin: 0px auto 0px;
+}
+.mirabox-creating-button{
+  background-color: grey;
+  cursor: default;
+}
+

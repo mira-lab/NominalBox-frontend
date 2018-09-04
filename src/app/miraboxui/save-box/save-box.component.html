@@ -22,9 +22,10 @@
           <input type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4" placeholder="Your Email" id="Email-4" required="">
           <label for="Email-5">Repeat Email</label>
           <input type="email" class="authorization-field w-input" maxlength="256" name="Email-2" data-name="Email 2" placeholder="Repeat Your Email" id="Email-2" required="">
-          <input (click)="navigateEmail()" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
-          <input (click)="navigateDownload()" [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..." class="save-form-button w-button">
+          <input (click)="navigateDownload()" [ngClass]="{'mirabox-creating-button': miraboxCreating}" [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..." class="save-form-button w-button">
+          <img [ngStyle]="{ 'visibility': (miraboxCreating ? 'unset':'hidden') }" class='loading-spinner' src="assets/images/mira-loading.gif">
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
