@@ -19,8 +19,10 @@
     <div class="actions-div">
       <div class="block-heading">
         <h5 class="block-header">Actions with Box</h5>
+        <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
-      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a><input type="button" [disabled]="gettingPrivateKeys" (click)="getAllPrivateKeys()" value="Get All Private Keys" class="action-button _2 w-button" [ngStyle]="{ 'background-color': (gettingPrivateKeys ? 'grey':'#7833cc') }"></div>
+      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a>
+        <input type="button" [disabled]="isGetPrivateKeysDisabled" (click)="getAllPrivateKeys()" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
     </div>
     <div class="tips-div">
       <div class="block-heading">

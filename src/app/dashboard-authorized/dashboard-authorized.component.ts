@@ -17,7 +17,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   miraBox: MiraBox;
   privateKey;
   gettingPrivateKeys = false;
-
+  isGetPrivateKeysDisabled = true;
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
               private miraBoxDataSvc: MiraboxDataService) {
@@ -33,13 +33,13 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
         if (res) {
           return this.miraBoxSvc.getOpenedMiraBoxItemPK(this.miraBox.getMiraBoxItems()[0]);
         } else {
+          this.isGetPrivateKeysDisabled = false;
           return Promise.reject('Mirabox not opened');
         }
       })
       .then((event: any) => {
         if (event.length > 0 && event[0].returnValues['_value']) {
           this.privateKey = this.miraBoxSvc.decodePrivateKey(this.miraBox.getPrivateKey(), event[0].returnValues['_value']);
-          this.gettingPrivateKeys = true;
         }
       })
       .catch((err) => {
@@ -56,7 +56,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
     intervalSource
       .pipe(flatMap(() => from(this.miraBoxSvc.getActionCoinBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraCoinBalance) => {
-        this.miraBalance = miraCoinBalance;
+        this.miraBalance = (Math.floor(Number(miraCoinBalance) * 10000) / 10000) + '';
       });
   }
 
@@ -65,12 +65,15 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
 
   getAllPrivateKeys() {
     this.gettingPrivateKeys = true;
+    this.isGetPrivateKeysDisabled = true;
     this.miraBoxSvc.openMiraBox(this.miraBox)
       .then((pk) => {
         this.privateKey = pk;
+        this.gettingPrivateKeys = false;
       })
       .catch((err) => {
         console.log(err);
+        this.gettingPrivateKeys = false;
       });
   }
 
