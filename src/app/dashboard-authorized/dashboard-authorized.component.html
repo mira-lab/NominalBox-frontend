@@ -21,8 +21,24 @@
         <h5 class="block-header">Actions with Box</h5>
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
-      <div class="block-content actions"><a (click)="changePin()" class="action-button _3 w-button">Change Pin</a>
+      <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
         <input type="button" [disabled]="isGetPrivateKeysDisabled" (click)="getAllPrivateKeys()" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
+    </div>
+    <div class="tips-div" [hidden]="!changingPin">
+      <div class="block-heading">
+        <h5 class="block-header">Change your pin:</h5>
+      </div>
+      <div class="block-content">
+        <div class="pin-div">
+          <label>OLD PIN</label>
+          <input type="password" [(ngModel)]="oldPin" class="authorization-field w-input" maxlength="256" name="PIN-1" data-name="PIN 1" placeholder="1234567890" id="PIN" required="">
+        </div>
+        <div class="pin-div">
+          <label>NEW PIN</label>
+          <input type="password" [(ngModel)]="newPin" class="authorization-field w-input" maxlength="256" name="PIN-2" data-name="PIN 2" placeholder="1234567890" id="PIN-2" required="">
+        </div>
+        <input (click)="changePin()" type="button" value="Submit" data-wait="Please wait..." class="save-form-button w-button">
+      </div>
     </div>
     <div class="tips-div">
       <div class="block-heading">

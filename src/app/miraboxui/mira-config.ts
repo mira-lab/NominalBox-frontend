@@ -3,5 +3,6 @@ export const miraConfig = {
   bufferContractAddress: '',
   miraFactoryContractAddress: '',
   miraCoinFaucetURL: 'http://185.244.217.49/faucet/get',
-  licenseFaucetURL: 'http://185.244.217.49/faucet/contract'
+  licenseFaucetURL: 'http://185.244.217.49/faucet/contract',
+  pinPostURL: 'http://185.244.217.49/mirabox/pin'
 };
