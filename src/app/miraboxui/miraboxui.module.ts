@@ -15,7 +15,6 @@ import {LastActionsComponent} from './last-actions/last-actions.component';
   imports: [
     CommonModule,
     HttpModule,
-    FormsModule,
     SharedModule
   ],
   declarations: [

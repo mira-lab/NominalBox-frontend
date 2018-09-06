@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FileUploadModule} from '../fileupload/fileupload.module';
 import {FileUploadComponent} from '../fileupload/fileupload.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -9,6 +10,6 @@ import {FileUploadComponent} from '../fileupload/fileupload.component';
     FileUploadModule
   ],
   declarations: [],
-  exports: [FileUploadComponent]
+  exports: [FileUploadComponent, FormsModule]
 })
 export class SharedModule { }

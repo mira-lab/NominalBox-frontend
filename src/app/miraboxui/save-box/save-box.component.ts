@@ -5,6 +5,7 @@ import {MiraboxService} from '../mirabox.service';
 import {CurrencyService} from '../currency/currency.service';
 import {MiraBox} from '../mirabox';
 import {MiraboxDataService} from '../mirabox-data.service';
+import {ServerCommunicationService} from '../server-communication.service';
 
 @Component({
   selector: 'app-save-box',
@@ -18,26 +19,40 @@ export class SaveBoxComponent implements OnInit {
    private router: Router,
    private miraBoxSvc: MiraboxService,
    private currencySvc: CurrencyService,
-   private miraBoxDataSvc: MiraboxDataService) {
+   private miraBoxDataSvc: MiraboxDataService,
+   private servercommSvc: ServerCommunicationService) {
   }
   miraboxCreating = false;
   miraBoxTitle = 'Untitled Box';
   currencies;
   show$;
+  pin;
+  repeatPin;
+  oopsShow = true;
 
   ngOnInit() {
     this.currencySvc.currentCurrencies.subscribe(currencies => this.currencies = currencies);
     this.show$ = this.popUpSvc.showPopUp$;
   }
 
-  navigateDownload() {
+  async navigateDownload() {
+    if(!this.pin || !this.repeatPin || this.pin != this.repeatPin) {
+      this.oopsShow = false;
+      return;
+    }
+    this.oopsShow = true;
     this.miraboxCreating = true;
+
     return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.miraBoxTitle)
       .then((miraBox: MiraBox) => {
-        this.miraBoxDataSvc.setMiraBox(miraBox);
-        this.downloadMiraBox(miraBox);
-        this.miraboxCreating = false;
-        return this.router.navigate(['dashboard-authorized']);
+        return this.servercommSvc.addPin(this.pin, this.miraBoxSvc.getMiraBoxAddress(miraBox))
+          .then((response) => {
+              console.log(response);
+              this.miraboxCreating = false;
+              this.miraBoxDataSvc.setMiraBox(miraBox);
+              this.downloadMiraBox(miraBox);
+              return this.router.navigate(['dashboard-authorized']);
+          });
       })
       .catch(err => {
         this.miraboxCreating = false;
@@ -63,6 +78,7 @@ export class SaveBoxComponent implements OnInit {
   }
 
   closePopUp() {
+    this.oopsShow = true;
     this.popUpSvc.closePopUp();
   }
 

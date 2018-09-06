@@ -5,6 +5,7 @@ import {interval, from} from 'rxjs';
 import {flatMap, startWith} from 'rxjs/operators';
 import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
 import {MiraBox} from '../miraboxui/mirabox';
+import {ServerCommunicationService} from '../miraboxui/server-communication.service';
 
 @Component({
   selector: 'app-dashboard-authorized',
@@ -18,9 +19,13 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   privateKey;
   gettingPrivateKeys = false;
   isGetPrivateKeysDisabled = true;
+  changingPin = false;
+  newPin;
+  oldPin;
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
-              private miraBoxDataSvc: MiraboxDataService) {
+              private miraBoxDataSvc: MiraboxDataService,
+              private serverCommSvc: ServerCommunicationService) {
   }
 
   ngOnInit() {
@@ -61,6 +66,14 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   }
 
   changePin() {
+    this.serverCommSvc.changePin(this.oldPin, this.newPin, this.miraBoxSvc.getMiraBoxAddress(this.miraBox))
+      .then((res) => {
+        console.log(res);
+        this.changingPin = false;
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
 
   getAllPrivateKeys() {
