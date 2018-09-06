@@ -3,37 +3,9 @@
     <h5 class="block-header">Last Actions</h5>
   </div>
   <div class="block-content">
-    <div class="last-actions-line">
-      <div class="action-title">Added ETH Wallet</div>
-      <div class="action-value">-100 AC</div>
+    <div *ngFor="let action of lastActionsPromise | async" class="last-actions-line">
+      <div class="action-title">{{ action.actionName }}</div>
+      <div class="action-value">{{ action.blockNubmer }}</div>
     </div>
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Added LTC Wallet</div>-->
-      <!--<div class="action-value">-100 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Changed PIN</div>-->
-      <!--<div class="action-value">-50 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Sent Box</div>-->
-      <!--<div class="action-value">-200 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Added BCH Wallet</div>-->
-      <!--<div class="action-value">-100 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Changed PIN</div>-->
-      <!--<div class="action-value">-50 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Sent Box</div>-->
-      <!--<div class="action-value">-200 AC</div>-->
-    <!--</div>-->
-    <!--<div class="last-actions-line">-->
-      <!--<div class="action-title">Sent Box</div>-->
-      <!--<div class="action-value">-200 AC</div>-->
-    <!--</div>-->
   </div>
 </div>
