@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MiraboxService} from '../miraboxui/mirabox.service';
 import {Router} from '@angular/router';
 import {interval, from} from 'rxjs';
-import {flatMap} from 'rxjs/operators';
+import {flatMap, startWith} from 'rxjs/operators';
 import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
 import {MiraBox} from '../miraboxui/mirabox';
 
@@ -49,12 +49,12 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
 
     const intervalSource = interval(5000);
     intervalSource
-      .pipe(flatMap(() => from(this.miraBoxSvc.getLicenseBalance(this.miraBox.getPrivateKey()))))
+      .pipe(startWith(0), flatMap(() => from(this.miraBoxSvc.getLicenseBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraLicenseBalance) => {
         this.miraLicenseBalance = miraLicenseBalance;
       });
     intervalSource
-      .pipe(flatMap(() => from(this.miraBoxSvc.getActionCoinBalance(this.miraBox.getPrivateKey()))))
+      .pipe(startWith(0), flatMap(() => from(this.miraBoxSvc.getActionCoinBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraCoinBalance) => {
         this.miraBalance = (Math.floor(Number(miraCoinBalance) * 10000) / 10000) + '';
       });

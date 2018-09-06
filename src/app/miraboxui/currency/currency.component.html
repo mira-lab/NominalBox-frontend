@@ -1,15 +1,15 @@
 <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
 <div class="actual-box-div">
   <div class="block-heading">
-    <h5 class="block-header">Untitled Box</h5>
+    <h5 class="block-header">Choose currencies</h5>
   </div>
 
-  <div *ngFor="let currency of currencies" class="currency-line">
+  <div  *ngFor="let currency of currencies"  (click)="currency.added = !currency.added; changeInCurrencies();" class="currency-line">
     <div class="currency-icon-div"><img src="{{ currency.icon }}" [ngClass]="{'currency-inactive': !currency.added }" class="currency-icon" ></div>
     <div class="currency-title">
       <div><strong>{{ currency.name }} </strong>{{ currency.symbol }}</div>
     </div>
-    <div class="wallet-address-div"><a (click)="currency.added = !currency.added; changeInCurrencies();" class="add w-inline-block"><img
+    <div class="wallet-address-div"><a class="add w-inline-block"><img
       src="assets/images/add-button-inside-black-circle.svg"></a></div>
     <div class="buttons-div"></div>
     <div class="delete-div"></div>
@@ -23,7 +23,7 @@
     <div class="buttons-div"></div>
     <div class="delete-div"></div>
   </div>
-  <a class="link-2 w-button" data-ix="open-save-form" (click)="showSaveBox(currencies)">SAVE</a>
+  <a class="link-2 w-button" data-ix="open-save-form" (click)="showSaveBox()">Create</a>
 </div>
-<app-file-upload [size]="'small'" [downloadButton]="false" [text]="'To open new MiraBox drag & drop file here'"></app-file-upload>
+<app-file-upload [size]="'small'" [downloadButton]="false" [text]="'To open MiraBox drag & drop file here'"></app-file-upload>
 </div>

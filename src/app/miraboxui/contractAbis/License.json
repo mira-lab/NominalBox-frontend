@@ -109,25 +109,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "newPrice",
-        "type": "uint256"
-      }
-    ],
-    "name": "changeMiraboxPrice",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_to",
         "type": "address"
       },
@@ -205,45 +186,8 @@
   },
   {
     "constant": false,
-    "inputs": [
-      {
-        "name": "templateName",
-        "type": "bytes32"
-      }
-    ],
-    "name": "buyMirabox",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
     "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_from",
-        "type": "address"
-      },
-      {
-        "name": "_value",
-        "type": "uint256"
-      }
-    ],
-    "name": "burnFrom",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -289,20 +233,6 @@
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "factoryAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setMiraFactory",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -406,12 +336,12 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "contractAddress",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "owner",
         "type": "address"
       }
@@ -493,6 +423,28 @@
     "inputs": [
       {
         "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "name": "from",
         "type": "address"
       },
@@ -511,25 +463,55 @@
     "type": "event"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": true,
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
+        "name": "newPrice",
         "type": "uint256"
       }
     ],
-    "name": "Approval",
-    "type": "event"
+    "name": "changeMiraboxPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "factoryAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setMiraFactory",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "templateName",
+        "type": "bytes32"
+      }
+    ],
+    "name": "buyMirabox",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ]

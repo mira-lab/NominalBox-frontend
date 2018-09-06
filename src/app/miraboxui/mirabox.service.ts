@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Web3Service} from './web3.service';
 import {MiraBox, MiraBoxItem} from './mirabox';
+import {miraConfig} from './mira-config';
 import {Http} from '@angular/http';
 import * as Bitcore from 'bitcore-lib';
 
@@ -26,10 +27,10 @@ export class MiraboxService {
   createMiraBoxItems(currencies, miraAccount) {
     return new Promise(((resolve, reject) => {
       const licenseContractAbi = require('../miraboxui/contractAbis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, this.licenseContractAddress);
+      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       const txData = licenseContract.methods.buyMirabox(this.w3.utils.fromAscii('Onrequest')).encodeABI();
       this.w3.eth.accounts.signTransaction({
-        to: this.licenseContractAddress,
+        to: miraConfig.licenseContractAddress,
         value: this.w3.utils.toWei('0'),
         gas: 1000000,
         gasPrice: '10000',
@@ -45,9 +46,11 @@ export class MiraboxService {
           });
         })
         .then((pastEvents) => {
+          console.log(pastEvents);
           const miraboxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
           const miraboxContract = new this.w3.eth.Contract(miraboxContractAbi, pastEvents[0].returnValues.contractAddress);
           console.log(pastEvents[0].returnValues.contractAddress);
+
           miraboxContract.methods.getPublicKey()
             .call()
             .then((publicKey) => {
@@ -99,7 +102,7 @@ export class MiraboxService {
   getLicenseBalance(privateKey) {
     return new Promise((resolve, reject) => {
       const licenseContractAbi = require('../miraboxui/contractAbis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, this.licenseContractAddress);
+      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.methods.balanceOf(this.w3.eth.accounts.privateKeyToAccount(privateKey).address)
         .call()
         .then((result) => {
@@ -113,7 +116,7 @@ export class MiraboxService {
 
   faucetLicense(miraAccountAddress) {
     return new Promise((resolve, reject) => {
-      this.http.post('https://miralab.localtunnel.me/faucet/contract',
+      this.http.post(miraConfig.licenseFaucetURL,
         {address: miraAccountAddress})
         .subscribe(
           res => {
@@ -129,7 +132,7 @@ export class MiraboxService {
 
   faucetMiraCoins(miraAccountAddress) {
     return new Promise((resolve, reject) => {
-      return this.http.post('https://miralab.localtunnel.me/faucet/get',
+      return this.http.post(miraConfig.miraCoinFaucetURL,
         {address: miraAccountAddress})
         .subscribe(
           res => {

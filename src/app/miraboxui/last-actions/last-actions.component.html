@@ -1,0 +1,11 @@
+<div class="last-actions-div">
+  <div class="block-heading">
+    <h5 class="block-header">Last Actions</h5>
+  </div>
+  <div class="block-content">
+    <div *ngFor="let action of lastActionsPromise | async" class="last-actions-line">
+      <div class="action-title">{{ action.actionName }}</div>
+      <div class="action-value">{{ action.blockNubmer }}</div>
+    </div>
+  </div>
+</div>
