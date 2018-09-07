@@ -1,3 +1,14 @@
 @import 'assets/styles/css/normalize.css';
 @import 'assets/styles/css/webflow.css';
 @import 'assets/styles/css/mirabox-ui.webflow.css';
+.currency-icon {
+  filter: saturate(100%);
+  -webkit-filter: saturate(100%);
+}
+.save-wrapper {
+  display: unset;
+  opacity: 100;
+}
+.w-form-fail {
+  display: unset;
+}
