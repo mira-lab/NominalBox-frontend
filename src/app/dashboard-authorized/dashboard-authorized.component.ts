@@ -75,6 +75,9 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
         console.log(err);
       })
   }
+  closeChangePin(isClosed: boolean){
+    this.changingPin = isClosed;
+  }
 
   getAllPrivateKeys() {
     this.gettingPrivateKeys = true;

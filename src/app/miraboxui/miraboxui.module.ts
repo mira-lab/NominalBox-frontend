@@ -5,11 +5,11 @@ import {SaveBoxComponent} from './save-box/save-box.component';
 import {PopUpSaveBoxService} from './save-box/pop-up-save-box.service';
 import {SendBoxComponent} from './send-box/send-box.component';
 import {HttpModule} from '@angular/http';
-import {FormsModule} from '@angular/forms';
 import {MiraboxCurrencyComponent} from './mirabox-currency/mirabox-currency.component';
 import {CurrencyImageDirective} from './mirabox-currency/currency-image.directive';
 import {SharedModule} from '../shared/shared.module';
 import {LastActionsComponent} from './last-actions/last-actions.component';
+import { ChangePinComponent } from './change-pin/change-pin.component';
 
 @NgModule({
   imports: [
@@ -23,13 +23,15 @@ import {LastActionsComponent} from './last-actions/last-actions.component';
     SendBoxComponent,
     MiraboxCurrencyComponent,
     CurrencyImageDirective,
-    LastActionsComponent
+    LastActionsComponent,
+    ChangePinComponent
   ],
   exports: [
     CurrencyComponent,
     SaveBoxComponent,
     MiraboxCurrencyComponent,
-    LastActionsComponent
+    LastActionsComponent,
+    ChangePinComponent
   ],
   providers: [
     PopUpSaveBoxService

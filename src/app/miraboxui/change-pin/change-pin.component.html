@@ -1,0 +1,71 @@
+<div class="save-wrapper fix-display">
+  <div class="popup-div">
+    <div class="block-heading">
+      <h5 class="block-header">Change Pin</h5>
+    </div>
+    <div class="form">
+      <div class="form-block w-form">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          <div class="_2-pins-div">
+            <div class="pin-div">
+              <label for="PIN-3">Old PIN</label>
+              <input type="password"
+                     class="authorization-field w-input"
+                     maxlength="256" name="PIN-1" data-name="PIN 1"
+                     placeholder="1234567890"
+                     [(ngModel)]="formModel.oldPin"
+                     (focus)="resetErrorPin()"
+                     required="">
+            </div>
+            <div class="pin-div">
+              <label for="PIN-3">Repeat old PIN</label>
+              <input type="password"
+                     class="authorization-field w-input"
+                     maxlength="256" name="PIN-2"
+                     data-name="PIN 2"
+                     placeholder="1234567890"
+                     [(ngModel)]="formModel.repeatOldPin"
+                     (focus)="resetErrorPin()"
+                      required="">
+            </div>
+          </div>
+          <div class="_2-pins-div">
+            <div class="pin-div">
+              <label for="PIN-3">New PIN</label>
+              <input type="password"
+                     class="authorization-field w-input"
+                     maxlength="256" name="PIN-1" data-name="PIN 1"
+                     placeholder="1234567890"
+                     [(ngModel)]="formModel.newPin"
+                     (focus)="resetErrorPin()"
+                     required="">
+            </div>
+            <div class="pin-div">
+              <label for="PIN-3">Repeat new PIN</label>
+              <input type="password"
+                     class="authorization-field w-input"
+                     maxlength="256" name="PIN-2"
+                     data-name="PIN 2" placeholder="1234567890"
+                     [(ngModel)]="formModel.repeatNewPin"
+                     (focus)="resetErrorPin()"
+                     required="">
+            </div>
+          </div>
+          <input type="button" (click)="changePin()" value="Change" data-wait="Please wait..." class="save-form-button w-button">
+        </form>
+        <div [hidden]="!showSuccess" class="form-success">
+          <div>Thank you! Your pin has been changed!</div>
+        </div>
+        <div [hidden]="!showErrorPin" class="form-error">
+          <div>Oops! Pins' fields are empty or they don't match.</div>
+        </div>
+        <div [hidden]="!showError" class="form-error">
+          <div>Oops! Something went wrong while submitting the form.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a (click)="closeChangePin()" class="link-block w-inline-block" data-ix="close-save-form">
+    <img src="assets/images/cancel.svg" data-ix="close-authorization">
+  </a>
+</div>
