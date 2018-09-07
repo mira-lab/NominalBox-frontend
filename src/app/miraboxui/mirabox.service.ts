@@ -146,6 +146,10 @@ export class MiraboxService {
     });
   }
 
+  getMiraBoxAddress(miraBox: MiraBox) {
+    return this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
+  }
+
   changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
@@ -246,6 +250,10 @@ export class MiraboxService {
           reject(err);
         });
     });
+  }
+
+  postPin(pin:string){
+
   }
 
 }
