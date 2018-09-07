@@ -12,3 +12,13 @@
 .w-form-fail {
   display: unset;
 }
+.form-error{
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffdede;
+}
+.form-success {
+  padding: 20px;
+  text-align: center;
+  background-color: #dddddd;
+}
