@@ -25,7 +25,7 @@
           <input [ngClass]="{'mirabox-creating-button': miraboxCreating}" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
           <input (click)="navigateDownload()" [ngClass]="{'mirabox-creating-button': miraboxCreating}" [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..." class="save-form-button w-button">
-          <img [ngStyle]="{ 'visibility': (miraboxCreating ? 'unset':'hidden') }" class='loading-spinner' src="assets/images/mira-loading.gif">
+          <div [hidden]="!miraboxCreating"><img  class='loading-spinner' src="assets/images/mira-loading.gif"></div>
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
