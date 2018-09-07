@@ -15,6 +15,7 @@ export class ChangePinComponent implements OnInit {
   showError = false;
   showErrorPin = false;
   showSuccess = false;
+  changePinPosting = false;
 
   constructor(private serverCommSvc: ServerCommunicationService) {
   }
@@ -23,24 +24,30 @@ export class ChangePinComponent implements OnInit {
   }
 
   closeChangePin() {
-    this.resetAllEvents();
-    this.newFormModel();
-    this.changePinClosed.emit(false);
+    if (!this.changePinPosting) {
+      this.resetAllEvents();
+      this.newFormModel();
+      this.changePinClosed.emit(false);
+    }
   }
 
   changePin() {
     this.resetAllEvents();
+    this.changePinPosting = true;
     if (this.formModel.checkValid()) {
       this.serverCommSvc.changePin(this.formModel.oldPin, this.formModel.newPin, this.miraBoxAddress)
         .then((res) => {
           console.log(res);
           this.showSuccess = true;
+          this.changePinPosting = false;
         })
         .catch((err) => {
           console.log(err);
           this.showError = true;
+          this.changePinPosting = false;
         });
     } else {
+      this.changePinPosting = false;
       this.showErrorPin = true;
     }
   }

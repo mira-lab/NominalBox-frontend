@@ -15,6 +15,7 @@
                      placeholder="1234567890"
                      [(ngModel)]="formModel.oldPin"
                      (focus)="resetErrorPin()"
+                     [disabled]="changePinPosting"
                      required="">
             </div>
             <div class="pin-div">
@@ -26,6 +27,7 @@
                      placeholder="1234567890"
                      [(ngModel)]="formModel.repeatOldPin"
                      (focus)="resetErrorPin()"
+                     [disabled]="changePinPosting"
                       required="">
             </div>
           </div>
@@ -38,6 +40,7 @@
                      placeholder="1234567890"
                      [(ngModel)]="formModel.newPin"
                      (focus)="resetErrorPin()"
+                     [disabled]="changePinPosting"
                      required="">
             </div>
             <div class="pin-div">
@@ -48,10 +51,11 @@
                      data-name="PIN 2" placeholder="1234567890"
                      [(ngModel)]="formModel.repeatNewPin"
                      (focus)="resetErrorPin()"
+                     [disabled]="changePinPosting"
                      required="">
             </div>
           </div>
-          <input type="button" (click)="changePin()" value="Change" data-wait="Please wait..." class="save-form-button w-button">
+          <input type="button" (click)="changePin()" [disabled]="changePinPosting" value="Change" data-wait="Please wait..." class="save-form-button w-button">
         </form>
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>
