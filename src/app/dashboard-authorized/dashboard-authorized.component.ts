@@ -16,17 +16,17 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   miraBalance: any = '0';
   miraLicenseBalance: any = '0';
   miraBox: MiraBox;
+  miraBoxAddress: string;
   privateKey;
   gettingPrivateKeys = false;
   isGetPrivateKeysDisabled = true;
   changingPin = false;
-  newPin;
-  oldPin;
+  getPrivateKeys = false;
   parentSubject: Subject<any> = new Subject();
+  isMiraBoxOpened = true;
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
-              private miraBoxDataSvc: MiraboxDataService,
-              private serverCommSvc: ServerCommunicationService) {
+              private miraBoxDataSvc: MiraboxDataService) {
   }
 
   ngOnInit() {
@@ -34,12 +34,14 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       return this.router.navigate(['create']);
     }
     this.miraBox = this.miraBoxDataSvc.getMiraBox();
+    this.miraBoxAddress = this.miraBoxSvc.getMiraBoxAddress(this.miraBox);
     this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
       .then((res) => {
         if (res) {
           return this.miraBoxSvc.getOpenedMiraBoxItemPK(this.miraBox.getMiraBoxItems()[0]);
         } else {
-          this.isGetPrivateKeysDisabled = false;
+          this.isGetPrivateKeysDisabled = false
+          this.isMiraBoxOpened = false;
           return Promise.reject('Mirabox not opened');
         }
       })
@@ -69,6 +71,9 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   closeChangePin(isClosed: boolean){
     this.changingPin = isClosed;
   }
+  getPrivateKeysClosed(isClosed: boolean) {
+    this.getPrivateKeys = isClosed;
+  }
 
   getAllPrivateKeys() {
     this.gettingPrivateKeys = true;
@@ -83,6 +88,12 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
         console.log(err);
         this.gettingPrivateKeys = false;
       });
+
+  }
+  onPrivateKey(pk: string) {
+    this.privateKey = pk;
+    this.isMiraBoxOpened = true;
+
   }
 
   navigateToCreate() {

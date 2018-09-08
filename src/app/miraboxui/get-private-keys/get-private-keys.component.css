@@ -1,0 +1,18 @@
+.mirabox-creating-button{
+  background-color: grey;
+  cursor: default;
+}
+.mirabox-creating-button:hover{
+  -webkit-filter: brightness(100%);
+  filter: brightness(100%);
+}
+.loading-spinner{
+  object-fit: cover;
+  width: 100px;
+  height: 50px;
+  display: block;
+  margin: 0px auto 0px;
+}
+.loading-spinner-div{
+  margin: 0 0 -50px 0;
+}

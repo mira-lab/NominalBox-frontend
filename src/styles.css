@@ -22,3 +22,6 @@
   text-align: center;
   background-color: #dddddd;
 }
+.fix-display{
+  display: flex;
+}
