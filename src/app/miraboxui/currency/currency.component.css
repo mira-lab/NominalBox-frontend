@@ -2,3 +2,6 @@
   -webkit-filter: saturate(0%);
   filter: saturate(0%);
 }
+.currency-line-added{
+  background-color: #eee;
+}

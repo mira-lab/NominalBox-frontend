@@ -4,13 +4,16 @@
     <h5 class="block-header">Choose currencies</h5>
   </div>
 
-  <div  *ngFor="let currency of currencies"  (click)="currency.added = !currency.added; changeInCurrencies();" class="currency-line">
+  <div  *ngFor="let currency of currencies"
+        (click)="currency.added = !currency.added; changeInCurrencies();"
+        [ngClass]="{'currency-line-added': currency.added }"
+        class="currency-line">
     <div class="currency-icon-div"><img src="{{ currency.icon }}" [ngClass]="{'currency-inactive': !currency.added }" class="currency-icon" ></div>
     <div class="currency-title">
       <div><strong>{{ currency.name }} </strong>{{ currency.symbol }}</div>
     </div>
     <div class="wallet-address-div"><a class="add w-inline-block"><img
-      src="assets/images/add-button-inside-black-circle.svg"></a></div>
+      src="{{currency.added ? 'assets/images/substract-button.png':'assets/images/add-button-inside-black-circle.svg'}}"></a></div>
     <div class="buttons-div"></div>
     <div class="delete-div"></div>
   </div>
