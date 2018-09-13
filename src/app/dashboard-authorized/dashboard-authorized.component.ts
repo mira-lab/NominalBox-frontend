@@ -62,7 +62,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
     intervalSource
       .pipe(startWith(0), flatMap(() => from(this.miraBoxSvc.getActionCoinBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraCoinBalance) => {
-        this.miraBalance = (Math.floor(Number(miraCoinBalance) * 10000) / 10000) + '';
+        this.miraBalance = Math.floor(Number(miraCoinBalance) * 10000) + '';
       });
   }
 
