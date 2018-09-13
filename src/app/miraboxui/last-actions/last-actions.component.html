@@ -3,9 +3,9 @@
     <h5 class="block-header">Last Actions</h5>
   </div>
   <div class="block-content">
-    <div *ngFor="let action of lastActionsPromise | async" class="last-actions-line">
+    <div *ngFor="let action of actions" class="last-actions-line">
       <div class="action-title">{{ action.actionName }}</div>
-      <div class="action-value">{{ action.blockNubmer }}</div>
+      <a class="action-value" href="https://scan.miralab.io/block/{{action.blockNumber}}">{{ action.time }}</a>
     </div>
   </div>
 </div>
