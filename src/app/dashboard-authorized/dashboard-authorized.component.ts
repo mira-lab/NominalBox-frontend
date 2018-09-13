@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit } from '@angular/core';
 import {MiraboxService} from '../miraboxui/mirabox.service';
 import {Router} from '@angular/router';
-import {interval, from} from 'rxjs';
+import {interval, from, Subject} from 'rxjs';
 import {flatMap, startWith} from 'rxjs/operators';
 import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
 import {MiraBox} from '../miraboxui/mirabox';
@@ -22,6 +22,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   changingPin = false;
   newPin;
   oldPin;
+  parentSubject: Subject<any> = new Subject();
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
               private miraBoxDataSvc: MiraboxDataService,
@@ -65,16 +66,6 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       });
   }
 
-  changePin() {
-    this.serverCommSvc.changePin(this.oldPin, this.newPin, this.miraBoxSvc.getMiraBoxAddress(this.miraBox))
-      .then((res) => {
-        console.log(res);
-        this.changingPin = false;
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-  }
   closeChangePin(isClosed: boolean){
     this.changingPin = isClosed;
   }
@@ -84,6 +75,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
     this.isGetPrivateKeysDisabled = true;
     this.miraBoxSvc.openMiraBox(this.miraBox)
       .then((pk) => {
+        this.parentSubject.next('update_last_actions');
         this.privateKey = pk;
         this.gettingPrivateKeys = false;
       })

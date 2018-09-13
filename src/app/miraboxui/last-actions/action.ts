@@ -1,5 +1,6 @@
 export interface EventAction {
-  blockNubmer: number;
+  blockNumber: number;
   eventName: string;
   actionName: string;
+  time: string;
 }
