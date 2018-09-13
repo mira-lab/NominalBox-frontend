@@ -22,36 +22,56 @@ export class SaveBoxComponent implements OnInit {
    private miraBoxDataSvc: MiraboxDataService,
    private servercommSvc: ServerCommunicationService) {
   }
+
   miraboxCreating = false;
-  miraBoxTitle = 'Untitled Box';
+  miraBoxTitle = 'UntitledBox';
   currencies;
   show$;
   pin;
   repeatPin;
   oopsShow = true;
+  errorMessage = 'Oops! Something went wrong while submitting the form.';
 
   ngOnInit() {
     this.currencySvc.currentCurrencies.subscribe(currencies => this.currencies = currencies);
     this.show$ = this.popUpSvc.showPopUp$;
   }
 
+  checkMiraBoxTitle() {
+    return /^[\da-zA-Z\.\-_]+$/.test(this.miraBoxTitle) && this.miraBoxTitle.length <= 32;
+  }
+
+  showErrorMessage(errorMessage: string) {
+    this.errorMessage = errorMessage;
+    this.oopsShow = false;
+  }
+
+  resetErrorMessage() {
+    this.errorMessage = 'Oops! Something went wrong while submitting the form.';
+    this.oopsShow = true;
+  }
+
   async navigateDownload() {
-    if(!this.pin || !this.repeatPin || this.pin != this.repeatPin) {
-      this.oopsShow = false;
+    if (!this.pin || !this.repeatPin || this.pin != this.repeatPin) {
+      this.showErrorMessage('Pin fields are empty or they don\'t match!');
       return;
     }
-    this.oopsShow = true;
+    if (!this.checkMiraBoxTitle()) {
+      this.showErrorMessage('Mirabox title can only consist of letters, dots, digits, minuses and underscores!');
+      return;
+    }
+    this.resetErrorMessage();
     this.miraboxCreating = true;
 
     return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.miraBoxTitle)
       .then((miraBox: MiraBox) => {
         return this.servercommSvc.addPin(this.pin, this.miraBoxSvc.getMiraBoxAddress(miraBox))
           .then((response) => {
-              console.log(response);
-              this.miraboxCreating = false;
-              this.miraBoxDataSvc.setMiraBox(miraBox);
-              this.downloadMiraBox(miraBox);
-              return this.router.navigate(['dashboard-authorized']);
+            console.log(response);
+            this.miraboxCreating = false;
+            this.miraBoxDataSvc.setMiraBox(miraBox);
+            this.downloadMiraBox(miraBox);
+            return this.router.navigate(['dashboard-authorized']);
           });
       })
       .catch(err => {
