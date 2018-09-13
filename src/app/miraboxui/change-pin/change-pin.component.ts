@@ -11,7 +11,7 @@ export class ChangePinComponent implements OnInit {
   @Input() miraBoxAddress: string;
   @Output() changePinClosed = new EventEmitter<boolean>();
 
-  formModel = new ChangePin('', '', '', '');
+  formModel = new ChangePin('', '', '');
   showError = false;
   showErrorPin = false;
   showSuccess = false;
@@ -53,7 +53,7 @@ export class ChangePinComponent implements OnInit {
   }
 
   newFormModel() {
-    this.formModel = new ChangePin('', '', '', '');
+    this.formModel = new ChangePin('', '', '');
   }
 
   resetErrorPin() {
