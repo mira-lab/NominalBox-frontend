@@ -6,6 +6,7 @@ import {CurrencyService} from '../currency/currency.service';
 import {MiraBox} from '../mirabox';
 import {MiraboxDataService} from '../mirabox-data.service';
 import {ServerCommunicationService} from '../server-communication.service';
+import {SaveBox} from './save-box';
 
 @Component({
   selector: 'app-save-box',
@@ -23,22 +24,16 @@ export class SaveBoxComponent implements OnInit {
    private servercommSvc: ServerCommunicationService) {
   }
 
+  saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
   miraboxCreating = false;
-  miraBoxTitle = 'UntitledBox';
   currencies;
   show$;
-  pin;
-  repeatPin;
   oopsShow = true;
   errorMessage = 'Oops! Something went wrong while submitting the form.';
 
   ngOnInit() {
     this.currencySvc.currentCurrencies.subscribe(currencies => this.currencies = currencies);
     this.show$ = this.popUpSvc.showPopUp$;
-  }
-
-  checkMiraBoxTitle() {
-    return /^[\da-zA-Z\.\-_]+$/.test(this.miraBoxTitle) && this.miraBoxTitle.length <= 32;
   }
 
   showErrorMessage(errorMessage: string) {
@@ -51,33 +46,66 @@ export class SaveBoxComponent implements OnInit {
     this.oopsShow = true;
   }
 
-  async navigateDownload() {
-    if (!this.pin || !this.repeatPin || this.pin != this.repeatPin) {
-      this.showErrorMessage('Pin fields are empty or they don\'t match!');
-      return;
-    }
-    if (!this.checkMiraBoxTitle()) {
-      this.showErrorMessage('Mirabox title can only consist of letters, dots, digits, minuses and underscores!');
-      return;
-    }
+  createMiraBox() {
     this.resetErrorMessage();
     this.miraboxCreating = true;
-
-    return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.miraBoxTitle)
+    return new Promise((resolve, reject) => {
+      return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.saveBoxForm.miraBoxTitle)
+        .then((miraBox: MiraBox) => {
+          return this.servercommSvc.addPin(this.saveBoxForm.pin, this.miraBoxSvc.getMiraBoxAddress(miraBox))
+            .then((response) => {
+              console.log(response);
+              this.miraboxCreating = false;
+              this.miraBoxDataSvc.setMiraBox(miraBox);
+              return resolve(miraBox);
+            });
+        })
+        .catch(err => {
+          this.miraboxCreating = false;
+          return reject(err);
+        });
+    });
+  }
+  newFormModel() {
+    this.saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
+  }
+  navigateSendByEmail() {
+    try {
+      this.saveBoxForm.checkFormValid();
+    } catch (err) {
+      this.showErrorMessage(err);
+      return;
+    }
+    this.createMiraBox()
       .then((miraBox: MiraBox) => {
-        return this.servercommSvc.addPin(this.pin, this.miraBoxSvc.getMiraBoxAddress(miraBox))
-          .then((response) => {
-            console.log(response);
-            this.miraboxCreating = false;
-            this.miraBoxDataSvc.setMiraBox(miraBox);
-            this.downloadMiraBox(miraBox);
-            return this.router.navigate(['dashboard-authorized']);
-          });
+        return this.servercommSvc.sendMiraBoxByEmail(miraBox, this.saveBoxForm.email);
       })
-      .catch(err => {
-        this.miraboxCreating = false;
-        console.log(err);
+      .then(() => {
+        return this.router.navigate(['dashboard-authorized']);
+      })
+      .catch((err) => {
+        this.newFormModel();
         alert('Error while creating mirabox!');
+        console.log(err);
+      });
+  }
+
+  navigateDownload() {
+    try {
+      this.saveBoxForm.checkFormValid();
+    } catch (err) {
+      this.showErrorMessage(err);
+      return;
+    }
+    this.createMiraBox()
+      .then((miraBox: MiraBox) => {
+        this.downloadMiraBox(miraBox);
+        return this.router.navigate(['dashboard-authorized']);
+      })
+      .catch((err) => {
+        this.newFormModel();
+        alert('Error while creating mirabox!');
+        console.log(err);
       });
   }
 
@@ -89,15 +117,8 @@ export class SaveBoxComponent implements OnInit {
     downloadAnchor.click();
   }
 
-  navigateEmail() {
-
-  }
-
-  showPopUp() {
-    this.popUpSvc.showPopUp();
-  }
-
   closePopUp() {
+    this.newFormModel();
     this.oopsShow = true;
     this.popUpSvc.closePopUp();
   }

@@ -4,5 +4,7 @@ export const miraConfig = {
   miraFactoryContractAddress: '',
   miraCoinFaucetURL: 'http://185.244.217.49/faucet/get',
   licenseFaucetURL: 'http://185.244.217.49/faucet/contract',
-  pinPostURL: 'http://185.244.217.49/mirabox/pin'
+  setPinURL: 'http://185.244.217.49/mirabox/setpin',
+  changePinURL: 'http://185.244.217.49/mirabox/changepin',
+  sendByEmailURL: 'http://185.244.217.49/mirabox/send'
 };
