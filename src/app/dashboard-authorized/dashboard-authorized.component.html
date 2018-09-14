@@ -17,15 +17,24 @@
       <app-mirabox-currency [miraBox]="miraBox" [privateKey]="privateKey"></app-mirabox-currency>
     </div>
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b"  class="left-div">
-    <div class="actions-div">
+    <div class="actions-div" *ngIf="!isMiraBoxOpened">
       <div class="block-heading">
         <h5 class="block-header">Actions with Box</h5>
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
       <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
-        <input type="button" [disabled]="isGetPrivateKeysDisabled" (click)="getAllPrivateKeys()" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
+        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
     </div>
-    <app-change-pin [hidden]="!changingPin" (changePinClosed)="closeChangePin($event)"></app-change-pin>
+    <app-change-pin [hidden]="!changingPin"
+                    [miraBoxAddress]="miraBoxAddress"
+                    (changePinClosed)="closeChangePin($event)">
+    </app-change-pin>
+    <app-get-private-keys [hidden]="!getPrivateKeys"
+                          (gotPrivateKey)="onPrivateKey($event)"
+                          [parentSubject]="parentSubject"
+                          [miraBox]="miraBox"
+                          (getPrivateKeysClosed)="getPrivateKeysClosed($event)">
+    </app-get-private-keys>
     <div class="tips-div">
       <div class="block-heading">
         <h5 class="block-header">Tips</h5>

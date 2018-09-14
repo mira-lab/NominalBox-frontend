@@ -10,6 +10,7 @@ import {CurrencyImageDirective} from './mirabox-currency/currency-image.directiv
 import {SharedModule} from '../shared/shared.module';
 import {LastActionsComponent} from './last-actions/last-actions.component';
 import { ChangePinComponent } from './change-pin/change-pin.component';
+import { GetPrivateKeysComponent } from './get-private-keys/get-private-keys.component';
 
 @NgModule({
   imports: [
@@ -24,14 +25,16 @@ import { ChangePinComponent } from './change-pin/change-pin.component';
     MiraboxCurrencyComponent,
     CurrencyImageDirective,
     LastActionsComponent,
-    ChangePinComponent
+    ChangePinComponent,
+    GetPrivateKeysComponent
   ],
   exports: [
     CurrencyComponent,
     SaveBoxComponent,
     MiraboxCurrencyComponent,
     LastActionsComponent,
-    ChangePinComponent
+    ChangePinComponent,
+    GetPrivateKeysComponent
   ],
   providers: [
     PopUpSaveBoxService
