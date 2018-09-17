@@ -70,6 +70,7 @@ export class SaveBoxComponent implements OnInit {
     this.saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
   }
   navigateSendByEmail() {
+    console.log("navigateSendByEmail");
     try {
       this.saveBoxForm.checkFormValid();
     } catch (err) {
