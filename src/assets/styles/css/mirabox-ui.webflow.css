@@ -172,8 +172,9 @@ label {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 650px;
+  width: 65vw;
   height: 300px;
+  max-width: 650px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -240,6 +241,7 @@ label {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  overflow: scroll;
   margin-left: 85px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -343,6 +345,7 @@ label {
   left: 0px;
   top: 0px;
   right: 0px;
+  z-index: 8888;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1141,7 +1144,31 @@ label {
   filter: brightness(118%);
 }
 
+.heading {
+  font-size: 5vw;
+  line-height: 7vw;
+  text-align: center;
+}
+
 @media (max-width: 991px) {
+  label {
+    margin-bottom: 0px;
+  }
+  .sidebar-create-box {
+    width: 180px;
+  }
+  .sidebar-text {
+    font-size: 11px;
+  }
+  .main-div {
+    padding-left: 180px;
+  }
+  .drop-div {
+    height: 50vh;
+  }
+  .image {
+    width: 18vh;
+  }
   .dashboard-div {
     position: static;
     -webkit-box-orient: vertical;
@@ -1153,9 +1180,24 @@ label {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
+  .sidebar-dashboard {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+  }
+  .account {
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #eee;
+  }
+  .account-icon {
+    font-size: 2.7vw;
+  }
   .left-div {
     position: static;
     width: 100%;
+    margin-top: 20px;
     padding-right: 20px;
     padding-left: 5px;
   }
@@ -1163,6 +1205,17 @@ label {
     position: static;
     width: 100%;
     margin-left: 0px;
+  }
+  .currency-icon-div {
+    width: 8%;
+    padding-left: 10px;
+  }
+  .currency-title {
+    width: 22%;
+  }
+  .autorization {
+    height: 50px;
+    margin-left: 180px;
   }
   .dashboard-free {
     position: static;
@@ -1175,25 +1228,389 @@ label {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
+  .authorization-wrapper {
+    overflow: scroll;
+    padding-top: 20px;
+    padding-left: 0px;
+  }
+  .authorization-tab {
+    height: 35px;
+  }
+  .authorization-tab-nav {
+    margin-top: 10px;
+  }
+  .form {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .authorization-field {
+    margin-bottom: 10px;
+  }
+  .form-button {
+    height: 35px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+  .authorization-icon {
+    width: 35px;
+    height: 35px;
+  }
+  .authorization-media {
+    margin-top: 5px;
+  }
+  .save-wrapper {
+    overflow: scroll;
+  }
+  .send-wrapper {
+    overflow: scroll;
+  }
+  .send-big-button {
+    height: 35px;
+  }
+  .cancel-big-button {
+    height: 35px;
+  }
+  .heading {
+    font-size: 5vw;
+    line-height: 7vh;
+  }
+  .text-block-2 {
+    font-size: 2.7vh;
+    line-height: 2.7vh;
+  }
 }
 
 @media (max-width: 767px) {
+  h5 {
+    font-size: 2vw;
+  }
+  label {
+    font-size: 2vw;
+  }
+  .sidebar-create-box {
+    width: 120px;
+  }
+  .logo-div {
+    height: 50px;
+  }
+  .logo {
+    width: 40px;
+  }
+  .mira {
+    width: 40px;
+    margin-left: 5px;
+  }
+  .sidebar-tip {
+    height: 60px;
+    padding: 10px;
+  }
+  .sidebar-text {
+    font-size: 1.2vw;
+    line-height: 1.8vw;
+  }
+  .main-div {
+    padding-top: 40px;
+    padding-left: 120px;
+  }
+  .drop-div {
+    padding-bottom: 10px;
+  }
+  .text-block {
+    margin-bottom: 0px;
+    font-size: 1.8vw;
+    line-height: 1.8vw;
+  }
+  .image {
+    margin-top: 10px;
+  }
+  .dashboard-div {
+    margin-left: 70px;
+  }
+  .sidebar-dashboard {
+    width: 70px;
+  }
+  .account {
+    margin-left: 70px;
+  }
+  .account-link {
+    font-size: 1.8vw;
+    line-height: 2.7vw;
+  }
+  .account-icon {
+    width: 2.7vw;
+    margin-right: 5px;
+  }
+  .account-info {
+    font-size: 1.8vw;
+    line-height: 2.7vw;
+  }
+  .account-text {
+    font-size: 1.8vw;
+  }
+  .tips-paragraph {
+    font-size: 2vw;
+    line-height: 3vw;
+  }
+  .last-actions-line {
+    font-size: 2vw;
+    line-height: 3vw;
+  }
   .currency-line {
     height: 80px;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    font-size: 2vw;
   }
   .currency-title {
-    width: 30%;
+    width: 20%;
   }
   .wallet-address-div {
-    width: 90%;
+    width: 70%;
     padding-left: 20px;
+    font-size: 2vw;
+  }
+  .autorization {
+    margin-left: 120px;
+  }
+  .authorization-wrapper {
+    overflow: scroll;
+    padding-top: 10px;
+  }
+  .popup-div {
+    width: 300px;
+  }
+  .authorization-tab {
+    font-size: 12px;
+  }
+  .authorization-tab-nav {
+    margin-top: 5px;
+  }
+  .form {
+    padding-top: 10px;
+    font-size: 2vw;
+    line-height: 3vw;
+  }
+  .form-block {
+    width: 260px;
+  }
+  .authorization-field {
+    height: 36px;
+    font-size: 2vw;
+  }
+  .form-button {
+    margin-top: 0px;
+  }
+  .authorization-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .authorization-media {
+    margin-top: 0px;
+  }
+  .buttons-div {
+    width: 40%;
+    margin-left: 45%;
+    padding-left: 10px;
+  }
+  .heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 5vw;
+    line-height: 5vw;
+  }
+  .text-block-2 {
+    font-size: 2.7vw;
+    line-height: 2.7vw;
+  }
+  .image-2 {
+    max-width: 80%;
+  }
+  .text-block-3 {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 479px) {
+  label {
+    font-size: 3vw;
+    line-height: 5vw;
+  }
+  .sidebar-create-box {
+    width: 90px;
+  }
+  .logo-div {
+    height: 40px;
+  }
+  .logo {
+    width: 30px;
+  }
+  .mira {
+    width: 30px;
+  }
+  .sidebar-tip {
+    height: 90px;
+  }
+  .sidebar-text {
+    font-size: 1.8vw;
+    line-height: 2.7vw;
+  }
+  .main-div {
+    padding-left: 90px;
+  }
+  .text-block {
+    margin-bottom: 10px;
+    font-size: 2.7vw;
+    line-height: 2.7vw;
+  }
+  .dashboard-div {
+    margin-left: 50px;
+  }
+  .sidebar-dashboard {
+    width: 50px;
+  }
+  .nav-link {
+    font-size: 3vw;
+  }
+  .account {
+    margin-left: 50px;
+  }
+  .account-link {
+    font-size: 2vw;
+    line-height: 3.6vw;
+  }
+  .account-link.hidden {
+    display: none;
+  }
+  .account-divider.hidden {
+    display: none;
+  }
+  .account-icon {
+    width: 3.6vw;
+  }
+  .account-icon.hidden {
+    display: none;
+  }
+  .account-info {
+    font-size: 3vw;
+    line-height: 4vw;
+  }
+  .account-text {
+    font-size: 3vw;
+    line-height: 4vw;
+  }
+  .block-heading {
+    padding-left: 15px;
+  }
+  .block-header {
+    font-size: 4vw;
+  }
+  .action-button {
+    width: 110px;
+    font-size: 3.6vw;
+    line-height: 4.5vw;
+  }
+  .action-button._1 {
+    width: 180px;
+    height: 50px;
+  }
+  .tips-paragraph {
+    font-size: 3vw;
+    line-height: 5vw;
+  }
+  .last-actions-line {
+    font-size: 3vw;
+    line-height: 5vw;
+  }
+  .currency-line {
+    height: 100%;
+  }
+  .currency-icon-div {
+    width: 18%;
+  }
+  .currency-title {
+    width: 22%;
+    font-size: 3vw;
+    line-height: 4vw;
+  }
+  .wallet-address-div {
+    width: 60%;
+    padding-left: 10px;
+    font-size: 3vw;
+  }
+  .send-button {
+    height: 27px;
+    padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    font-size: 4vw;
+  }
+  .delete-div {
+    width: 40px;
+    padding-right: 10px;
+  }
+  .link-2 {
+    font-size: 5vw;
+    line-height: 8vw;
+  }
+  .autorization {
+    margin-left: 90px;
+  }
+  .popup-div {
+    width: 250px;
+  }
+  .authorization-tab {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .form {
+    font-size: 12px;
+  }
+  .form-block {
+    width: 220px;
+  }
+  .authorization-field {
+    margin-bottom: 15px;
+    font-size: 3vw;
+    line-height: 5vw;
+  }
+  .authorization-media {
+    margin-top: 10px;
+  }
+  .link-block {
+    margin-left: 5px;
+  }
+  .form-text {
+    font-size: 10px;
+  }
+  .buttons-div {
+    width: 70%;
+    margin-left: 10%;
+    padding-left: 15px;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+  }
+  .save-wrapper {
+    padding-left: 0px;
+  }
+  .send-form-button {
+    width: 180px;
+  }
+  .save-form-button {
+    width: 180px;
+  }
+  .send-wrapper {
+    padding-left: 0px;
+  }
+  .heading-2 {
+    font-size: 2.7vw;
+    text-align: center;
   }
 }
 
