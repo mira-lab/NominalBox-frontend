@@ -11,8 +11,11 @@
     <div class="currency-title">
       <div><strong>{{ currency.name }} </strong>{{ currency.symbol }}</div>
     </div>
-    <div class="wallet-address-div"><a class="add w-inline-block"><img
-      src="{{currency.added ? 'assets/images/substract-button.png':'assets/images/add-button-inside-black-circle.svg'}}"></a></div>
+    <div class="currency-add-icon">
+      <div class="add w-inline-block">
+        <img src="{{currency.added ? 'assets/images/substract-button.png':'assets/images/add-button-inside-black-circle.svg'}}">
+      </div>
+    </div>
 
   </div>
   <div *ngFor="let inactiveCurrency of inactiveCurrencies" class="currency-line disable">
@@ -20,7 +23,7 @@
     <div class="currency-title">
       <div><strong>{{ inactiveCurrency.name }} </strong>{{inactiveCurrency.symbol}}</div>
     </div>
-    <div class="wallet-address-div"></div>
+    <div class="currency-add-icon"></div>
 
   </div>
   <a class="link-2 w-button" data-ix="open-save-form" (click)="showSaveBox()">Create</a>
