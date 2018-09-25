@@ -12,6 +12,22 @@
 .loading-spinner-div{
   margin: 0 0 -50px 0;
 }
+@media (max-width: 991px) {
+  .loading-spinner {
+    height: 40px;
+  }
+  .loading-spinner-div{
+    margin: 0 0 -30px 0;
+  }
+}
+@media (max-width: 767px) {
+  .loading-spinner {
+    height: 30px;
+  }
+  .loading-spinner-div{
+    margin: 0 0 -30px 0;
+  }
+}
 .mirabox-creating-button{
   background-color: grey;
   cursor: default;
