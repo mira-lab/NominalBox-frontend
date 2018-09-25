@@ -638,8 +638,12 @@ label {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 50%;
-  height: 40px;
+  overflow: auto;
+  width: 45%;
+  height: 30px;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 5px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -648,13 +652,13 @@ label {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+  opacity: 1;
   font-size: 14px;
 }
 
 .wallet-address {
   width: 100%;
   height: 30px;
-  margin-right: 10px;
 }
 
 .send-button {
@@ -1213,6 +1217,11 @@ label {
   .currency-title {
     width: 22%;
   }
+  .wallet-address-div {
+    overflow: auto;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
   .autorization {
     height: 50px;
     margin-left: 180px;
@@ -1257,6 +1266,9 @@ label {
   }
   .authorization-media {
     margin-top: 5px;
+  }
+  .buttons-div {
+    margin-left: 10px;
   }
   .save-wrapper {
     overflow: scroll;
@@ -1370,8 +1382,10 @@ label {
     width: 20%;
   }
   .wallet-address-div {
-    width: 70%;
-    padding-left: 20px;
+    overflow: auto;
+    width: 65%;
+    margin-right: 20px;
+    margin-left: 10px;
     font-size: 2vw;
   }
   .autorization {
@@ -1529,6 +1543,10 @@ label {
   }
   .currency-line {
     height: 100%;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
   }
   .currency-icon-div {
     width: 18%;
@@ -1539,9 +1557,15 @@ label {
     line-height: 4vw;
   }
   .wallet-address-div {
-    width: 60%;
-    padding-left: 10px;
-    font-size: 3vw;
+    overflow: auto;
+    width: 75%;
+    margin-right: 10px;
+    padding-right: 0px;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    font-size: 2.7vw;
   }
   .send-button {
     height: 27px;
@@ -1551,8 +1575,13 @@ label {
     font-size: 4vw;
   }
   .delete-div {
-    width: 40px;
-    padding-right: 10px;
+    width: 30px;
+    padding-right: 0px;
+    padding-left: 13px;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
   }
   .link-2 {
     font-size: 5vw;
@@ -1589,9 +1618,10 @@ label {
     font-size: 10px;
   }
   .buttons-div {
-    width: 70%;
-    margin-left: 10%;
-    padding-left: 15px;
+    width: 60%;
+    margin-left: 0%;
+    padding-right: 10px;
+    padding-left: 10px;
     -webkit-justify-content: space-around;
     -ms-flex-pack: distribute;
     justify-content: space-around;
