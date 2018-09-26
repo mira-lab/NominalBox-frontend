@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MiraboxService} from '../miraboxui/mirabox.service';
 import {Router} from '@angular/router';
 import {interval, from, Subject} from 'rxjs';
@@ -24,6 +24,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   getPrivateKeys = false;
   parentSubject: Subject<any> = new Subject();
   isMiraBoxOpened = true;
+
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
               private miraBoxDataSvc: MiraboxDataService) {
@@ -40,7 +41,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
         if (res) {
           return this.miraBoxSvc.getOpenedMiraBoxItemPK(this.miraBox.getMiraBoxItems()[0]);
         } else {
-          this.isGetPrivateKeysDisabled = false
+          this.isGetPrivateKeysDisabled = false;
           this.isMiraBoxOpened = false;
           return Promise.reject('Mirabox not opened');
         }
@@ -68,9 +69,10 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       });
   }
 
-  closeChangePin(isClosed: boolean){
+  closeChangePin(isClosed: boolean) {
     this.changingPin = isClosed;
   }
+
   getPrivateKeysClosed(isClosed: boolean) {
     this.getPrivateKeys = isClosed;
   }
@@ -90,6 +92,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       });
 
   }
+
   onPrivateKey(pk: string) {
     this.privateKey = pk;
     this.isMiraBoxOpened = true;
