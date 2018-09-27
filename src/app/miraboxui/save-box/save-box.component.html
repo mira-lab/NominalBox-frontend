@@ -32,7 +32,7 @@
           <input [ngClass]="{'mirabox-creating-button': miraboxCreating}" (click)="navigateSendByEmail()" type="button"
                  value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
-          <input (click)="navigateDownload()" [ngClass]="{'mirabox-creating-button': miraboxCreating}"
+          <input *ngIf="!mobile" (click)="navigateDownload()" [ngClass]="{'mirabox-creating-button': miraboxCreating}"
                  [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..."
                  class="save-form-button w-button">
           <div [hidden]="!miraboxCreating" class="loading-spinner-div">
