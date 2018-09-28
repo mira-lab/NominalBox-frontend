@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {PopUpSaveBoxService} from './pop-up-save-box.service';
 import {Router} from '@angular/router';
 import {MiraboxService} from '../mirabox.service';
@@ -23,15 +23,15 @@ export class SaveBoxComponent implements OnInit {
    private miraBoxDataSvc: MiraboxDataService,
    private servercommSvc: ServerCommunicationService) {
   }
-
+  @Input() mobile = false;
   saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
   miraboxCreating = false;
   currencies;
   show$;
   oopsShow = true;
   errorMessage = 'Oops! Something went wrong while submitting the form.';
-
   ngOnInit() {
+
     this.currencySvc.currentCurrencies.subscribe(currencies => this.currencies = currencies);
     this.show$ = this.popUpSvc.showPopUp$;
   }
