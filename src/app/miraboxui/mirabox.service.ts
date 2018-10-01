@@ -18,22 +18,22 @@ export class MiraboxService {
   }
 
   w3: any;
-  licenseContractAddress = '0x7de96ecd66921d3ba255c6a65f10a87f4146242a';
 
   createMiraAccount() {
     return this.w3.eth.accounts.create();
   }
 
   createMiraBoxItems(currencies, miraAccount) {
-    return new Promise(((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const licenseContractAbi = require('../miraboxui/contractAbis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
-      const txData = licenseContract.methods.buyMirabox(this.w3.utils.fromAscii('Onrequest')).encodeABI();
+      const txData = licenseContract.methods.buyMirabox(this.w3.utils.fromAscii('TwoFactor')).encodeABI();
+      console.log(this.w3.utils.fromAscii('TwoFactor'));
       this.w3.eth.accounts.signTransaction({
         to: miraConfig.licenseContractAddress,
         value: this.w3.utils.toWei('0'),
-        gas: 1000000,
-        gasPrice: '10000',
+        gas: 10000000,
+        gasPrice: '100',
         data: txData
       }, miraAccount.privateKey)
         .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
@@ -68,7 +68,7 @@ export class MiraboxService {
             .catch(err => reject(err));
         })
         .catch(err => reject(err));
-    }));
+    });
   }
 
   createMiraBox(currencies, miraBoxTitle) {
@@ -78,10 +78,11 @@ export class MiraboxService {
       console.log(miraAccount.privateKey);
       Promise.all([this.faucetMiraCoins(miraAccount.address), this.faucetLicense(miraAccount.address)])
         .then(() => {
+          console.log(miraAccount.address)
           return this.createMiraBoxItems(currencies, miraAccount);
         })
         .then((miraBoxItems: MiraBoxItem[]) => {
-          return resolve(new MiraBox(null, miraBoxTitle, miraAccount.privateKey, miraBoxItems));
+            return resolve(new MiraBox(null, miraBoxTitle, miraAccount.privateKey, miraBoxItems));
         })
         .catch(err => reject(err));
     });
@@ -113,6 +114,29 @@ export class MiraboxService {
         });
     });
   }
+
+  add2fa(miraBox: MiraBox, address2fa: string) {
+    return new Promise((resolve, reject) => {
+      const miraContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
+      const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
+      const txData = miraContract.methods.add2Fa(address2fa).encodeABI();
+      this.w3.eth.accounts.signTransaction({
+        to: miraBox.getMiraBoxItems()[0].contract,
+        value: this.w3.utils.toWei('0'),
+        gas: 1000000,
+        gasPrice: '10000',
+        data: txData
+      }, miraBox.getPrivateKey())
+        .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
+        .then(() => {
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
 
   faucetLicense(miraAccountAddress) {
     return new Promise((resolve, reject) => {
@@ -214,24 +238,24 @@ export class MiraboxService {
     });
   }
 
-  getOpenedMiraBoxItemPK(miraBoxItem: MiraBoxItem){
+  getOpenedMiraBoxItemPK(miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
-      miraBoxContract.getPastEvents('PrivateKey', {fromBlock:0})
-        .then((res)=>{return resolve(res)})
-        .catch((err)=>{return reject(err)});
+      miraBoxContract.getPastEvents('PrivateKey', {fromBlock: 0})
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
     });
 
   }
 
   openMiraBox(miraBox: MiraBox) {
     return new Promise((resolve, reject) => {
-      this.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0])
-        .then(res => {
-          console.log(res);
-          return this.openMiraBoxItem(miraBox, miraBox.getMiraBoxItems()[0]);
-        })
+      this.openMiraBoxItem(miraBox, miraBox.getMiraBoxItems()[0])
         .then((receipt) => {
             const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
             const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBox.getMiraBoxItems()[0].contract);
@@ -252,8 +276,5 @@ export class MiraboxService {
     });
   }
 
-  postPin(pin:string){
-
-  }
 
 }

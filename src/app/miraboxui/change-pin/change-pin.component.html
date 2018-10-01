@@ -12,7 +12,7 @@
                  maxlength="256" name="PIN-1" data-name="PIN 1"
                  placeholder="Old PIN"
                  [(ngModel)]="formModel.oldPin"
-                 (focus)="resetErrorPin()"
+                 (focus)="resetAllEvents()"
                  [disabled]="changePinPosting"
                  required="">
           <div class="_2-pins-div">
@@ -23,7 +23,7 @@
                      maxlength="256" name="PIN-1" data-name="PIN 1"
                      placeholder="New PIN"
                      [(ngModel)]="formModel.newPin"
-                     (focus)="resetErrorPin()"
+                     (focus)="resetAllEvents()"
                      [disabled]="changePinPosting"
                      required="">
             </div>
@@ -34,7 +34,7 @@
                      maxlength="256" name="PIN-2"
                      data-name="PIN 2" placeholder="Repeat new PIN"
                      [(ngModel)]="formModel.repeatNewPin"
-                     (focus)="resetErrorPin()"
+                     (focus)="resetAllEvents()"
                      [disabled]="changePinPosting"
                      required="">
             </div>
@@ -45,11 +45,8 @@
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>
         </div>
-        <div [hidden]="!showErrorPin" class="form-error">
-          <div>Oops! Pins' fields are empty or they don't match.</div>
-        </div>
         <div [hidden]="!showError" class="form-error">
-          <div>Oops! Something went wrong while submitting the form.</div>
+          <div>{{errorMessage}}</div>
         </div>
       </div>
     </div>

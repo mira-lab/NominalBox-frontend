@@ -1,6 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {ServerCommunicationService} from '../server-communication.service';
 import {ChangePin} from './change-pin';
+import {MiraBox} from '../mirabox';
+import {MiraboxService} from '../mirabox.service';
 
 @Component({
   selector: 'app-change-pin',
@@ -8,16 +10,17 @@ import {ChangePin} from './change-pin';
   styleUrls: ['./change-pin.component.css']
 })
 export class ChangePinComponent implements OnInit {
-  @Input() miraBoxAddress: string;
+  @Input() miraBox: MiraBox;
   @Output() changePinClosed = new EventEmitter<boolean>();
 
   formModel = new ChangePin('', '', '');
   showError = false;
-  showErrorPin = false;
   showSuccess = false;
   changePinPosting = false;
+  errorMessage = 'Oops! Something went wrong while submitting the form.';
 
-  constructor(private serverCommSvc: ServerCommunicationService) {
+  constructor(private serverCommSvc: ServerCommunicationService,
+              private miraBoxSvc: MiraboxService) {
   }
 
   ngOnInit() {
@@ -35,7 +38,10 @@ export class ChangePinComponent implements OnInit {
     this.resetAllEvents();
     this.changePinPosting = true;
     if (this.formModel.checkValid()) {
-      this.serverCommSvc.changePin(this.formModel.oldPin, this.formModel.newPin, this.miraBoxAddress)
+      this.serverCommSvc.changePin(this.formModel.oldPin,
+        this.formModel.newPin,
+        this.miraBox.getMiraBoxItems()[0].contract,
+        this.miraBoxSvc.generatePublicKey(this.miraBox.getPrivateKey()))
         .then((res) => {
           console.log(res);
           this.showSuccess = true;
@@ -43,12 +49,12 @@ export class ChangePinComponent implements OnInit {
         })
         .catch((err) => {
           console.log(err);
-          this.showError = true;
+          this.showErrorMessage('Wrong pin!');
           this.changePinPosting = false;
         });
     } else {
       this.changePinPosting = false;
-      this.showErrorPin = true;
+      this.showErrorMessage('Pin fields are empty or they don\'t match!');
     }
   }
 
@@ -56,13 +62,18 @@ export class ChangePinComponent implements OnInit {
     this.formModel = new ChangePin('', '', '');
   }
 
-  resetErrorPin() {
-    this.showErrorPin = false;
+  resetAllEvents() {
+    this.resetErrorMessage();
+    this.showSuccess = false;
   }
 
-  resetAllEvents() {
+  showErrorMessage(errorMessage: string) {
+    this.errorMessage = errorMessage;
+    this.showError = true;
+  }
+
+  resetErrorMessage() {
+    this.errorMessage = 'Oops! Something went wrong while submitting the form.';
     this.showError = false;
-    this.showSuccess = false;
-    this.showErrorPin = false;
   }
 }

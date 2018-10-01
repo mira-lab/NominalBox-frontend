@@ -2,6 +2,7 @@ import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
 import {MiraBox} from '../mirabox';
 import {MiraboxService} from '../mirabox.service';
 import {Subject} from 'rxjs';
+import {ServerCommunicationService} from '../server-communication.service';
 
 @Component({
   selector: 'app-get-private-keys',
@@ -16,10 +17,11 @@ export class GetPrivateKeysComponent implements OnInit {
   pin = '';
   isGettingPrivateKeys = false;
   showError = false;
-  showErrorPin = false;
   showSuccess = false;
+  errorMessage = 'Oops! Something went wrong while submitting the form.';
 
-  constructor(private miraBoxSvc: MiraboxService) {
+  constructor(private miraBoxSvc: MiraboxService,
+              private serverCommSvc: ServerCommunicationService) {
   }
 
   ngOnInit() {
@@ -27,33 +29,48 @@ export class GetPrivateKeysComponent implements OnInit {
 
   getPrivateKeys() {
     if (!this.pin) {
-      this.showErrorPin = true;
+      this.showErrorMessage('Pin field is empty!');
       return;
     }
     this.showError = false;
     this.isGettingPrivateKeys = true;
-    this.miraBoxSvc.openMiraBox(this.miraBox)
-      .then((pk: string) => {
-        this.gotPrivateKey.emit(pk);
-        this.parentSubject.next('update_last_actions');
-        this.isGettingPrivateKeys = false;
-        this.closeGetPrivateKeys();
-      })
-      .catch((err) => {
-        this.showError = true;
-        console.log(err);
-      });
+    this.serverCommSvc.openMiraBox(this.miraBox, this.pin, this.miraBoxSvc.generatePublicKey(this.miraBox.getPrivateKey())).then((response) => {
+      console.log(response);
+      this.miraBoxSvc.openMiraBox(this.miraBox)
+        .then((pk: string) => {
+          this.gotPrivateKey.emit(pk);
+          this.parentSubject.next('update_last_actions');
+          this.isGettingPrivateKeys = false;
+          this.closeGetPrivateKeys();
+        })
+        .catch((err) => {
+          this.showError = true;
+          this.isGettingPrivateKeys = false;
+          console.log(err);
+        });
+    }).catch((err) => {
+      this.showErrorMessage('Wrong pin!');
+      this.isGettingPrivateKeys = false;
+      console.log(err);
+    });
   }
 
   closeGetPrivateKeys() {
     if (!this.isGettingPrivateKeys) {
       this.pin = '';
       this.getPrivateKeysClosed.emit(false);
+      this.resetErrorMessage();
     }
   }
-  resetStatusMessages(){
+
+  showErrorMessage(errorMessage: string) {
+    this.errorMessage = errorMessage;
+    this.showError = true;
+  }
+
+  resetErrorMessage() {
+    this.errorMessage = 'Oops! Something went wrong while submitting the form.';
     this.showError = false;
-    this.showErrorPin = false;
   }
 
 }

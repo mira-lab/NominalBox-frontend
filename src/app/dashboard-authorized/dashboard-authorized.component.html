@@ -26,7 +26,7 @@
         <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
     </div>
     <app-change-pin [hidden]="!changingPin"
-                    [miraBoxAddress]="miraBoxAddress"
+                    [miraBox]="miraBox"
                     (changePinClosed)="closeChangePin($event)">
     </app-change-pin>
     <app-get-private-keys [hidden]="!getPrivateKeys"

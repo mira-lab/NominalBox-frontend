@@ -14,7 +14,7 @@
                  [disabled]="isGettingPrivateKeys"
                  [(ngModel)]="pin"
                  required=""
-                 (focus)="resetStatusMessages()">
+                 (focus)="resetErrorMessage()">
           <input type="button" (click)="getPrivateKeys()"
                  [disabled]="isGettingPrivateKeys"
                  value="Confirm"
@@ -26,11 +26,8 @@
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>
         </div>
-        <div [hidden]="!showErrorPin" class="form-error">
-          <div>Pin field is empty!</div>
-        </div>
         <div [hidden]="!showError" class="form-error">
-          <div>Oops! Something went wrong while submitting the form.</div>
+          <div>{{errorMessage}}</div>
         </div>
         <div [hidden]="!isGettingPrivateKeys" class="loading-spinner-div">
           <img class='loading-spinner' src="assets/images/mira-loading.gif">
