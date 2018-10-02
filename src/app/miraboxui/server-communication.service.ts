@@ -12,12 +12,14 @@ export class ServerCommunicationService {
   constructor(private http: Http) {
   }
 
-  addPin(pin: string, miraBoxAddress: string) {
-    return this.http.post(miraConfig.setPinURL, {new_pin: pin, mirabox_address: miraBoxAddress}).toPromise();
-  }
 
-  changePin(oldPin: string, newPin: string, miraBoxAddress: string) {
-    return this.http.post(miraConfig.changePinURL, {old_pin: oldPin, new_pin: newPin, mirabox_address: miraBoxAddress}).toPromise();
+  changePin(oldPin: string, newPin: string, contractAddress: string, signature: string) {
+    return this.http.post(miraConfig.changePinURL, {
+      pin: oldPin,
+      newpin: newPin,
+      contract: contractAddress,
+      signature: signature
+    }).toPromise();
   }
 
   sendMiraBoxByEmail(miraBox: MiraBox, _email: string) {
@@ -25,6 +27,23 @@ export class ServerCommunicationService {
       mirabox_title: miraBox.getTitle(),
       mirabox: miraBox.toString(),
       email: _email
+    }).toPromise();
+  }
+
+  openMiraBox(miraBox: MiraBox, _pin: string, publicKey: string) {
+    return this.http.post(miraConfig.openBoxURL, {
+      pin: _pin,
+      contract: miraBox.getMiraBoxItems()[0].contract,
+      signature: publicKey
+    }).toPromise();
+  }
+
+  setPin(_pin: string, _email: string, _contract: string, _signature: string) {
+    return this.http.post(miraConfig.setPinURL, {
+      pin: _pin,
+      email: _email,
+      contract: _contract,
+      signature: _signature
     }).toPromise();
   }
 }
