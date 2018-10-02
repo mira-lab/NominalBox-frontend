@@ -44,12 +44,16 @@ export class GetPrivateKeysComponent implements OnInit {
           this.closeGetPrivateKeys();
         })
         .catch((err) => {
-          this.showError = true;
+          this.showErrorMessage('Oops! Something went wrong while opening mirabox.');
           this.isGettingPrivateKeys = false;
           console.log(err);
         });
     }).catch((err) => {
-      this.showErrorMessage('Wrong pin!');
+      if (err.status && err.status === 404) {
+        this.showErrorMessage('Wrong pin!');
+      } else {
+        this.showErrorMessage('Oops! Something went wrong while submitting the form.');
+      }
       this.isGettingPrivateKeys = false;
       console.log(err);
     });

@@ -48,8 +48,12 @@ export class ChangePinComponent implements OnInit {
           this.changePinPosting = false;
         })
         .catch((err) => {
-          console.log(err);
-          this.showErrorMessage('Wrong pin!');
+          if (err.status && err.status === 404) {
+            console.log('wrong pin')
+            this.showErrorMessage('Wrong pin!');
+          } else {
+            this.showErrorMessage('Oops! Something went wrong while submitting the form.');
+          }
           this.changePinPosting = false;
         });
     } else {
