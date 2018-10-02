@@ -29,10 +29,13 @@
           <label for="Email-5">Repeat Email</label>
           <input [(ngModel)]="saveBoxForm.repeatEmail" (focus)="resetErrorMessage()" type="email" class="authorization-field w-input" maxlength="256" name="Email-2" data-name="Email 2"
                  placeholder="Repeat Your Email" id="Email-2" required="">
-          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}" (click)="navigateSendByEmail()" type="button"
-                 value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}"
+                 [disabled]="miraboxCreating"
+                 (click)="navigateSendByEmail()" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
-          <input *ngIf="!mobile" (click)="navigateDownload()" [ngClass]="{'mirabox-creating-button': miraboxCreating}"
+          <input *ngIf="!mobile"
+                 (click)="navigateDownload()"
+                 [ngClass]="{'mirabox-creating-button': miraboxCreating}"
                  [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..."
                  class="save-form-button w-button">
           <div [hidden]="!miraboxCreating" class="loading-spinner-div">
