@@ -23,7 +23,7 @@
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
       <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
-        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get All Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
+        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
     </div>
     <app-change-pin [hidden]="!changingPin"
                     [miraBox]="miraBox"
@@ -42,7 +42,7 @@
       <div class="block-content">
         <p class="tips-paragraph">To the right of currencies, there are addresses for replenishment.
           Select the appropriate currencies, and they will show up in the MiraBox.<br/><br/>
-          To open MiraBox and get private keys, click "Get all private keys".<br/><br/>
+          To open MiraBox and get private keys, click "Get Private Keys".<br/><br/>
           Please, note: you can unpack MiraBox only once.<br/><br/>
           If you have received this MiraBox from other individuals, we strongly recommend to change PIN respectively as soon as possible.</p>
       </div>

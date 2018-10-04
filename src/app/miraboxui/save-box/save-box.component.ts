@@ -66,7 +66,7 @@ export class SaveBoxComponent implements OnInit {
             })
             .then(() => this.miraBoxSvc.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0]))
             .then((add2faReceipt) => {
-              console.log('Got receipt from add2fa. Receipt:')
+              console.log('Got receipt from add2fa. Receipt:');
               console.log(add2faReceipt);
               // Set mirabox to service for later use, stop creating animation
               this.miraboxCreating = false;
@@ -112,7 +112,7 @@ export class SaveBoxComponent implements OnInit {
       })
       .catch((err) => {
         this.newFormModel();
-        alert('Error while creating mirabox!');
+        alert('Error while creating MiraBox!');
         console.log(err);
       });
   }
@@ -141,7 +141,7 @@ export class SaveBoxComponent implements OnInit {
       // })
       .catch((err) => {
         this.newFormModel();
-        alert('Error while creating mirabox!');
+        alert('Error while creating MiraBox!');
         console.log(err);
       });
   }

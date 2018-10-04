@@ -23,4 +23,9 @@
   font-size: 14px;
 
 }
+@media (max-width: 767px) {
+  .currency-line {
+    height: 100%;
+  }
+}
 
