@@ -80,6 +80,8 @@ export class MiraBox {
   public toString() {
     return JSON.stringify(this.toJsonObj());
   }
-
+  public changeOwner(newPrivateKey: string){
+    this.privateKey = newPrivateKey;
+  }
 
 }

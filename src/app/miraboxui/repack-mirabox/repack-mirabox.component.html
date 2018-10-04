@@ -1,0 +1,28 @@
+<div class="save-wrapper fix-display">
+  <div class="popup-div">
+    <div class="block-heading">
+      <h5 class="block-header">Repack Mirabox</h5>
+    </div>
+    <div class="form">
+      <div class="form-block w-form">
+          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}"
+                 [disabled]="miraboxCreating"
+                 (click)="repackSendByEmail()" type="button" value="Repack and send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <a id="download-mirabox" style="display: none"></a>
+          <input (click)="repackDownload()"
+                 [ngClass]="{'mirabox-creating-button': miraboxCreating}"
+                 [disabled]="miraboxCreating" type="button" value="Repack and download" data-wait="Please wait..."
+                 class="save-form-button w-button">
+        <div [hidden]="!showSuccess" class="form-success">
+          <div>Thank you! Your pin has been changed!</div>
+        </div>
+        <div [hidden]="!showError" class="form-error">
+          <div>{{errorMessage}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a (click)="closeWindow()" class="link-block w-inline-block" data-ix="close-save-form">
+    <img src="assets/images/cancel.svg" data-ix="close-authorization">
+  </a>
+</div>

@@ -12,6 +12,7 @@ import {LastActionsComponent} from './last-actions/last-actions.component';
 import { ChangePinComponent } from './change-pin/change-pin.component';
 import { GetPrivateKeysComponent } from './get-private-keys/get-private-keys.component';
 import { CheckPinComponent } from './check-pin/check-pin.component';
+import { RepackMiraboxComponent } from './repack-mirabox/repack-mirabox.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { CheckPinComponent } from './check-pin/check-pin.component';
     LastActionsComponent,
     ChangePinComponent,
     GetPrivateKeysComponent,
+    RepackMiraboxComponent,
     CheckPinComponent
   ],
   exports: [
@@ -37,6 +39,7 @@ import { CheckPinComponent } from './check-pin/check-pin.component';
     LastActionsComponent,
     ChangePinComponent,
     GetPrivateKeysComponent,
+    RepackMiraboxComponent,
     CheckPinComponent
   ],
   providers: [

@@ -24,6 +24,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   getPrivateKeys = false;
   parentSubject: Subject<any> = new Subject();
   isMiraBoxOpened = true;
+  repackingMiraBox = false;
 
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
@@ -72,7 +73,9 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   closeChangePin(isClosed: boolean) {
     this.changingPin = isClosed;
   }
-
+  closeRepackMiraBox(isClosed: boolean) {
+    this.repackingMiraBox = isClosed;
+  }
   getPrivateKeysClosed(isClosed: boolean) {
     this.getPrivateKeys = isClosed;
   }

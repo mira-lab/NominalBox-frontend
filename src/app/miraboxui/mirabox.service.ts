@@ -78,11 +78,11 @@ export class MiraboxService {
       console.log(miraAccount.privateKey);
       Promise.all([this.faucetMiraCoins(miraAccount.address), this.faucetLicense(miraAccount.address)])
         .then(() => {
-          console.log(miraAccount.address)
+          console.log(miraAccount.address);
           return this.createMiraBoxItems(currencies, miraAccount);
         })
         .then((miraBoxItems: MiraBoxItem[]) => {
-            return resolve(new MiraBox(null, miraBoxTitle, miraAccount.privateKey, miraBoxItems));
+          return resolve(new MiraBox(null, miraBoxTitle, miraAccount.privateKey, miraBoxItems));
         })
         .catch(err => reject(err));
     });
@@ -276,5 +276,88 @@ export class MiraboxService {
     });
   }
 
+  repackMiraBox(miraBox: MiraBox) {
+    return new Promise((resolve, reject) => {
+      const contract = miraBox.getMiraBoxItems()[0].contract;
+      const miraAccount = this.createMiraAccount();
+      this.changeContractOwner(miraBox.getPrivateKey(), contract, miraAccount.address)
+        .then((changeContractOwnerReceipt) => {
+          console.log('Got changeContractOwner receipt', changeContractOwnerReceipt);
+          return this.sendAllLicenseBalance(miraBox.getPrivateKey(), miraAccount.address);
+        })
+        .then((sendAllLicenseBalanceReceipt) => {
+          console.log('Got sendAllLicenseBalance receipt', sendAllLicenseBalanceReceipt);
+          return this.sendAllBalance(miraBox.getPrivateKey(), miraAccount.address);
+        })
+        .then((sendAllBalanceReceipt) => {
+          console.log('Got sendAllBalance receipt', sendAllBalanceReceipt);
+          miraBox.changeOwner(miraAccount.privateKey);
+          console.log('Owner succesfully changed to ' + miraAccount.address);
+          return resolve(miraBox);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  sendAllLicenseBalance(fromPK: string, toAddress: string) {
+    return new Promise((resolve, reject) => {
+      this.getLicenseBalance(fromPK).then((balance) => {
+        const licenseContractAbi = require('../miraboxui/contractAbis/License.json');
+        const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
+        const txData = licenseContract.methods.transfer(toAddress, balance).encodeABI();
+        this.w3.eth.accounts.signTransaction({
+          to: toAddress,
+          value: this.w3.utils.toWei('0'),
+          gas: 10000000,
+          gasPrice: '100',
+          data: txData
+        }, fromPK)
+          .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
+          .then(receipt => resolve(receipt))
+          .catch(err => reject(err));
+      }).catch(err => reject(err));
+    });
+  }
+
+  sendAllBalance(fromPK: string, toAddress: string) {
+    return new Promise((resolve, reject) => {
+      this.w3.eth.getGasPrice().then((gasPrice) => {
+        this.w3.eth.getBalance(this.w3.eth.accounts.privateKeyToAccount(fromPK).address)
+          .then((balance) => {
+            const gas = this.w3.utils.toBN('21000');
+            const cost = gas.mul(this.w3.utils.toBN(gasPrice));
+            const sendAmount = this.w3.utils.toBN(balance).sub(cost);
+            this.w3.eth.accounts.signTransaction({
+              to: toAddress,
+              value: sendAmount,
+              gas: gas,
+              gasPrice: gasPrice
+            }, fromPK)
+              .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
+              .then(receipt => resolve(receipt))
+              .catch(err => reject(err));
+          });
+      });
+    });
+  }
+
+  changeContractOwner(ownerPK, contract, newOwnerAddress) {
+    return new Promise((resolve, reject) => {
+      const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
+      const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, contract);
+      const txData = miraBoxContract.methods.changeOwner(newOwnerAddress).encodeABI();
+      this.w3.eth.accounts.signTransaction({
+        to: contract,
+        value: this.w3.utils.toWei('0'),
+        gas: 10000000,
+        gasPrice: '100',
+        data: txData
+      }, ownerPK)
+        .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
+        .then(receipt => resolve(receipt))
+        .catch(err => reject(err));
+    });
+  }
 
 }
+

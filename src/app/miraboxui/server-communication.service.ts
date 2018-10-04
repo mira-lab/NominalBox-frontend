@@ -22,6 +22,16 @@ export class ServerCommunicationService {
     }).toPromise();
   }
 
+  changeEmail(oldPin: string, newPin: string, contractAddress: string, email: string, signature: string) {
+    return this.http.post(miraConfig.changePinURL, {
+      pin: oldPin,
+      newpin: newPin,
+      contract: contractAddress,
+      email: email,
+      signature: signature
+    }).toPromise();
+  }
+
   sendMiraBoxByEmail(miraBox: MiraBox, _email: string) {
     return this.http.post(miraConfig.sendByEmailURL, {
       mirabox_title: miraBox.getTitle(),
@@ -51,6 +61,13 @@ export class ServerCommunicationService {
       pin: pin,
       contract: contract,
       signature: signature
+    }).toPromise();
+  }
+
+  getEmail(_signature: string, _contract: string) {
+    return this.http.post(miraConfig.setPinURL, {
+      signature: _signature,
+      contract: _contract
     }).toPromise();
   }
 }

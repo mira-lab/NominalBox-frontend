@@ -22,9 +22,12 @@
         <h5 class="block-header">Actions with MiraBox</h5>
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
-      <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
-        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
-    </div>
+      <div class="block-content actions">
+        <a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
+        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" >
+        <input type="button" (click)="repackingMiraBox = !repackingMiraBox" value="Repack Mirabox" class="action-button _1 w-button" >
+      </div>
+     </div>
     <app-change-pin [hidden]="!changingPin"
                     [miraBox]="miraBox"
                     (changePinClosed)="closeChangePin($event)">
@@ -35,6 +38,11 @@
                           [miraBox]="miraBox"
                           (getPrivateKeysClosed)="getPrivateKeysClosed($event)">
     </app-get-private-keys>
+    <app-repack-mirabox [miraBox]="miraBox"
+                        [hidden]="!repackingMiraBox"
+    (repackMiraBoxClosed)="closeRepackMiraBox($event)">
+
+    </app-repack-mirabox>
     <div class="tips-div">
       <div class="block-heading">
         <h5 class="block-header">Tips</h5>
