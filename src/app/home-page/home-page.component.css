@@ -1,3 +1,6 @@
+.sidebar-tip {
+  height: 200px;
+}
 @media (max-width: 767px) {
   .sidebar-tip {
     height: 170px;
