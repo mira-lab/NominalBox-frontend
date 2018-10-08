@@ -1,0 +1,15 @@
+@media (max-width: 767px) {
+  .sidebar-tip {
+    height: 170px;
+  }
+}
+@media (max-width: 479px) {
+  .sidebar-tip {
+    height: 200px;
+  }
+}
+@media (max-width: 320px) {
+  .sidebar-tip {
+    height: 110px;
+  }
+}
