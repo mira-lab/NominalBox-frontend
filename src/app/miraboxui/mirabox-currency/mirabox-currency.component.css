@@ -1,3 +1,6 @@
+.wallet-address-div{
+  width: 65%;
+}
 @media (max-width: 479px) {
   .wallet-address-div {
     width: 95%;
