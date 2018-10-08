@@ -5,6 +5,16 @@
     </div>
     <div class="form">
       <div class="form-block w-form">
+        <div class="w-checkbox">
+          <input class="w-checkbox-input" type="checkbox" id="changeEmail" name="feature"
+                 value="scales" [checked]="checkBox" (change)="checkBox=!checkBox" checked />
+          <label class="w-form-label" for="changeEmail">Change email</label>
+        </div>
+        <div *ngIf="checkBox">
+          <label  for="newEmail">Email</label>
+          <input [(ngModel)]="newEmail" type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4"
+               placeholder="Your Email" id="newEmail" required="">
+        </div>
           <input [ngClass]="{'mirabox-creating-button': miraboxCreating}"
                  [disabled]="miraboxCreating"
                  (click)="repackSendByEmail()" type="button" value="Repack and send by e-mail" data-wait="Please wait..." class="send-form-button w-button">

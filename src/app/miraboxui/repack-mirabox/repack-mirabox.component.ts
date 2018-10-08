@@ -17,6 +17,7 @@ export class RepackMiraboxComponent implements OnInit {
   pin = '';
   newEmail = '';
   checkBox = false;
+  showError = false;
   constructor(private miraBoxSvc: MiraboxService,
               private miraBoxDataSvc: MiraboxDataService,
               private serverCommSvc: ServerCommunicationService) {
@@ -27,7 +28,7 @@ export class RepackMiraboxComponent implements OnInit {
 
   repackSendByEmail() {
     if (this.checkBox && !this.newEmail) {
-      this.showError('Email field can\'t be empty!');
+      this.showErrorMessage('Email field can\'t be empty!');
       return;
     }
     this.miraBoxSvc.repackMiraBox(this.miraBox)
@@ -41,7 +42,10 @@ export class RepackMiraboxComponent implements OnInit {
             .catch(err => console.log(err));
         } else {
           this.serverCommSvc.getEmail(miraBoxPublicKey, this.miraBox.getMiraBoxItems()[0].contract)
-            .then(response => this.serverCommSvc.sendMiraBoxByEmail(newMiraBox, response))
+            .then((response: any) => {
+              console.log(response);
+              return this.serverCommSvc.sendMiraBoxByEmail(newMiraBox, response);
+            })
             .then(() => this.repackMiraBoxClosed.emit(true))
             .catch(err => console.log(err));
         }
@@ -72,7 +76,9 @@ export class RepackMiraboxComponent implements OnInit {
     downloadAnchor.setAttribute('download', miraBox.getMiraBoxFileName());
     downloadAnchor.click();
   }
-
+  showErrorMessage(error: string){
+    console.log(error);
+  }
   closeWindow() {
     this.repackMiraBoxClosed.emit(false);
   }
