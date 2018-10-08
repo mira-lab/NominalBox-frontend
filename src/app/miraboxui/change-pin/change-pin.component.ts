@@ -49,8 +49,8 @@ export class ChangePinComponent implements OnInit {
         })
         .catch((err) => {
           if (err.status && err.status === 404) {
-            console.log('wrong pin')
-            this.showErrorMessage('Wrong pin!');
+            console.log('wrong pin');
+            this.showErrorMessage('The PIN you have entered is invalid. Please try again.');
           } else {
             this.showErrorMessage('Oops! Something went wrong while submitting the form.');
           }

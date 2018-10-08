@@ -19,7 +19,7 @@
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b"  class="left-div">
     <div class="actions-div" *ngIf="!isMiraBoxOpened">
       <div class="block-heading">
-        <h5 class="block-header">Actions with Box</h5>
+        <h5 class="block-header">Actions with MiraBox</h5>
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
       <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
@@ -40,8 +40,7 @@
         <h5 class="block-header">Tips</h5>
       </div>
       <div class="block-content">
-        <p class="tips-paragraph">To the right of currencies, there are addresses for replenishment.
-          Select the appropriate currencies, and they will show up in the MiraBox.<br/><br/>
+        <p class="tips-paragraph">Address for replenishment is next to currency.<br/><br/>
           To open MiraBox and get private keys, click "Get Private Keys".<br/><br/>
           Please, note: you can unpack MiraBox only once.<br/><br/>
           If you have received this MiraBox from other individuals, we strongly recommend to change PIN respectively as soon as possible.</p>
