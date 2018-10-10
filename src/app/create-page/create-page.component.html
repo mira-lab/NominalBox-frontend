@@ -8,6 +8,10 @@
 <div class="dashboard-div">
   <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
     <app-currency></app-currency>
+    <app-check-pin [miraBox]="miraBox"
+                   [hidden]="!showCheckPin"
+                   (pinChecked)="pinChecked($event)"
+                   (checkPinClosed)="closeCheckPin($event)"></app-check-pin>
   </div>
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b" class="left-div">
     <div class="tips-div">

@@ -1,0 +1,8 @@
+.mirabox-creating-button{
+  background-color: grey;
+  cursor: default;
+}
+.mirabox-creating-button:hover{
+  -webkit-filter: brightness(100%);
+  filter: brightness(100%);
+}

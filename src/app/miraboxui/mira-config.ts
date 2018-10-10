@@ -7,5 +7,6 @@ export const miraConfig = {
   setPinURL: 'https://backend.miralab.io/mirabox/setpin',
   changePinURL: 'https://backend.miralab.io/mirabox/changepin',
   sendByEmailURL: 'https://backend.miralab.io/mirabox/send',
-  openBoxURL: 'https://backend.miralab.io/mirabox/openbox'
+  openBoxURL: 'https://backend.miralab.io/mirabox/openbox',
+  checkPinURL: 'https://backend.miralab.io/mirabox/checkpin'
 };
