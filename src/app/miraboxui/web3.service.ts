@@ -9,6 +9,6 @@ export class Web3Service {
 
   public getWeb3() {
     const W3 = require('web3');
-    return new W3(new W3.providers.WebsocketProvider('ws://94.130.94.163:8546'));
+    return new W3(new W3.providers.WebsocketProvider('wss://node1.miralab.io'));
   }
 }
