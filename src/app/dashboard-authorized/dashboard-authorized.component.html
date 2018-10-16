@@ -22,7 +22,7 @@
         <h5 class="block-header">Actions with MiraBox</h5>
         <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
-      <div class="block-content actions">
+      <div class="block-content actions action-buttons-div">
         <a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
         <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" >
         <input type="button" (click)="repackingMiraBox = !repackingMiraBox" value="Repack Mirabox" class="action-button _1 w-button" >

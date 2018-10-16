@@ -25,6 +25,8 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   parentSubject: Subject<any> = new Subject();
   isMiraBoxOpened = true;
   repackingMiraBox = false;
+  getLicenseBalance$;
+  getActionCoinBalance$;
 
   constructor(private miraBoxSvc: MiraboxService,
               private router: Router,
@@ -61,24 +63,32 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
     intervalSource
       .pipe(startWith(0), flatMap(() => from(this.miraBoxSvc.getLicenseBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraLicenseBalance) => {
-        this.miraLicenseBalance = miraLicenseBalance;
-      });
+      this.miraLicenseBalance = miraLicenseBalance;
+    });
     intervalSource
       .pipe(startWith(0), flatMap(() => from(this.miraBoxSvc.getActionCoinBalance(this.miraBox.getPrivateKey()))))
       .subscribe((miraCoinBalance) => {
-        this.miraBalance = Math.floor(Number(miraCoinBalance) * 10000) + '';
-      });
+      this.miraBalance = Math.floor(Number(miraCoinBalance) * 10000) + '';
+    });
   }
 
   closeChangePin(isClosed: boolean) {
     this.changingPin = isClosed;
   }
+
   closeRepackMiraBox(isClosed: boolean) {
-    this.repackingMiraBox = isClosed;
+    if (!isClosed) {
+      this.repackingMiraBox = false;
+    } else {
+      this.repackingMiraBox = false;
+      this.ngOnInit();
+    }
   }
+
   getPrivateKeysClosed(isClosed: boolean) {
     this.getPrivateKeys = isClosed;
   }
+
 
   getAllPrivateKeys() {
     this.gettingPrivateKeys = true;

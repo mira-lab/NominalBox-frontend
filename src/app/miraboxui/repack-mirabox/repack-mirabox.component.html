@@ -7,22 +7,28 @@
       <div class="form-block w-form">
         <div class="w-checkbox">
           <input class="w-checkbox-input" type="checkbox" id="changeEmail" name="feature"
-                 value="scales" [checked]="checkBox" (change)="checkBox=!checkBox" checked />
+                 value="scales" [checked]="repackMiraBoxForm.checkBox" (change)="repackMiraBoxForm.checkBox=!repackMiraBoxForm.checkBox" checked />
           <label class="w-form-label" for="changeEmail">Change email</label>
         </div>
-        <div *ngIf="checkBox">
-          <label  for="newEmail">Email</label>
-          <input [(ngModel)]="newEmail" type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4"
-               placeholder="Your Email" id="newEmail" required="">
+        <div *ngIf="repackMiraBoxForm.checkBox">
+          <label  for="newEmail">New Email</label>
+          <input [(ngModel)]="repackMiraBoxForm.email" (focus)="resetErrorMessage()" type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4"
+               placeholder="New Email" id="newEmail" required="">
+          <label  for="pin">Pin</label>
+          <input [(ngModel)]="repackMiraBoxForm.pin" (focus)="resetErrorMessage()" type="text" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4"
+                 placeholder="PIN" id="pin" required="">
         </div>
-          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}"
-                 [disabled]="miraboxCreating"
-                 (click)="repackSendByEmail()" type="button" value="Repack and send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <input [ngClass]="{'mirabox-creating-button': isRepacking}"
+                 [disabled]="isRepacking"
+                 (click)="clickSendByEmail()" type="button" value="Repack and send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
-          <input (click)="repackDownload()"
-                 [ngClass]="{'mirabox-creating-button': miraboxCreating}"
-                 [disabled]="miraboxCreating" type="button" value="Repack and download" data-wait="Please wait..."
+          <input (click)="clickDownload()"
+                 [ngClass]="{'mirabox-creating-button': isRepacking}"
+                 [disabled]="isRepacking" type="button" value="Repack and download" data-wait="Please wait..."
                  class="save-form-button w-button">
+        <div [hidden]="!isRepacking" class="loading-spinner-div">
+          <img class='loading-spinner' src="assets/images/mira-loading.gif">
+        </div>
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>
         </div>

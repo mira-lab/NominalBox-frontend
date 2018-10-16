@@ -64,7 +64,7 @@ export class SaveBoxComponent implements OnInit {
               // Transaction to contract to add 2 factor with response address
               return this.miraBoxSvc.add2fa(miraBox, response._body.slice(1, response._body.length - 1));
             })
-            .then(() => this.miraBoxSvc.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0]))
+            .then(() => this.miraBoxSvc.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0], this.miraBoxSvc.generatePublicKey(miraBox.getPrivateKey())))
             .then((add2faReceipt) => {
               console.log('Got receipt from add2fa. Receipt:');
               console.log(add2faReceipt);

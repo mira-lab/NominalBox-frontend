@@ -1,6 +1,10 @@
 @import 'assets/styles/css/normalize.css';
 @import 'assets/styles/css/webflow.css';
 @import 'assets/styles/css/mirabox-ui.webflow.css';
+.mirabox-creating-button{
+  background-color: grey;
+  cursor: default;
+}
 .currency-icon {
   filter: saturate(100%);
   -webkit-filter: saturate(100%);
@@ -32,5 +36,31 @@
   input[type="tel"],
   input[type="password"] {
     font-size: 16px;
+  }
+}
+.loading-spinner{
+  object-fit: cover;
+  width: 100px;
+  height: 50px;
+  display: block;
+  margin: 0px auto 0px;
+}
+.loading-spinner-div{
+  margin: 0 0 -50px 0;
+}
+@media (max-width: 991px) {
+  .loading-spinner {
+    height: 40px;
+  }
+  .loading-spinner-div{
+    margin: 0 0 -30px 0;
+  }
+}
+@media (max-width: 767px) {
+  .loading-spinner {
+    height: 30px;
+  }
+  .loading-spinner-div{
+    margin: 0 0 -30px 0;
   }
 }

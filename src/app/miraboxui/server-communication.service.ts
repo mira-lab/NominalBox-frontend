@@ -65,9 +65,16 @@ export class ServerCommunicationService {
   }
 
   getEmail(_signature: string, _contract: string) {
-    return this.http.post(miraConfig.setPinURL, {
+    return this.http.post(miraConfig.getEmailURL, {
       signature: _signature,
       contract: _contract
+    }).toPromise();
+  }
+  checkPin(pin: string, contract: string, signature: string){
+    return this.http.post(miraConfig.checkPinURL, {
+      pin: pin,
+      contract: contract,
+      signature: signature
     }).toPromise();
   }
 }

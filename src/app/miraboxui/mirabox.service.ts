@@ -174,11 +174,11 @@ export class MiraboxService {
     return this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
   }
 
-  changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
+  changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem, newReceiver) {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('../miraboxui/contractAbis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
-      const newReceiver = this.generatePublicKey(miraBox.getPrivateKey());
+      // const newReceiver = this.generatePublicKey(miraBox.getPrivateKey());
       const txData = miraBoxContract.methods.changeReceiver(newReceiver).encodeABI();
       this.w3.eth.accounts.signTransaction({
         to: miraBoxItem.contract,
@@ -280,7 +280,11 @@ export class MiraboxService {
     return new Promise((resolve, reject) => {
       const contract = miraBox.getMiraBoxItems()[0].contract;
       const miraAccount = this.createMiraAccount();
-      this.changeContractOwner(miraBox.getPrivateKey(), contract, miraAccount.address)
+      this.changeMiraBoxItemReceiver(miraBox, miraBox.getMiraBoxItems()[0], this.generatePublicKey(miraAccount.privateKey))
+        .then((changeReceiverReceipt) => {
+          console.log('Got changeReceiverReceipt receipt', changeReceiverReceipt);
+          return this.changeContractOwner(miraBox.getPrivateKey(), contract, miraAccount.address);
+        })
         .then((changeContractOwnerReceipt) => {
           console.log('Got changeContractOwner receipt', changeContractOwnerReceipt);
           return this.sendAllLicenseBalance(miraBox.getPrivateKey(), miraAccount.address);
@@ -302,11 +306,12 @@ export class MiraboxService {
   sendAllLicenseBalance(fromPK: string, toAddress: string) {
     return new Promise((resolve, reject) => {
       this.getLicenseBalance(fromPK).then((balance) => {
+        console.log(balance);
         const licenseContractAbi = require('../miraboxui/contractAbis/License.json');
         const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
         const txData = licenseContract.methods.transfer(toAddress, balance).encodeABI();
         this.w3.eth.accounts.signTransaction({
-          to: toAddress,
+          to: miraConfig.licenseContractAddress,
           value: this.w3.utils.toWei('0'),
           gas: 10000000,
           gasPrice: '100',

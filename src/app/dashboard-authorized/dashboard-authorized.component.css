@@ -12,3 +12,18 @@
   -webkit-filter: brightness(100%);
   filter: brightness(100%);
 }
+.action-button{
+  flex: 1 0;
+}
+.action-buttons-div{
+  flex-wrap: wrap;
+}
+@media (max-width: 479px) {
+  .action-button._1 {
+    width: auto;
+    flex: 0 0;
+    font-size: 3.6vw;
+    line-height: 4.5vw;
+    height: 60px;
+  }
+}
