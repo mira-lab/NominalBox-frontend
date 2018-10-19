@@ -46,4 +46,11 @@ export class ServerCommunicationService {
       signature: _signature
     }).toPromise();
   }
+  checkPin(pin: string, contract: string, signature: string){
+    return this.http.post(miraConfig.checkPinURL, {
+      pin: pin,
+      contract: contract,
+      signature: signature
+    }).toPromise();
+  }
 }

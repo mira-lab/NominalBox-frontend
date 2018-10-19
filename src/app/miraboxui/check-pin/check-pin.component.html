@@ -1,0 +1,38 @@
+<div class="save-wrapper fix-display">
+  <div class="popup-div">
+    <div class="block-heading">
+      <h5 class="block-header">Check pin</h5>
+    </div>
+    <div class="form">
+      <div class="form-block w-form">
+        <form id="email-form" name="email-form" data-name="Email Form">
+          <label for="PIN-3">PIN</label>
+          <input type="password"
+                 class="authorization-field w-input"
+                 maxlength="256" name="PIN-1" data-name="PIN 1"
+                 placeholder="PIN"
+                 [disabled]="isCheckingPin"
+                 [(ngModel)]="pin"
+                 required=""
+                 (focus)="resetErrorMessage()">
+          <input type="button" (click)="checkPin()"
+                 [disabled]="isCheckingPin"
+                 value="Confirm"
+                 data-wait="Please wait..."
+                 class="save-form-button w-button"
+                 [ngClass]="{'mirabox-creating-button':isCheckingPin}">
+        </form>
+        <p>*Please, note: you can unpack MiraBox only once! You cannot undo it.</p>
+        <div [hidden]="!showSuccess" class="form-success">
+          <div>Thank you! Your pin has been changed!</div>
+        </div>
+        <div [hidden]="!showError" class="form-error">
+          <div>{{errorMessage}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a (click)="closeCheckPin()" class="link-block w-inline-block" data-ix="close-save-form">
+    <img src="assets/images/cancel.svg" data-ix="close-authorization">
+  </a>
+</div>
