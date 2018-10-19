@@ -81,6 +81,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
       this.repackingMiraBox = false;
     } else {
       this.repackingMiraBox = false;
+      this.parentSubject.next('update_last_actions');
       this.ngOnInit();
     }
   }
@@ -109,7 +110,7 @@ export class DashboardAuthorizedComponent implements OnInit, OnDestroy {
   onPrivateKey(pk: string) {
     this.privateKey = pk;
     this.isMiraBoxOpened = true;
-
+    this.parentSubject.next('update_last_actions');
   }
 
   navigateToCreate() {

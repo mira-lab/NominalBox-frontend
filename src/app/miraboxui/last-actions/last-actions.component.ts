@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {MiraBox} from '../mirabox';
 import {LastActionsService} from './last-actions.service';
-import {EventAction} from './action';
 import {Subject, from} from 'rxjs';
 import {flatMap} from 'rxjs/operators';
+import {LastAction} from './last-action';
 
 @Component({
   selector: 'app-last-actions',
@@ -23,7 +23,7 @@ export class LastActionsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.$lastActions
       .pipe(flatMap(() => from(this.getLastActions())))
-      .subscribe((actions) => { this.actions = actions; })
+      .subscribe((actions) => { this.actions = actions; });
     this.lastActions.next();
     this.parentSubject.subscribe(event => {
       if (event === 'update_last_actions') {
@@ -35,12 +35,12 @@ export class LastActionsComponent implements OnInit, OnDestroy {
     this.parentSubject.unsubscribe();
   }
 
-  getLastActions(): Promise<EventAction[]> {
+  getLastActions(): Promise<LastAction[]> {
     return new Promise((resolve, reject) => {
       this.lastActionsSvc.getLastActions(this.miraBox)
-        .then((ev: EventAction[]) => {
+        .then((ev: LastAction[]) => {
           console.log(ev);
-          const lastActions: EventAction[] = ev;
+          const lastActions: LastAction[] = ev;
           return resolve(lastActions.sort((a, b) => b.blockNumber - a.blockNumber));
         });
     });
