@@ -18,10 +18,13 @@
 <div class="main-div">
   <div class="text-block-2">Get started with MiraBox</div>
   <h1 class="heading">Drop your MiraBox here</h1>
-  <app-file-upload (fileContentReceived)="onFileContentReceived($event)"></app-file-upload>
+  <app-file-upload [text]="'To get started with MiraBox, drag & drop file here'"
+                   (fileContentReceived)="onFileContentReceived($event)">
+  </app-file-upload>
   <app-check-pin [miraBox]="miraBox"
-      [hidden]="!showCheckPin"
+                 [hidden]="!showCheckPin"
                  (pinChecked)="pinChecked($event)"
-  (checkPinClosed)="closeCheckPin($event)"></app-check-pin>
+                 (checkPinClosed)="closeCheckPin($event)">
+  </app-check-pin>
 </div>
 

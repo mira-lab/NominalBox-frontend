@@ -8,7 +8,7 @@ import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 export class FileUploadComponent implements OnInit {
   fileToUpload: File = null;
   @Input() size = 'large';
-  @Input() text = 'To get started with MiraBox, drag & drop file here';
+  @Input() text = 'Drag & drop file here';
   @Input() downloadButton = true;
   @Output() fileContentReceived: EventEmitter<string> = new EventEmitter();
   constructor() {
