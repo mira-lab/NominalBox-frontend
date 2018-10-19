@@ -18,7 +18,7 @@
 <div class="main-div">
   <div class="text-block-2">Get started with MiraBox</div>
   <h1 class="heading">Drop your MiraBox here</h1>
-  <app-file-upload ></app-file-upload>
+  <app-file-upload (fileContentReceived)="onFileContentReceived($event)"></app-file-upload>
   <app-check-pin [miraBox]="miraBox"
       [hidden]="!showCheckPin"
                  (pinChecked)="pinChecked($event)"

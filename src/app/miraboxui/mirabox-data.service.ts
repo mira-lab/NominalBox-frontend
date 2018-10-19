@@ -19,7 +19,7 @@ export class MiraboxDataService {
     this.changeInDataSource.next(this.miraBox);
   }
 
-  getMiraBox() {
+  getMiraBox(): MiraBox {
     if (this.miraBox) {
       return this.miraBox;
     }
