@@ -20,8 +20,12 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.miraBoxDataSvc.changeInData$.subscribe((miraBox: any) => {
-      this.miraBox = miraBox;
+  }
+
+  onFileContentReceived(fileContent: string) {
+    try {
+      this.miraBoxDataSvc.setMiraBox(MiraBox.fromString(fileContent));
+      this.miraBox = this.miraBoxDataSvc.getMiraBox();
       this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
         .then((res) => {
           if (res) {
@@ -33,10 +37,11 @@ export class HomePageComponent implements OnInit {
           }
         })
         .catch((err) => {
-        console.log(err);
-      });
-
-    });
+          console.log(err);
+        });
+    } catch (err) {
+      return alert('Bad MiraBox File!');
+    }
   }
 
   pinChecked(result) {
