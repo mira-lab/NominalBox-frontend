@@ -1,28 +1,25 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CurrencyComponent} from './currency/currency.component';
-import {SaveBoxComponent} from './save-box/save-box.component';
-import {PopUpSaveBoxService} from './save-box/pop-up-save-box.service';
-import {SendBoxComponent} from './send-box/send-box.component';
+import {CurrencyComponent} from '../dashboard/create-page/currency/currency.component';
+import {SaveBoxComponent} from '../dashboard/create-page/save-box/save-box.component';
+import {PopUpSaveBoxService} from '../dashboard/create-page/save-box/pop-up-save-box.service';
 import {HttpModule} from '@angular/http';
-import {MiraboxCurrencyComponent} from './mirabox-currency/mirabox-currency.component';
-import {CurrencyImageDirective} from './mirabox-currency/currency-image.directive';
+import {MiraboxCurrencyComponent} from '../dashboard/authorized-page/mirabox-currency/mirabox-currency.component';
+import {CurrencyImageDirective} from '../dashboard/authorized-page/mirabox-currency/currency-image.directive';
 import {SharedModule} from '../shared/shared.module';
-import {LastActionsComponent} from './last-actions/last-actions.component';
-import { ChangePinComponent } from './change-pin/change-pin.component';
-import { GetPrivateKeysComponent } from './get-private-keys/get-private-keys.component';
-import { CheckPinComponent } from './check-pin/check-pin.component';
+import {LastActionsComponent} from '../dashboard/authorized-page/last-actions/last-actions.component';
+import { ChangePinComponent } from '../dashboard/authorized-page/change-pin/change-pin.component';
+import { GetPrivateKeysComponent } from '../dashboard/authorized-page/get-private-keys/get-private-keys.component';
+import { CheckPinComponent } from '../dashboard/check-pin/check-pin.component';
 
 @NgModule({
   imports: [
-    CommonModule,
     HttpModule,
     SharedModule
   ],
   declarations: [
-    CurrencyComponent,
-    SaveBoxComponent,
-    SendBoxComponent,
+    // CurrencyComponent,
+    // SaveBoxComponent,
     MiraboxCurrencyComponent,
     CurrencyImageDirective,
     LastActionsComponent,
@@ -31,8 +28,8 @@ import { CheckPinComponent } from './check-pin/check-pin.component';
     CheckPinComponent
   ],
   exports: [
-    CurrencyComponent,
-    SaveBoxComponent,
+    // CurrencyComponent,
+    // SaveBoxComponent,
     MiraboxCurrencyComponent,
     LastActionsComponent,
     ChangePinComponent,

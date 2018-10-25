@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {MiraBox} from '../miraboxui/mirabox';
+import {MiraBox} from '../mirabox/mirabox';
 import {FileUploadComponent} from '../fileupload/fileupload.component';
 import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
-import {MiraboxService} from '../miraboxui/mirabox.service';
+import {MiraboxService} from '../mirabox/mirabox.service';
 
 @Component({
   selector: 'app-home-page',

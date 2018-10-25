@@ -10,6 +10,10 @@ import {FormsModule} from '@angular/forms';
     FileUploadModule
   ],
   declarations: [],
-  exports: [FileUploadComponent, FormsModule]
+  exports: [
+    CommonModule,
+    FileUploadComponent,
+    FormsModule
+  ]
 })
 export class SharedModule { }
