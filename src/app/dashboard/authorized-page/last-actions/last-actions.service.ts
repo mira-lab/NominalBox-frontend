@@ -63,7 +63,7 @@ export class LastActionsService {
   getMiraAccountTransfers(miraBox: MiraBox) {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
     return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contractAbis/License.json');
+      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.getPastEvents('Transfer', {
         filter: {to: miraBoxAddress},
@@ -77,7 +77,7 @@ export class LastActionsService {
   getMiraAccountLicenseBurns(miraBox: MiraBox) {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
     return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contractAbis/License.json');
+      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.getPastEvents('Burn', {
         filter: {burner: miraBoxAddress},
@@ -91,7 +91,7 @@ export class LastActionsService {
   getActionCoinsSpent(miraBox: MiraBox) {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
     return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contractAbis/License.json');
+      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.getPastEvents('PurchasedContract', {
         filter: {owner: miraBoxAddress},
@@ -105,7 +105,7 @@ export class LastActionsService {
   getAllEvents(miraBox: MiraBox) {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
     return new Promise((resolve, reject) => {
-      const miraContractAbi = require('../../../mirabox/contractAbis/MiraboxContract.json');
+      const miraContractAbi = require('../../../mirabox/contract-abis/MiraboxContract.json');
       const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
       miraContract.getPastEvents('allEvents', {fromBlock: 0})
         .then(events => resolve(events))

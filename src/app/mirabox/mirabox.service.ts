@@ -25,7 +25,7 @@ export class MiraboxService {
 
   createMiraBoxItems(currencies, miraAccount) {
     return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('./contractAbis/License.json');
+      const licenseContractAbi = require('./contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       const txData = licenseContract.methods.buyMirabox(this.w3.utils.fromAscii('TwoFactor')).encodeABI();
       console.log(this.w3.utils.fromAscii('TwoFactor'));
@@ -47,7 +47,7 @@ export class MiraboxService {
         })
         .then((pastEvents) => {
           console.log(pastEvents);
-          const miraboxContractAbi = require('./contractAbis/MiraboxContract.json');
+          const miraboxContractAbi = require('./contract-abis/MiraboxContract.json');
           const miraboxContract = new this.w3.eth.Contract(miraboxContractAbi, pastEvents[0].returnValues.contractAddress);
           console.log(pastEvents[0].returnValues.contractAddress);
 
@@ -102,7 +102,7 @@ export class MiraboxService {
 
   getLicenseBalance(privateKey) {
     return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('./contractAbis/License.json');
+      const licenseContractAbi = require('./contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.methods.balanceOf(this.w3.eth.accounts.privateKeyToAccount(privateKey).address)
         .call()
@@ -117,7 +117,7 @@ export class MiraboxService {
 
   add2fa(miraBox: MiraBox, address2fa: string) {
     return new Promise((resolve, reject) => {
-      const miraContractAbi = require('./contractAbis/MiraboxContract.json');
+      const miraContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
       const txData = miraContract.methods.add2Fa(address2fa).encodeABI();
       this.w3.eth.accounts.signTransaction({
@@ -176,7 +176,7 @@ export class MiraboxService {
 
   changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
-      const miraBoxContractAbi = require('./contractAbis/MiraboxContract.json');
+      const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
       const newReceiver = this.generatePublicKey(miraBox.getPrivateKey());
       const txData = miraBoxContract.methods.changeReceiver(newReceiver).encodeABI();
@@ -195,7 +195,7 @@ export class MiraboxService {
 
   openMiraBoxItem(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
-      const miraBoxContractAbi = require('./contractAbis/MiraboxContract.json');
+      const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
       const txData = miraBoxContract.methods.open().encodeABI();
       this.w3.eth.accounts.signTransaction({
@@ -229,7 +229,7 @@ export class MiraboxService {
 
   isMiraboxItemOpened(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
-      const miraBoxContractAbi = require('./contractAbis/MiraboxContract.json');
+      const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
       miraBoxContract.methods.askOpen()
         .call()
@@ -240,7 +240,7 @@ export class MiraboxService {
 
   getOpenedMiraBoxItemPK(miraBoxItem: MiraBoxItem) {
     return new Promise((resolve, reject) => {
-      const miraBoxContractAbi = require('./contractAbis/MiraboxContract.json');
+      const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
       miraBoxContract.getPastEvents('PrivateKey', {fromBlock: 0})
         .then((res) => {
@@ -257,7 +257,7 @@ export class MiraboxService {
     return new Promise((resolve, reject) => {
       this.openMiraBoxItem(miraBox, miraBox.getMiraBoxItems()[0])
         .then((receipt) => {
-            const miraBoxContractAbi = require('./contractAbis/MiraboxContract.json');
+            const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
             const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBox.getMiraBoxItems()[0].contract);
             console.log(receipt);
             miraBoxContract.once('PrivateKey', {}, (err, ev) => {
