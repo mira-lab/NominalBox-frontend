@@ -6,7 +6,7 @@ import {MiraBox} from '../../../mirabox/mirabox';
 import {miraConfig} from '../../../mirabox/mira-config';
 import {Web3Service} from '../../../mirabox/web3.service';
 
-declare var require: any;
+declare const require: any;
 
 @Injectable({
   providedIn: 'root'
