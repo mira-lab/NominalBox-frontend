@@ -20,21 +20,21 @@ import { CheckPinComponent } from '../dashboard/check-pin/check-pin.component';
   declarations: [
     // CurrencyComponent,
     // SaveBoxComponent,
-    MiraboxCurrencyComponent,
-    CurrencyImageDirective,
-    LastActionsComponent,
-    ChangePinComponent,
-    GetPrivateKeysComponent,
-    CheckPinComponent
+    // MiraboxCurrencyComponent,
+    // CurrencyImageDirective,
+    // LastActionsComponent,
+    // ChangePinComponent,
+    // GetPrivateKeysComponent,
+    // CheckPinComponent
   ],
   exports: [
     // CurrencyComponent,
     // SaveBoxComponent,
-    MiraboxCurrencyComponent,
-    LastActionsComponent,
-    ChangePinComponent,
-    GetPrivateKeysComponent,
-    CheckPinComponent
+    // MiraboxCurrencyComponent,
+    // LastActionsComponent,
+    // ChangePinComponent,
+    // GetPrivateKeysComponent,
+    // CheckPinComponent
   ],
   providers: [
     PopUpSaveBoxService

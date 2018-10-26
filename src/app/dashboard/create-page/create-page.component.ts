@@ -42,7 +42,7 @@ export class CreatePageComponent implements OnInit {
             this.showCheckPin = true;
           } else {
             this.showCheckPin = false;
-            this.router.navigate(['dashboard-authorized']);
+            this.router.navigate(['dashboard/authorized']);
             return Promise.reject('Mirabox not opened');
           }
         })
@@ -57,7 +57,7 @@ export class CreatePageComponent implements OnInit {
   pinChecked(result) {
     if (result === true) {
       this.showCheckPin = false;
-      return this.router.navigate(['dashboard-authorized']);
+      return this.router.navigate(['dashboard/authorized']);
     }
   }
 
