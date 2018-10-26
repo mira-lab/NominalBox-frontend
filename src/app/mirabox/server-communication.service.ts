@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
+
 import {miraConfig} from './mira-config';
 import {MiraBox} from './mirabox';
 

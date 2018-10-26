@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+
 import {PopUpSaveBoxService} from '../save-box/pop-up-save-box.service';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {CURRENCIES, INACTIVECURRENCIES} from './currency-list';

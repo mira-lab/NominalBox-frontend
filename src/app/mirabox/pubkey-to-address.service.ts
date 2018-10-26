@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
+
 import * as bitcore from 'bitcore-lib';
 import {Web3Service} from './web3.service';
-import {Networks} from 'bitcore-lib';
-import add = Networks.add;
 
 @Injectable({
   providedIn: 'root'

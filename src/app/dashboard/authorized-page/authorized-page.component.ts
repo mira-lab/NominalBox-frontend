@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MiraboxService} from '../../mirabox/mirabox.service';
-import {Router} from '@angular/router';
-import {interval, from, Subject} from 'rxjs';
 import {flatMap, startWith} from 'rxjs/operators';
+import {interval, from, Subject} from 'rxjs';
+import {Router} from '@angular/router';
+
+import {MiraboxService} from '../../mirabox/mirabox.service';
 import {MiraboxDataService} from '../../mirabox/mirabox-data.service';
 import {MiraBox} from '../../mirabox/mirabox';
-import {ServerCommunicationService} from '../../mirabox/server-communication.service';
 
 @Component({
   selector: 'app-authorized-page',

@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {MiraBox} from '../../../mirabox/mirabox';
-import {Web3Service} from '../../../mirabox/web3.service';
-import {miraConfig} from '../../../mirabox/mira-config';
+
 import {EventAction} from './action';
 import {EventsToActions} from './events';
+import {MiraBox} from '../../../mirabox/mirabox';
+import {miraConfig} from '../../../mirabox/mira-config';
+import {Web3Service} from '../../../mirabox/web3.service';
 
 declare var require: any;
 

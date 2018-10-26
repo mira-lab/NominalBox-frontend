@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FileUploadComponent } from './fileupload.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+
 import {DndDirective} from './dnd.directive';
+import {FileUploadComponent} from './fileupload.component';
 
 @NgModule({
   imports: [
@@ -15,4 +16,5 @@ import {DndDirective} from './dnd.directive';
     FileUploadComponent
   ]
 })
-export class FileUploadModule { }
+export class FileUploadModule {
+}

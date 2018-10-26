@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CurrencyComponent} from './currency/currency.component';
 import {Router} from '@angular/router';
+
+import {CurrencyComponent} from './currency/currency.component';
 import {MiraboxDataService} from '../../mirabox/mirabox-data.service';
 import {MiraBox} from '../../mirabox/mirabox';
 import {MiraboxService} from '../../mirabox/mirabox.service';

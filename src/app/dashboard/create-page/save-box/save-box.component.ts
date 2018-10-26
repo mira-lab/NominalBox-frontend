@@ -1,10 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {PopUpSaveBoxService} from './pop-up-save-box.service';
 import {Router} from '@angular/router';
-import {MiraboxService} from '../../../mirabox/mirabox.service';
+
 import {CurrencyService} from '../currency/currency.service';
+import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {MiraBox} from '../../../mirabox/mirabox';
 import {MiraboxDataService} from '../../../mirabox/mirabox-data.service';
+import {PopUpSaveBoxService} from './pop-up-save-box.service';
 import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 import {SaveBox} from './save-box';
 
