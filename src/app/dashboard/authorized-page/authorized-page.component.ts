@@ -31,9 +31,6 @@ export class AuthorizedPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.miraBoxDataSvc.getMiraBox()) {
-      return this.router.navigate(['create']);
-    }
     this.miraBox = this.miraBoxDataSvc.getMiraBox();
     this.miraBoxAddress = this.miraBoxSvc.getMiraBoxAddress(this.miraBox);
     this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
