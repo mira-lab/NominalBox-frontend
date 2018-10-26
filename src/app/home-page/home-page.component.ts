@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {MiraBox} from '../miraboxui/mirabox';
-import {FileUploadComponent} from '../fileupload/fileupload.component';
-import {MiraboxDataService} from '../miraboxui/mirabox-data.service';
-import {MiraboxService} from '../miraboxui/mirabox.service';
+import {MiraBox} from '../mirabox/mirabox';
+import {MiraboxDataService} from '../mirabox/mirabox-data.service';
+import {MiraboxService} from '../mirabox/mirabox.service';
 
 @Component({
   selector: 'app-home-page',
@@ -32,7 +31,7 @@ export class HomePageComponent implements OnInit {
             this.showCheckPin = true;
           } else {
             this.showCheckPin = false;
-            this.router.navigate(['dashboard-authorized']);
+            this.router.navigate(['dashboard/authorized']);
             return Promise.reject('Mirabox not opened');
           }
         })
@@ -47,7 +46,7 @@ export class HomePageComponent implements OnInit {
   pinChecked(result) {
     if (result === true) {
       this.showCheckPin = false;
-      return this.router.navigate(['dashboard-authorized']);
+      return this.router.navigate(['dashboard/authorized']);
     }
   }
 
