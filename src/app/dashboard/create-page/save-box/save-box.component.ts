@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {CurrencyService} from '../currency/currency.service';
 import {MiraBox} from '../../../mirabox/mirabox';
-import {MiraboxDataService} from '../../../miraboxui/mirabox-data.service';
+import {MiraboxDataService} from '../../../mirabox/mirabox-data.service';
 import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 import {SaveBox} from './save-box';
 
@@ -108,7 +108,7 @@ export class SaveBoxComponent implements OnInit {
           })
       // })
       .then(() => {
-        return this.router.navigate(['dashboard-authorized']);
+        return this.router.navigate(['dashboard/authorized']);
       })
       .catch((err) => {
         this.newFormModel();
@@ -136,7 +136,7 @@ export class SaveBoxComponent implements OnInit {
         //   })
         //   .then(() => {
             this.downloadMiraBox(miraBox);
-            return this.router.navigate(['dashboard-authorized']);
+            return this.router.navigate(['dashboard/authorized']);
           })
       // })
       .catch((err) => {

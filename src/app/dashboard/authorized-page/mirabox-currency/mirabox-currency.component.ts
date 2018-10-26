@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MiraBox} from '../../../mirabox/mirabox';
 import {CURRENCIES} from '../../create-page/currency/currency-list';
-import {PubkeyToAddressService} from '../../../miraboxui/pubkey-to-address.service';
+import {PubkeyToAddressService} from '../../../mirabox/pubkey-to-address.service';
 
 @Component({
   selector: 'app-mirabox-currency',

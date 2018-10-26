@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Web3Service} from './web3.service';
 import {MiraBox, MiraBoxItem} from './mirabox';
-import {miraBoxConfig} from './mirabox-config';
 import {miraConfig} from './mira-config';
 import {Http} from '@angular/http';
 import * as Bitcore from 'bitcore-lib';
@@ -27,11 +26,11 @@ export class MiraboxService {
   createMiraBoxItems(currencies, miraAccount) {
     return new Promise((resolve, reject) => {
       const licenseContractAbi = require('./contractAbis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraBoxConfig.licenseContractAddress);
+      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       const txData = licenseContract.methods.buyMirabox(this.w3.utils.fromAscii('TwoFactor')).encodeABI();
       console.log(this.w3.utils.fromAscii('TwoFactor'));
       this.w3.eth.accounts.signTransaction({
-        to: miraBoxConfig.licenseContractAddress,
+        to: miraConfig.licenseContractAddress,
         value: this.w3.utils.toWei('0'),
         gas: 10000000,
         gasPrice: '100',
@@ -104,7 +103,7 @@ export class MiraboxService {
   getLicenseBalance(privateKey) {
     return new Promise((resolve, reject) => {
       const licenseContractAbi = require('./contractAbis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraBoxConfig.licenseContractAddress);
+      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
       licenseContract.methods.balanceOf(this.w3.eth.accounts.privateKeyToAccount(privateKey).address)
         .call()
         .then((result) => {

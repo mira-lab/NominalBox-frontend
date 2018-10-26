@@ -3,7 +3,7 @@ import {MiraboxService} from '../../mirabox/mirabox.service';
 import {Router} from '@angular/router';
 import {interval, from, Subject} from 'rxjs';
 import {flatMap, startWith} from 'rxjs/operators';
-import {MiraboxDataService} from '../../miraboxui/mirabox-data.service';
+import {MiraboxDataService} from '../../mirabox/mirabox-data.service';
 import {MiraBox} from '../../mirabox/mirabox';
 import {ServerCommunicationService} from '../../mirabox/server-communication.service';
 

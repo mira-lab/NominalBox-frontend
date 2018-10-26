@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MiraBox} from '../mirabox/mirabox';
+import {MiraBox} from './mirabox';
 import {Subject} from 'rxjs';
 
 @Injectable({
