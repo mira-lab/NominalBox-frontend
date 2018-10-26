@@ -11,8 +11,10 @@ import {GetPrivateKeysComponent} from './authorized-page/get-private-keys/get-pr
 import {LastActionsComponent} from './authorized-page/last-actions/last-actions.component';
 import {MiraboxModule} from '../mirabox/mirabox.module';
 import {MiraboxCurrencyComponent} from './authorized-page/mirabox-currency/mirabox-currency.component';
+import {NoAuthRedirectService} from './no-auth-redirect.service';
 import {SaveBoxComponent} from './create-page/save-box/save-box.component';
 import {SharedModule} from '../shared/shared.module';
+
 
 @NgModule({
   imports: [
@@ -22,7 +24,7 @@ import {SharedModule} from '../shared/shared.module';
         children: [
           {path: '', component: CreatePageComponent},
           {path: 'create', component: CreatePageComponent},
-          {path: 'authorized', component: AuthorizedPageComponent},
+          {path: 'authorized', component: AuthorizedPageComponent, canActivate: [NoAuthRedirectService]},
         ]
       }]),
     SharedModule,
