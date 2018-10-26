@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
-declare var require: any;
+import {Injectable} from '@angular/core';
+
+declare const require: any;
+
 @Injectable({
   providedIn: 'root'
 })
 export class Web3Service {
 
-  constructor() { }
+  constructor() {
+  }
 
   public getWeb3() {
     const W3 = require('web3');

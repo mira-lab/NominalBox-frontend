@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {FileUploadModule} from '../fileupload/fileupload.module';
-import {FileUploadComponent} from '../fileupload/fileupload.component';
+import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {CheckPinComponent} from './check-pin/check-pin.component';
 import {HttpModule} from '@angular/http';
+import {NgModule} from '@angular/core';
+
+import {CheckPinComponent} from './check-pin/check-pin.component';
+import {FileUploadComponent} from '../fileupload/fileupload.component';
+import {FileUploadModule} from '../fileupload/fileupload.module';
 
 @NgModule({
   imports: [
@@ -24,4 +25,5 @@ import {HttpModule} from '@angular/http';
     CheckPinComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

@@ -1,8 +1,9 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
 import {ChangePin} from './change-pin';
 import {MiraBox} from '../../../mirabox/mirabox';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
+import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 
 @Component({
   selector: 'app-change-pin',

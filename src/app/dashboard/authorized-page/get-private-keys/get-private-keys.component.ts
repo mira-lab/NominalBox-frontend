@@ -1,7 +1,8 @@
 import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
+import {Subject} from 'rxjs';
+
 import {MiraBox} from '../../../mirabox/mirabox';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
-import {Subject} from 'rxjs';
 import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 
 @Component({

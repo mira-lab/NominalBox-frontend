@@ -1,9 +1,10 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {MiraBox} from '../../../mirabox/mirabox';
-import {LastActionsService} from './last-actions.service';
-import {EventAction} from './action';
-import {Subject, from} from 'rxjs';
 import {flatMap} from 'rxjs/operators';
+import {Subject, from} from 'rxjs';
+
+import {EventAction} from './action';
+import {LastActionsService} from './last-actions.service';
+import {MiraBox} from '../../../mirabox/mirabox';
 
 @Component({
   selector: 'app-last-actions',

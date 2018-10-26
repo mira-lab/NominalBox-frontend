@@ -1,11 +1,12 @@
+import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
-import {Web3Service} from './web3.service';
+
+import * as Bitcore from 'bitcore-lib';
 import {MiraBox, MiraBoxItem} from './mirabox';
 import {miraConfig} from './mira-config';
-import {Http} from '@angular/http';
-import * as Bitcore from 'bitcore-lib';
+import {Web3Service} from './web3.service';
 
-declare var require: any;
+declare const require: any;
 
 @Injectable({
   providedIn: 'root'
