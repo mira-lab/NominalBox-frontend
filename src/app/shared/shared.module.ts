@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FileUploadModule} from '../fileupload/fileupload.module';
 import {FileUploadComponent} from '../fileupload/fileupload.component';
 import {FormsModule} from '@angular/forms';
-import {CheckPinComponent} from '../dashboard/check-pin/check-pin.component';
+import {CheckPinComponent} from './check-pin/check-pin.component';
 import {HttpModule} from '@angular/http';
 
 @NgModule({

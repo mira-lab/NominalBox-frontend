@@ -95,18 +95,8 @@ export class SaveBoxComponent implements OnInit {
     }
     this.createMiraBox()
       .then((miraBox: MiraBox) => {
-        // return this.servercommSvc.setPin(this.saveBoxForm.pin,
-        //   this.saveBoxForm.email,
-        //   miraBox.getMiraBoxItems()[0].contract,
-        //   this.miraBoxSvc.getMiraBoxAddress(miraBox))
-        //   .then((response) => {
-        //     console.log(response);
-        //     this.miraBoxSvc.add2fa(miraBox, '');
-        //   })
-        //   .then(() => {
-            this.servercommSvc.sendMiraBoxByEmail(miraBox, this.saveBoxForm.email);
-          })
-      // })
+        this.servercommSvc.sendMiraBoxByEmail(miraBox, this.saveBoxForm.email);
+      })
       .then(() => {
         return this.router.navigate(['dashboard/authorized']);
       })
@@ -126,19 +116,9 @@ export class SaveBoxComponent implements OnInit {
     }
     this.createMiraBox()
       .then((miraBox: MiraBox) => {
-        // return this.servercommSvc.setPin(this.saveBoxForm.pin,
-        //   this.saveBoxForm.email,
-        //   miraBox.getMiraBoxItems()[0].contract,
-        //   this.miraBoxSvc.getMiraBoxAddress(miraBox))
-        //   .then((response: any) => {
-        //     console.log('Response address:' + response._body.slice(1, response._body.length - 1));
-        //     return this.miraBoxSvc.add2fa(miraBox, response._body.slice(1, response._body.length - 1));
-        //   })
-        //   .then(() => {
-            this.downloadMiraBox(miraBox);
-            return this.router.navigate(['dashboard/authorized']);
-          })
-      // })
+        this.downloadMiraBox(miraBox);
+        return this.router.navigate(['dashboard/authorized']);
+      })
       .catch((err) => {
         this.newFormModel();
         alert('Error while creating MiraBox!');

@@ -8,7 +8,6 @@ import {SharedModule} from '../shared/shared.module';
 import {MiraboxModule} from '../mirabox/mirabox.module';
 import {AuthorizedPageComponent} from './authorized-page/authorized-page.component';
 import {MiraboxCurrencyComponent} from './authorized-page/mirabox-currency/mirabox-currency.component';
-import {CheckPinComponent} from './check-pin/check-pin.component';
 import {CurrencyImageDirective} from './authorized-page/mirabox-currency/currency-image.directive';
 import {LastActionsComponent} from './authorized-page/last-actions/last-actions.component';
 import {ChangePinComponent} from './authorized-page/change-pin/change-pin.component';
@@ -31,20 +30,17 @@ import {GetPrivateKeysComponent} from './authorized-page/get-private-keys/get-pr
   declarations: [
     AuthorizedPageComponent,
     MiraboxCurrencyComponent,
-    //CheckPinComponent,
     MiraboxCurrencyComponent,
     CurrencyImageDirective,
     LastActionsComponent,
     ChangePinComponent,
     GetPrivateKeysComponent,
-    //CheckPinComponent,
     CreatePageComponent,
     CurrencyComponent,
     DashboardComponent,
     SaveBoxComponent
   ],
   exports: [
-    //CheckPinComponent
   ]
 })
 export class DashboardModule { }
