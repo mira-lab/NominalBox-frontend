@@ -66,38 +66,9 @@ export class AuthorizedPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  closeChangePin(isClosed: boolean) {
-    this.changingPin = isClosed;
-  }
-
-  getPrivateKeysClosed(isClosed: boolean) {
-    this.getPrivateKeys = isClosed;
-  }
-
-  getAllPrivateKeys() {
-    this.gettingPrivateKeys = true;
-    this.isGetPrivateKeysDisabled = true;
-    this.miraBoxSvc.openMiraBox(this.miraBox)
-      .then((pk) => {
-        this.parentSubject.next('update_last_actions');
-        this.privateKey = pk;
-        this.gettingPrivateKeys = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.gettingPrivateKeys = false;
-      });
-
-  }
-
   onPrivateKey(pk: string) {
     this.privateKey = pk;
     this.isMiraBoxOpened = true;
-
-  }
-
-  navigateToCreate() {
-    return this.router.navigate(['create']);
   }
 
   ngOnDestroy() {

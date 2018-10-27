@@ -11,16 +11,16 @@
                  class="authorization-field w-input"
                  maxlength="256" name="PIN-1" data-name="PIN 1"
                  placeholder="PIN"
-                 [disabled]="isCheckingPin"
+                 [disabled]="formSubmitting"
                  [(ngModel)]="pin"
                  required=""
-                 (focus)="resetErrorMessage()">
+                 (focus)="resetAllEvents()">
           <input type="button" (click)="checkPin()"
-                 [disabled]="isCheckingPin"
+                 [disabled]="formSubmitting"
                  value="Confirm"
                  data-wait="Please wait..."
                  class="save-form-button w-button"
-                 [ngClass]="{'mirabox-creating-button':isCheckingPin}">
+                 [ngClass]="{'mirabox-creating-button':formSubmitting}">
         </form>
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>

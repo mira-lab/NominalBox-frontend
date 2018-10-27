@@ -7,9 +7,8 @@
                      [text]="'To open MiraBox drag & drop file here'"
                      (fileContentReceived)="onFileContentReceived($event)"></app-file-upload>
     <app-check-pin [miraBox]="miraBox"
-                   [hidden]="!showCheckPin"
-                   (pinChecked)="pinChecked($event)"
-                   (checkPinClosed)="closeCheckPin($event)"></app-check-pin>
+                   *ngIf="showCheckPin"
+                   [(modalVisible)]="showCheckPin"></app-check-pin>
   </div>
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b" class="left-div">
     <div class="tips-div">
