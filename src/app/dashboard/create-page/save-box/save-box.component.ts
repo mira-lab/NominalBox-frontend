@@ -5,7 +5,7 @@ import {CurrencyService} from '../currency/currency.service';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {MiraBox} from '../../../mirabox/mirabox';
 import {MiraboxDataService} from '../../../mirabox/mirabox-data.service';
-import {PopUpSaveBoxService} from './pop-up-save-box.service';
+import {ModalForm} from '../../../shared/modal-form';
 import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 import {SaveBox} from './save-box';
 
@@ -14,47 +14,33 @@ import {SaveBox} from './save-box';
   templateUrl: './save-box.component.html',
   styleUrls: ['./save-box.component.css']
 })
-export class SaveBoxComponent implements OnInit {
+export class SaveBoxComponent extends ModalForm implements OnInit {
 
   constructor
-  (private popUpSvc: PopUpSaveBoxService,
-   private router: Router,
+  (private router: Router,
    private miraBoxSvc: MiraboxService,
    private currencySvc: CurrencyService,
    private miraBoxDataSvc: MiraboxDataService,
    private servercommSvc: ServerCommunicationService) {
+    super();
   }
 
   @Input() mobile = false;
   saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
-  miraboxCreating = false;
   currencies;
-  show$;
-  oopsShow = true;
-  errorMessage = 'Oops! Something went wrong while submitting the form.';
 
   ngOnInit() {
-
-    this.currencySvc.currentCurrencies.subscribe(currencies => this.currencies = currencies);
-    this.show$ = this.popUpSvc.showPopUp$;
+    this.currencies = this.currencySvc.currencyList;
+    this.currencySvc.changeInCurrencies$.subscribe(currencies => this.currencies = currencies);
   }
 
-  showErrorMessage(errorMessage: string) {
-    this.errorMessage = errorMessage;
-    this.oopsShow = false;
-  }
-
-  resetErrorMessage() {
-    this.errorMessage = 'Oops! Something went wrong while submitting the form.';
-    this.oopsShow = true;
-  }
 
   createMiraBox() {
-    this.resetErrorMessage();
-    this.miraboxCreating = true;
+    this.resetAllEvents();
+    this.formSubmitting = true;
     return new Promise((resolve, reject) => {
       // Create mirabox
-      return this.miraBoxSvc.createMiraBox(this.currencies.filter(currency => currency.added === true), this.saveBoxForm.miraBoxTitle)
+      return this.miraBoxSvc.createMiraBox(this.currencies, this.saveBoxForm.miraBoxTitle)
         .then((miraBox: MiraBox) => {
           const contractAddress = miraBox.getMiraBoxItems()[0].contract;
           const miraBoxAddress = this.miraBoxSvc.getMiraBoxAddress(miraBox);
@@ -70,13 +56,13 @@ export class SaveBoxComponent implements OnInit {
               console.log('Got receipt from add2fa. Receipt:');
               console.log(add2faReceipt);
               // Set mirabox to service for later use, stop creating animation
-              this.miraboxCreating = false;
+              this.formSubmitting = false;
               this.miraBoxDataSvc.setMiraBox(miraBox);
               return resolve(miraBox);
             });
         })
         .catch(err => {
-          this.miraboxCreating = false;
+          this.formSubmitting = false;
           return reject(err);
         });
     });
@@ -87,7 +73,6 @@ export class SaveBoxComponent implements OnInit {
   }
 
   navigateSendByEmail() {
-    console.log('navigateSendByEmail');
     try {
       this.saveBoxForm.checkFormValid();
     } catch (err) {
@@ -107,7 +92,6 @@ export class SaveBoxComponent implements OnInit {
         console.log(err);
       });
   }
-
   navigateDownload() {
     try {
       this.saveBoxForm.checkFormValid();
@@ -126,7 +110,6 @@ export class SaveBoxComponent implements OnInit {
         console.log(err);
       });
   }
-
   downloadMiraBox(miraBox: MiraBox) {
     const data = 'data:application/text;charset=utf-8,' + miraBox.toString();
     const downloadAnchor = document.getElementById('download-mirabox');
@@ -135,10 +118,9 @@ export class SaveBoxComponent implements OnInit {
     downloadAnchor.click();
   }
 
-  closePopUp() {
+  closeSaveBox() {
     this.newFormModel();
-    this.oopsShow = true;
-    this.popUpSvc.closePopUp();
+    this.closeModalForm();
   }
 
 }

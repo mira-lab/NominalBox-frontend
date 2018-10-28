@@ -1,4 +1,4 @@
-<div class="save-wrapper" style="display: flex" *ngIf="(show$ | async)">
+<div class="save-wrapper" style="display: flex">
   <div class="popup-div" style="display: block">
     <div class="block-heading">
       <h5 class="block-header">Save Box</h5>
@@ -7,51 +7,55 @@
       <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form">
           <label for="Title-3">Box Title</label>
-          <input type="text" class="authorization-field w-input" (focus)="resetErrorMessage()"
+          <input type="text" class="authorization-field w-input" (focus)="resetAllEvents()"
                  [(ngModel)]="saveBoxForm.miraBoxTitle" maxlength="256" name="Title-3" data-name="Title 3"
                  placeholder="Untitled Box" id="Title-3" required="">
           <div class="_2-pins-div">
             <div class="pin-div">
-              <label for="PIN-3">PIN</label>
-              <input type="password" (focus)="resetErrorMessage()" [(ngModel)]="saveBoxForm.pin" class="authorization-field w-input"
-                     maxlength="256" name="PIN-1" data-name="PIN 1" placeholder="aBc123!@#" id="PIN" required="">
+              <label for="sb-pin">PIN</label>
+              <input type="password" (focus)="resetAllEvents()" [(ngModel)]="saveBoxForm.pin"
+                     class="authorization-field w-input"
+                     maxlength="256" name="sb-pin" data-name="sb-pin" placeholder="aBc123!@#" id="sb-pin" required="">
             </div>
             <div class="pin-div">
-              <label for="PIN-3">Repeat PIN</label>
-              <input type="password" (focus)="resetErrorMessage()" [(ngModel)]="saveBoxForm.repeatPin"
-                     class="authorization-field w-input" maxlength="256" name="PIN-2" data-name="PIN 2"
-                     placeholder="aBc123!@#" id="PIN-2" required="">
+              <label for="sb-r-pin">Repeat PIN</label>
+              <input type="password" (focus)="resetAllEvents()" [(ngModel)]="saveBoxForm.repeatPin"
+                     class="authorization-field w-input" maxlength="256" name="sb-r-pin" data-name="sb-r-pin"
+                     placeholder="aBc123!@#" id="sb-r-pin" required="">
             </div>
           </div>
-          <label for="Email-4">Email</label>
-          <input [(ngModel)]="saveBoxForm.email" (focus)="resetErrorMessage()" type="email" class="authorization-field w-input" maxlength="256" name="Email-4" data-name="Email 4"
-                 placeholder="Your Email" id="Email-4" required="">
-          <label for="Email-5">Repeat Email</label>
-          <input [(ngModel)]="saveBoxForm.repeatEmail" (focus)="resetErrorMessage()" type="email" class="authorization-field w-input" maxlength="256" name="Email-2" data-name="Email 2"
-                 placeholder="Repeat Your Email" id="Email-2" required="">
-          <input [ngClass]="{'mirabox-creating-button': miraboxCreating}"
-                 [disabled]="miraboxCreating"
-                 (click)="navigateSendByEmail()" type="button" value="Send by e-mail" data-wait="Please wait..." class="send-form-button w-button">
+          <label for="sb-email">Email</label>
+          <input [(ngModel)]="saveBoxForm.email" (focus)="resetAllEvents()" type="email"
+                 class="authorization-field w-input" maxlength="256" name="sb-email" data-name="sb-email"
+                 placeholder="Your Email" id="sb-email" required="">
+          <label for="sb-r-email">Repeat Email</label>
+          <input [(ngModel)]="saveBoxForm.repeatEmail" (focus)="resetAllEvents()" type="email"
+                 class="authorization-field w-input" maxlength="256" name="sb-r-email" data-name="sb-r-email"
+                 placeholder="Repeat Your Email" id="sb-r-email" required="">
+          <input [ngClass]="{'mirabox-creating-button': formSubmitting}"
+                 [disabled]="formSubmitting"
+                 (click)="navigateSendByEmail()" type="button" value="Send by e-mail" data-wait="Please wait..."
+                 class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
           <input *ngIf="!mobile"
                  (click)="navigateDownload()"
-                 [ngClass]="{'mirabox-creating-button': miraboxCreating}"
-                 [disabled]="miraboxCreating" type="button" value="Save and download" data-wait="Please wait..."
+                 [ngClass]="{'mirabox-creating-button': formSubmitting}"
+                 [disabled]="formSubmitting" type="button" value="Save and download" data-wait="Please wait..."
                  class="save-form-button w-button">
-          <div [hidden]="!miraboxCreating" class="loading-spinner-div">
+          <div [hidden]="!formSubmitting" class="loading-spinner-div">
             <img class='loading-spinner' src="assets/images/mira-loading.gif">
           </div>
         </form>
-        <div class="w-form-done">
+        <div class="w-form-done" [hidden]="!showSuccess">
           <div>Thank you! Your submission has been received!</div>
         </div>
-        <div class="form-error" [hidden]="oopsShow">
+        <div class="form-error" [hidden]="!showError">
           <div>{{errorMessage}}</div>
         </div>
       </div>
     </div>
   </div>
-  <a (click)="closePopUp()" class="link-block w-inline-block" data-ix="close-save-form">
+  <a (click)="closeSaveBox()" class="link-block w-inline-block" data-ix="close-save-form">
     <img src="assets/images/cancel.svg" data-ix="close-authorization"></a>
 </div>
 

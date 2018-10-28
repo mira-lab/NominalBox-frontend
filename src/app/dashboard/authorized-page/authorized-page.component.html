@@ -18,15 +18,15 @@
       <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
         <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
     </div>
-    <app-change-pin [hidden]="!changingPin"
-                    [miraBox]="miraBox"
-                    (changePinClosed)="closeChangePin($event)">
+    <app-change-pin *ngIf="changingPin"
+                    [(modalVisible)]="changingPin"
+                    [miraBox]="miraBox">
     </app-change-pin>
-    <app-get-private-keys [hidden]="!getPrivateKeys"
+    <app-get-private-keys *ngIf="getPrivateKeys"
                           (gotPrivateKey)="onPrivateKey($event)"
                           [parentSubject]="parentSubject"
                           [miraBox]="miraBox"
-                          (getPrivateKeysClosed)="getPrivateKeysClosed($event)">
+                          [(modalVisible)]="getPrivateKeys">
     </app-get-private-keys>
     <div class="tips-div">
       <div class="block-heading">

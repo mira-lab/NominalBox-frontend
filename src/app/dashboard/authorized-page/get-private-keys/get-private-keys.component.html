@@ -6,21 +6,22 @@
     <div class="form">
       <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form">
-          <label for="PIN-3">PIN</label>
+          <label for="get-pks-pin">PIN</label>
           <input type="password"
                  class="authorization-field w-input"
-                 maxlength="256" name="PIN-1" data-name="PIN 1"
+                 maxlength="256" name="get-pks-pin" data-name="get-pks-pin"
                  placeholder="PIN"
-                 [disabled]="isGettingPrivateKeys"
+                 id="get-pks-pin"
+                 [disabled]="formSubmitting"
                  [(ngModel)]="pin"
                  required=""
-                 (focus)="resetErrorMessage()">
+                 (focus)="resetAllEvents()">
           <input type="button" (click)="getPrivateKeys()"
-                 [disabled]="isGettingPrivateKeys"
+                 [disabled]="formSubmitting"
                  value="Confirm"
                  data-wait="Please wait..."
                  class="save-form-button w-button"
-                 [ngClass]="{'mirabox-creating-button':isGettingPrivateKeys}">
+                 [ngClass]="{'mirabox-creating-button':formSubmitting}">
         </form>
         <p>*Please, note: you can unpack MiraBox only once! You cannot undo it.</p>
         <div [hidden]="!showSuccess" class="form-success">
@@ -29,7 +30,7 @@
         <div [hidden]="!showError" class="form-error">
           <div>{{errorMessage}}</div>
         </div>
-        <div [hidden]="!isGettingPrivateKeys" class="loading-spinner-div">
+        <div [hidden]="!formSubmitting" class="loading-spinner-div">
           <img class='loading-spinner' src="assets/images/mira-loading.gif">
         </div>
       </div>

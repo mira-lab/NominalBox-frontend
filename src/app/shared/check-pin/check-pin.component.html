@@ -6,21 +6,22 @@
     <div class="form">
       <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form">
-          <label for="PIN-3">PIN</label>
+          <label for="check-pin">PIN</label>
           <input type="password"
                  class="authorization-field w-input"
-                 maxlength="256" name="PIN-1" data-name="PIN 1"
+                 maxlength="256" name="check-pin" data-name="check-pin"
                  placeholder="PIN"
-                 [disabled]="isCheckingPin"
+                 id="check-pin"
+                 [disabled]="formSubmitting"
                  [(ngModel)]="pin"
                  required=""
-                 (focus)="resetErrorMessage()">
+                 (focus)="resetAllEvents()">
           <input type="button" (click)="checkPin()"
-                 [disabled]="isCheckingPin"
+                 [disabled]="formSubmitting"
                  value="Confirm"
                  data-wait="Please wait..."
                  class="save-form-button w-button"
-                 [ngClass]="{'mirabox-creating-button':isCheckingPin}">
+                 [ngClass]="{'mirabox-creating-button':formSubmitting}">
         </form>
         <div [hidden]="!showSuccess" class="form-success">
           <div>Thank you! Your pin has been changed!</div>

@@ -6,40 +6,43 @@
     <div class="form">
       <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form">
-          <label for="PIN-3">Old PIN</label>
+          <label for="change-pin-old-pin">Old PIN</label>
           <input type="password"
                  class="authorization-field w-input"
-                 maxlength="256" name="PIN-1" data-name="PIN 1"
+                 maxlength="256" name="change-pin-old-pin" data-name="change-pin-old-pin"
+                 id="change-pin-old-pin"
                  placeholder="Old PIN"
                  [(ngModel)]="formModel.oldPin"
                  (focus)="resetAllEvents()"
-                 [disabled]="changePinPosting"
+                 [disabled]="formSubmitting"
                  required="">
           <div class="_2-pins-div">
             <div class="pin-div">
-              <label for="PIN-3">New PIN</label>
+              <label for="change-pin-new-pin">New PIN</label>
               <input type="password"
                      class="authorization-field w-input"
-                     maxlength="256" name="PIN-1" data-name="PIN 1"
+                     maxlength="256" name="change-pin-new-pin" data-name="change-pin-new-pin"
                      placeholder="New PIN"
+                     id="change-pin-new-pin"
                      [(ngModel)]="formModel.newPin"
                      (focus)="resetAllEvents()"
-                     [disabled]="changePinPosting"
+                     [disabled]="formSubmitting"
                      required="">
             </div>
             <div class="pin-div">
-              <label for="PIN-3">Repeat new PIN</label>
+              <label for="change-pin-r-new-pin">Repeat new PIN</label>
               <input type="password"
                      class="authorization-field w-input"
-                     maxlength="256" name="PIN-2"
-                     data-name="PIN 2" placeholder="Repeat new PIN"
+                     maxlength="256" name="change-pin-r-new-pin"
+                     data-name="change-pin-r-new-pin" placeholder="Repeat new PIN"
+                     id="change-pin-r-new-pin"
                      [(ngModel)]="formModel.repeatNewPin"
                      (focus)="resetAllEvents()"
-                     [disabled]="changePinPosting"
+                     [disabled]="formSubmitting"
                      required="">
             </div>
           </div>
-          <input type="button" (click)="changePin()" [disabled]="changePinPosting" value="Change"
+          <input type="button" (click)="changePin()" [disabled]="formSubmitting" value="Change"
                  data-wait="Please wait..." class="save-form-button w-button">
         </form>
         <div [hidden]="!showSuccess" class="form-success">

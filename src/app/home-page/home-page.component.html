@@ -23,8 +23,7 @@
   </app-file-upload>
   <app-check-pin [miraBox]="miraBox"
                  [hidden]="!showCheckPin"
-                 (pinChecked)="pinChecked($event)"
-                 (checkPinClosed)="closeCheckPin($event)">
+                 [(modalVisible)]="showCheckPin">
   </app-check-pin>
 </div>
 

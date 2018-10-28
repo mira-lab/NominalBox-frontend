@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {NoAuthRedirectService} from './dashboard/no-auth-redirect.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'NominalBox-frontend';
+
+  constructor(private noAuthRedirectSvc: NoAuthRedirectService) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.noAuthRedirectSvc.init(); // TODO: add platform service
+  }
 }
+

@@ -24,16 +24,15 @@ export class HomePageComponent implements OnInit {
 
   onFileContentReceived(fileContent: string) {
     try {
-      this.miraBoxDataSvc.setMiraBox(MiraBox.fromString(fileContent));
-      this.miraBox = this.miraBoxDataSvc.getMiraBox();
+      this.miraBox = MiraBox.fromString(fileContent);
+      this.miraBoxDataSvc.setMiraBox(this.miraBox);
       this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
         .then((res) => {
+          console.log(res);
           if (res) {
             this.showCheckPin = true;
           } else {
-            this.showCheckPin = false;
-            this.router.navigate(['dashboard/authorized']);
-            return Promise.reject('Mirabox not opened');
+            return this.router.navigate(['dashboard/authorized']);
           }
         })
         .catch((err) => {
@@ -44,14 +43,4 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  pinChecked(result) {
-    if (result === true) {
-      this.showCheckPin = false;
-      return this.router.navigate(['dashboard/authorized']);
-    }
-  }
-
-  closeCheckPin() {
-    this.showCheckPin = false;
-  }
 }
