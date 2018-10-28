@@ -28,7 +28,6 @@ export class HomePageComponent implements OnInit {
       this.miraBoxDataSvc.setMiraBox(this.miraBox);
       this.miraBoxSvc.isMiraboxItemOpened(this.miraBox, this.miraBox.getMiraBoxItems()[0])
         .then((res) => {
-          console.log(res);
           if (res) {
             this.showCheckPin = true;
           } else {

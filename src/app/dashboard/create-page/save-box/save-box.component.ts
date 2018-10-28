@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {DeviceDetectorService} from 'ngx-device-detector';
 import {Router} from '@angular/router';
 
 import {CurrencyService} from '../currency/currency.service';
@@ -16,21 +17,22 @@ import {SaveBox} from './save-box';
 })
 export class SaveBoxComponent extends ModalForm implements OnInit {
 
-  constructor
-  (private router: Router,
-   private miraBoxSvc: MiraboxService,
-   private currencySvc: CurrencyService,
-   private miraBoxDataSvc: MiraboxDataService,
-   private servercommSvc: ServerCommunicationService) {
+  constructor(private router: Router,
+              private miraBoxSvc: MiraboxService,
+              private currencySvc: CurrencyService,
+              private miraBoxDataSvc: MiraboxDataService,
+              private servercommSvc: ServerCommunicationService,
+              private deviceService: DeviceDetectorService) {
     super();
   }
 
-  @Input() mobile = false;
+  isMobile = false;
   saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
   currencies;
 
   ngOnInit() {
     this.currencies = this.currencySvc.currencyList;
+    this.isMobile = this.deviceService.isMobile();
     this.currencySvc.changeInCurrencies$.subscribe(currencies => this.currencies = currencies);
   }
 
@@ -92,6 +94,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
         console.log(err);
       });
   }
+
   navigateDownload() {
     try {
       this.saveBoxForm.checkFormValid();
@@ -110,6 +113,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
         console.log(err);
       });
   }
+
   downloadMiraBox(miraBox: MiraBox) {
     const data = 'data:application/text;charset=utf-8,' + miraBox.toString();
     const downloadAnchor = document.getElementById('download-mirabox');
