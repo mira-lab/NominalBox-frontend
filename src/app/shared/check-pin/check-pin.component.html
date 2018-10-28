@@ -6,11 +6,12 @@
     <div class="form">
       <div class="form-block w-form">
         <form id="email-form" name="email-form" data-name="Email Form">
-          <label for="PIN-3">PIN</label>
+          <label for="check-pin">PIN</label>
           <input type="password"
                  class="authorization-field w-input"
-                 maxlength="256" name="PIN-1" data-name="PIN 1"
+                 maxlength="256" name="check-pin" data-name="check-pin"
                  placeholder="PIN"
+                 id="check-pin"
                  [disabled]="formSubmitting"
                  [(ngModel)]="pin"
                  required=""
