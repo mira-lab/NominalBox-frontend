@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {DeviceDetectorModule} from 'ngx-device-detector';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
@@ -14,7 +15,8 @@ import {SharedModule} from './shared/shared.module';
   imports: [
     BrowserModule,
     routing,
-    SharedModule
+    SharedModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

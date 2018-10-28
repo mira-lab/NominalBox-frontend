@@ -37,7 +37,7 @@
                  (click)="navigateSendByEmail()" type="button" value="Send by e-mail" data-wait="Please wait..."
                  class="send-form-button w-button">
           <a id="download-mirabox" style="display: none"></a>
-          <input *ngIf="!mobile"
+          <input *ngIf="!isMobile"
                  (click)="navigateDownload()"
                  [ngClass]="{'mirabox-creating-button': formSubmitting}"
                  [disabled]="formSubmitting" type="button" value="Save and download" data-wait="Please wait..."
