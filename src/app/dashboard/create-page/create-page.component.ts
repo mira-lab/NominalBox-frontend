@@ -5,6 +5,7 @@ import {CurrencyComponent} from './currency/currency.component';
 import {MiraboxDataService} from '../../mirabox/mirabox-data.service';
 import {MiraBox} from '../../mirabox/mirabox';
 import {MiraboxService} from '../../mirabox/mirabox.service';
+import {CurrencyService} from './currency/currency.service';
 
 @Component({
   selector: 'app-create-page',
@@ -16,11 +17,13 @@ export class CreatePageComponent implements OnInit {
   private currencyComponent: CurrencyComponent;
   mobile = false;
   showCheckPin = false;
+  showSaveBox = false;
   miraBox: MiraBox;
 
   constructor(private router: Router,
               private miraBoxDataSvc: MiraboxDataService,
-              private miraBoxSvc: MiraboxService) {
+              private miraBoxSvc: MiraboxService,
+              private currencySvc: CurrencyService) {
   }
 
   ngOnInit() {
@@ -47,6 +50,13 @@ export class CreatePageComponent implements OnInit {
         });
     } catch (err) {
       return alert('Bad MiraBox File!');
+    }
+  }
+  showSB() {
+    if (this.currencySvc.currencyList) {
+      this.showSaveBox = true;
+    } else {
+      alert('You must choose at least 1 currency!');
     }
   }
 }

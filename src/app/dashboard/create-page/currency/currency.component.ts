@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 
-import {PopUpSaveBoxService} from '../save-box/pop-up-save-box.service';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {CURRENCIES, INACTIVECURRENCIES} from './currency-list';
 import {CurrencyService} from './currency.service';
@@ -13,8 +12,7 @@ import {CurrencyService} from './currency.service';
 export class CurrencyComponent implements OnInit {
   public currencies;
   public inactiveCurrencies;
-  constructor(private popUpSvc: PopUpSaveBoxService,
-              private miraboxSvc: MiraboxService,
+  constructor(private miraboxSvc: MiraboxService,
               private currencySvc: CurrencyService) {
 
   }
@@ -27,16 +25,8 @@ export class CurrencyComponent implements OnInit {
     });
   }
 
-  showSaveBox() {
-    if (this.currencies.filter((curr) => curr.added === true).length > 0) {
-      this.popUpSvc.showPopUp();
-    } else {
-      alert('You must choose at least 1 currency!');
-    }
-  }
-
   changeInCurrencies() {
-    this.currencySvc.changeInCurrencies(this.currencies);
+    this.currencySvc.changeInCurrencies(this.currencies.filter(currency => currency.added));
   }
 
 }
