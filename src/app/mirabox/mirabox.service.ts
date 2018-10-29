@@ -228,7 +228,7 @@ export class MiraboxService {
     return sjcl.decrypt(secret_key, encodedPK);
   }
 
-  isMiraboxItemOpened(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
+  isMiraboxItemOpened(miraBox: MiraBox, miraBoxItem: MiraBoxItem): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
@@ -239,13 +239,17 @@ export class MiraboxService {
     });
   }
 
-  getOpenedMiraBoxItemPK(miraBoxItem: MiraBoxItem) {
+  getOpenedMiraBoxItemPK(miraBoxItem: MiraBoxItem, miraBoxPrivateKey: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
       miraBoxContract.getPastEvents('PrivateKey', {fromBlock: 0})
-        .then((res) => {
-          return resolve(res);
+        .then((privateKeyEvent: any) => {
+          if (privateKeyEvent.length > 0 && privateKeyEvent[0].returnValues['_value']) {
+            return resolve(this.decodePrivateKey(miraBoxPrivateKey, privateKeyEvent[0].returnValues['_value']));
+          } else {
+            return reject('Couldn\'t get private key from events!');
+          }
         })
         .catch((err) => {
           return reject(err);

@@ -28,7 +28,4 @@ export class MiraboxCurrencyComponent implements OnInit {
       });
     }
   }
-
-  nothing() {
-  }
 }

@@ -1,9 +1,3 @@
-.loading-spinner{
-  object-fit: cover;
-  width: 80px;
-  height: 30px;
-  margin: auto 0 auto auto;
-}
 .mirabox-creating-button{
   background-color: grey;
   cursor: default;
