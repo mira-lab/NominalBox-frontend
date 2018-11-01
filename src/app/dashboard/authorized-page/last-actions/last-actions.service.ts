@@ -26,8 +26,7 @@ export class LastActionsService {
     const hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours();
     const min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
     const sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
-    const time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
-    return time;
+    return date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
   }
 
   getLastActions(miraBox: MiraBox): Promise<EventAction[]> {
