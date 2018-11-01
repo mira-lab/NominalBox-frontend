@@ -5,6 +5,7 @@ import * as Bitcore from 'bitcore-lib';
 import {MiraBox, MiraBoxItem} from './mirabox';
 import {miraConfig} from './mira-config';
 import {Web3Service} from './web3.service';
+import {ServerCommunicationService} from './server-communication.service';
 
 declare const require: any;
 
@@ -14,7 +15,7 @@ declare const require: any;
 export class MiraboxService {
   w3: any;
   constructor(private web3Svc: Web3Service,
-              private http: Http) {
+              private serverCommSvc: ServerCommunicationService) {
     this.w3 = web3Svc.getWeb3();
   }
 
@@ -74,7 +75,7 @@ export class MiraboxService {
       const miraAccount = this.createMiraAccount();
       console.log(currencies);
       console.log(miraAccount.privateKey);
-      Promise.all([this.faucetMiraCoins(miraAccount.address), this.faucetLicense(miraAccount.address)])
+      Promise.all([this.serverCommSvc.faucetMiraCoins(miraAccount.address), this.serverCommSvc.faucetLicense(miraAccount.address)])
         .then(() => {
           console.log(miraAccount.address);
           return this.createMiraBoxItems(currencies, miraAccount);
@@ -113,15 +114,6 @@ export class MiraboxService {
       data: txData
     }, miraBox.getPrivateKey())
       .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction));
-  }
-
-
-  faucetLicense(miraAccountAddress): Promise<any> {
-    return this.http.post(miraConfig.licenseFaucetURL, {address: miraAccountAddress}).toPromise();
-  }
-
-  faucetMiraCoins(miraAccountAddress): Promise<any> {
-    return this.http.post(miraConfig.miraCoinFaucetURL, {address: miraAccountAddress}).toPromise();
   }
 
   getMiraBoxAddress(miraBox: MiraBox): string {

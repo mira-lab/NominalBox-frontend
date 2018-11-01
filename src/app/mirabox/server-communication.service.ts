@@ -23,6 +23,14 @@ export class ServerCommunicationService {
     }).toPromise();
   }
 
+  faucetLicense(miraAccountAddress): Promise<any> {
+    return this.http.post(miraConfig.licenseFaucetURL, {address: miraAccountAddress}).toPromise();
+  }
+
+  faucetMiraCoins(miraAccountAddress): Promise<any> {
+    return this.http.post(miraConfig.miraCoinFaucetURL, {address: miraAccountAddress}).toPromise();
+  }
+
   sendMiraBoxByEmail(miraBox: MiraBox, _email: string): Promise<any> {
     return this.http.post(miraConfig.sendByEmailURL, {
       mirabox_title: miraBox.getTitle(),
