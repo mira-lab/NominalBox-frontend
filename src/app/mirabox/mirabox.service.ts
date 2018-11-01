@@ -12,19 +12,17 @@ declare const require: any;
   providedIn: 'root'
 })
 export class MiraboxService {
-
+  w3: any;
   constructor(private web3Svc: Web3Service,
               private http: Http) {
     this.w3 = web3Svc.getWeb3();
   }
 
-  w3: any;
-
-  createMiraAccount() {
+  createMiraAccount(): any {
     return this.w3.eth.accounts.create();
   }
 
-  createMiraBoxItems(currencies, miraAccount) {
+  createMiraBoxItems(currencies, miraAccount): Promise<MiraBoxItem[]> {
     return new Promise((resolve, reject) => {
       const licenseContractAbi = require('./contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
@@ -37,8 +35,8 @@ export class MiraboxService {
         gasPrice: '100',
         data: txData
       }, miraAccount.privateKey)
-        .then((tx) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
-        .then((receipt) => {
+        .then((tx: any) => this.w3.eth.sendSignedTransaction(tx.rawTransaction))
+        .then((receipt: any) => {
           console.log(receipt);
           return licenseContract.getPastEvents('PurchasedContract', {
             filter: {owner: miraAccount.address},
@@ -46,7 +44,7 @@ export class MiraboxService {
             toBlock: receipt.blockNumber
           });
         })
-        .then((pastEvents) => {
+        .then((pastEvents: any) => {
           console.log(pastEvents);
           const miraboxContractAbi = require('./contract-abis/MiraboxContract.json');
           const miraboxContract = new this.w3.eth.Contract(miraboxContractAbi, pastEvents[0].returnValues.contractAddress);
@@ -54,7 +52,7 @@ export class MiraboxService {
 
           miraboxContract.methods.getPublicKey()
             .call()
-            .then((publicKey) => {
+            .then((publicKey: string) => {
               const miraBoxItems: MiraBoxItem[] = currencies.map((currency) => {
                 const miraBoxItem: MiraBoxItem = {
                   currency: currency.symbol,
@@ -72,7 +70,7 @@ export class MiraboxService {
     });
   }
 
-  createMiraBox(currencies, miraBoxTitle) {
+  createMiraBox(currencies: any, miraBoxTitle: string): Promise<MiraBox> {
     return new Promise((resolve, reject) => {
       const miraAccount = this.createMiraAccount();
       console.log(currencies);
@@ -89,10 +87,10 @@ export class MiraboxService {
     });
   }
 
-  getActionCoinBalance(privateKey) {
+  getActionCoinBalance(privateKey): Promise<string> {
     return new Promise((resolve, reject) => {
       this.w3.eth.getBalance(this.w3.eth.accounts.privateKeyToAccount(privateKey).address)
-        .then((wei) => {
+        .then((wei: string) => {
           return resolve(this.w3.utils.fromWei(wei, 'ether'));
         })
         .catch((err) => {
@@ -101,7 +99,7 @@ export class MiraboxService {
     });
   }
 
-  getLicenseBalance(privateKey) {
+  getLicenseBalance(privateKey): Promise<number> {
     return new Promise((resolve, reject) => {
       const licenseContractAbi = require('./contract-abis/License.json');
       const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
@@ -116,7 +114,7 @@ export class MiraboxService {
     });
   }
 
-  add2fa(miraBox: MiraBox, address2fa: string) {
+  add2fa(miraBox: MiraBox, address2fa: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const miraContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
@@ -139,43 +137,19 @@ export class MiraboxService {
   }
 
 
-  faucetLicense(miraAccountAddress) {
-    return new Promise((resolve, reject) => {
-      this.http.post(miraConfig.licenseFaucetURL,
-        {address: miraAccountAddress})
-        .subscribe(
-          res => {
-            console.log(res);
-            return resolve(res);
-          },
-          err => {
-            return reject(err);
-          }
-        );
-    });
+  faucetLicense(miraAccountAddress): Promise<any> {
+    return this.http.post(miraConfig.licenseFaucetURL, {address: miraAccountAddress}).toPromise();
   }
 
-  faucetMiraCoins(miraAccountAddress) {
-    return new Promise((resolve, reject) => {
-      return this.http.post(miraConfig.miraCoinFaucetURL,
-        {address: miraAccountAddress})
-        .subscribe(
-          res => {
-            console.log(res);
-            return resolve(res);
-          },
-          err => {
-            return reject(err);
-          }
-        );
-    });
+  faucetMiraCoins(miraAccountAddress): Promise<any> {
+    return this.http.post(miraConfig.miraCoinFaucetURL, {address: miraAccountAddress}).toPromise();
   }
 
-  getMiraBoxAddress(miraBox: MiraBox) {
+  getMiraBoxAddress(miraBox: MiraBox): string {
     return this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
   }
 
-  changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
+  changeMiraBoxItemReceiver(miraBox: MiraBox, miraBoxItem: MiraBoxItem): Promise<any> {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
@@ -194,7 +168,7 @@ export class MiraboxService {
     });
   }
 
-  openMiraBoxItem(miraBox: MiraBox, miraBoxItem: MiraBoxItem) {
+  openMiraBoxItem(miraBox: MiraBox, miraBoxItem: MiraBoxItem): Promise<any> {
     return new Promise((resolve, reject) => {
       const miraBoxContractAbi = require('./contract-abis/MiraboxContract.json');
       const miraBoxContract = new this.w3.eth.Contract(miraBoxContractAbi, miraBoxItem.contract);
@@ -212,14 +186,14 @@ export class MiraboxService {
     });
   }
 
-  generatePublicKey(privateKey) {
+  generatePublicKey(privateKey): string {
     const bitcore = require('bitcore-lib');
     const public1 = new bitcore.PrivateKey(privateKey.slice(2)).toPublicKey().toObject();
     public1.compressed = false;
     return new Bitcore.PublicKey(public1).toString();
   }
 
-  decodePrivateKey(miraBoxPK, encodedPK) {
+  decodePrivateKey(miraBoxPK, encodedPK): string {
     const sjcl = require('../../assets/js/sjcl/sjcl.js');
     const secret_key = new sjcl.ecc.elGamal.secretKey(
       sjcl.ecc.curves.k256,
@@ -258,7 +232,7 @@ export class MiraboxService {
 
   }
 
-  openMiraBox(miraBox: MiraBox) {
+  openMiraBox(miraBox: MiraBox): Promise<string> {
     return new Promise((resolve, reject) => {
       this.openMiraBoxItem(miraBox, miraBox.getMiraBoxItems()[0])
         .then((receipt) => {

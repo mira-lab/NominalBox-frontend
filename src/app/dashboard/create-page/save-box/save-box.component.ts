@@ -37,7 +37,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
   }
 
 
-  createMiraBox() {
+  createMiraBox(): Promise<MiraBox> {
     this.resetAllEvents();
     this.formSubmitting = true;
     return new Promise((resolve, reject) => {
@@ -70,11 +70,11 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
     });
   }
 
-  newFormModel() {
+  newFormModel(): void {
     this.saveBoxForm = new SaveBox('UntitledBox', '', '', '', '');
   }
 
-  navigateSendByEmail() {
+  navigateSendByEmail(): any {
     try {
       this.saveBoxForm.checkFormValid();
     } catch (err) {
@@ -95,7 +95,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
       });
   }
 
-  navigateDownload() {
+  navigateDownload(): any {
     try {
       this.saveBoxForm.checkFormValid();
     } catch (err) {
@@ -114,7 +114,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
       });
   }
 
-  downloadMiraBox(miraBox: MiraBox) {
+  downloadMiraBox(miraBox: MiraBox): void {
     const data = 'data:application/text;charset=utf-8,' + miraBox.toString();
     const downloadAnchor = document.getElementById('download-mirabox');
     downloadAnchor.setAttribute('href', data);
@@ -122,7 +122,7 @@ export class SaveBoxComponent extends ModalForm implements OnInit {
     downloadAnchor.click();
   }
 
-  closeSaveBox() {
+  closeSaveBox(): void {
     this.newFormModel();
     this.closeModalForm();
   }

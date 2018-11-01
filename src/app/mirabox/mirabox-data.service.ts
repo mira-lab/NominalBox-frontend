@@ -15,7 +15,7 @@ export class MiraboxDataService {
 
   miraBox: MiraBox;
 
-  setMiraBox(newMiraBox: MiraBox) {
+  setMiraBox(newMiraBox: MiraBox): void {
     this.miraBox = newMiraBox;
     this.changeInDataSource.next(this.miraBox);
   }

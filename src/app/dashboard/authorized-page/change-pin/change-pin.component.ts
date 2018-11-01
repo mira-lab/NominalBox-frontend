@@ -23,14 +23,14 @@ export class ChangePinComponent extends ModalForm implements OnInit {
   ngOnInit() {
   }
 
-  closeChangePin() {
+  closeChangePin(): void {
     if (!this.formSubmitting) {
       this.closeModalForm();
       this.newFormModel();
     }
   }
 
-  changePin() {
+  changePin(): void {
     this.resetAllEvents();
     this.formSubmitting = true;
     if (this.formModel.checkValid()) {
@@ -58,7 +58,7 @@ export class ChangePinComponent extends ModalForm implements OnInit {
     }
   }
 
-  newFormModel() {
+  newFormModel(): void {
     this.formModel = new ChangePin('', '', '');
   }
 }

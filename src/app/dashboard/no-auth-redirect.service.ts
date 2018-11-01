@@ -13,7 +13,7 @@ export class NoAuthRedirectService {
   constructor(private router: Router,
               private miraBoxDataSvc: MiraboxDataService) {}
 
-  init() {
+  init(): void {
     this.miraBoxDataSvc.changeInData$.subscribe((miraBox: any) => {
       this.isAuthenticated = !!miraBox;
     });

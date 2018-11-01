@@ -26,7 +26,7 @@ export class CreatePageComponent implements OnInit {
   }
 
   ngOnInit() {}
-  onFileContentReceived(fileContent: string) {
+  onFileContentReceived(fileContent: string): any {
     try {
       this.miraBox = MiraBox.fromString(fileContent);
       this.miraBoxDataSvc.setMiraBox(this.miraBox);
@@ -45,7 +45,7 @@ export class CreatePageComponent implements OnInit {
       return alert('Bad MiraBox File!');
     }
   }
-  showSB() {
+  showSB(): void {
     if (this.currencySvc.currencyList && this.currencySvc.currencyList.length > 0) {
       this.showSaveBox = true;
     } else {

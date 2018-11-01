@@ -25,7 +25,7 @@ export class CurrencyComponent implements OnInit {
     });
   }
 
-  changeInCurrencies() {
+  changeInCurrencies(): void {
     this.currencySvc.changeInCurrencies(this.currencies.filter(currency => currency.added));
   }
 

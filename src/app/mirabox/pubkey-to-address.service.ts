@@ -13,7 +13,7 @@ export class PubkeyToAddressService {
     this.w3 = web3Svc.getWeb3();
   }
 
-  pubToLTCAddress(publicKey: string) {
+  pubToLTCAddress(publicKey: string): string {
     bitcore.Networks.add({
       name: 'litecoin',
       alias: 'LTC',
@@ -34,7 +34,7 @@ export class PubkeyToAddressService {
     return new bitcore.Address(new bitcore.PublicKey(publicKey), bitcore.Networks.get('litecoin', undefined)).toString();
   }
 
-  pubTotLTCAddress(publicKey: string) {
+  pubTotLTCAddress(publicKey: string): string {
     bitcore.Networks.add({
       name: 'litecointestnet',
       alias: 'tLTC',
@@ -52,7 +52,7 @@ export class PubkeyToAddressService {
     return (new bitcore.Address(new bitcore.PublicKey(publicKey), bitcore.Networks.get('litecointestnet', undefined))).toString();
   }
 
-  pubToBCHAddress(publicKey: string) {
+  pubToBCHAddress(publicKey: string): string {
     bitcore.Networks.add({
       name: 'bitcoincash',
       alias: 'BCH',
@@ -68,7 +68,7 @@ export class PubkeyToAddressService {
     return (new bitcore.Address(new bitcore.PublicKey(publicKey), bitcore.Networks.get('bitcoincash', undefined))).toString();
   }
 
-  pubTotBCHAddress(publicKey: string) {
+  pubTotBCHAddress(publicKey: string): string {
     bitcore.Networks.add({
       name: 'bitcoincashtestnet',
       alias: 'tBCH',
@@ -82,15 +82,15 @@ export class PubkeyToAddressService {
     return (new bitcore.Address(new bitcore.PublicKey(publicKey), bitcore.Networks.get('bitcoincashtestnet', undefined))).toString();
   }
 
-  pubToBTCAddress(publicKey: string) {
+  pubToBTCAddress(publicKey: string): string {
     return (new bitcore.Address(new bitcore.PublicKey(publicKey), bitcore.Networks.get('mainnet', undefined))).toString();
   }
 
-  pubToETHAddress(publicKey: string) {
+  pubToETHAddress(publicKey: string): string {
     return '0x' + this.w3.utils.keccak256('0x' + publicKey.slice(2)).slice(26);
   }
 
-  publicKeyToAddress(currency: string, pubKey: string) {
+  publicKeyToAddress(currency: string, pubKey: string): string {
     let address = '';
     switch (currency) {
       case 'BTC':

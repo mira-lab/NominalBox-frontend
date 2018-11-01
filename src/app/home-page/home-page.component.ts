@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFileContentReceived(fileContent: string) {
+  onFileContentReceived(fileContent: string): any {
     try {
       this.miraBox = MiraBox.fromString(fileContent);
       this.miraBoxDataSvc.setMiraBox(this.miraBox);

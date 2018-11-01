@@ -17,7 +17,7 @@ export class FileUploadComponent implements OnInit {
   ngOnInit() {
   }
 
-  handleFileInput(files: FileList) {
+  handleFileInput(files: FileList): any {
     this.fileToUpload = files.item(0);
     console.log(this.fileToUpload);
     const reader = new FileReader();
@@ -30,7 +30,7 @@ export class FileUploadComponent implements OnInit {
     };
   }
 
-  onFileDrop(file: File) {
+  onFileDrop(file: File): any {
     const reader = new FileReader();
     reader.readAsText(file);
     reader.onload = () => {
