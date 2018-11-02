@@ -15,12 +15,10 @@ export class LastActionsService {
   w3;
 
   constructor(private web3Svc: Web3Service) {
-    this.w3 = this.web3Svc.getWeb3();
+    this.w3 = this.web3Svc.w3;
   }
 
-  function;
-
-  timeConverter(UNIX_timestamp) {
+  timeConverter(UNIX_timestamp): string {
     const a = new Date(UNIX_timestamp * 1000);
     const year = a.getFullYear();
     const month = a.getMonth() + 1 < 10 ? '0' + (a.getMonth() + 1) : a.getMonth() + 1;
@@ -28,90 +26,73 @@ export class LastActionsService {
     const hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours();
     const min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
     const sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
-    const time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
-    return time;
+    return date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
   }
 
-  async getLastActions(miraBox: MiraBox) {
-    const miraBoxContractEvents: any = await this.getAllEvents(miraBox);
-    const miraBoxPurchased = await this.getActionCoinsSpent(miraBox);
-    const miraBoxTransfer = await this.getMiraAccountTransfers(miraBox);
-    const miraBoxLicenseBurn = await this.getMiraAccountLicenseBurns(miraBox);
-
-    const allEvents = miraBoxContractEvents
-      .concat(miraBoxPurchased, miraBoxTransfer, miraBoxLicenseBurn)
-      .filter(event => !!EventsToActions[event.event])
-      .map(event => {
-        return <EventAction>{
-          eventName: event.event,
-          blockNumber: event.blockNumber,
-          actionName: EventsToActions[event.event],
-          time: ''
-        };
+  getLastActions(miraBox: MiraBox): Promise<EventAction[]> {
+    const getEventsPromises = [
+      this.getAllEvents(miraBox),
+      this.getActionCoinsSpent(miraBox),
+      this.getMiraAccountTransfers(miraBox),
+      this.getMiraAccountLicenseBurns(miraBox)
+    ];
+    return Promise.all(getEventsPromises)
+      .then((events: any) => {
+        const mergedEvents = [].concat.apply([], events);
+        const allEvents = mergedEvents.filter(event => !!EventsToActions[event.event])
+          .map(event => {
+            return <EventAction>{
+              eventName: event.event,
+              blockNumber: event.blockNumber,
+              actionName: EventsToActions[event.event],
+              time: ''
+            };
+          });
+        const getBlocksPromises = allEvents.map((event) => this.w3.eth.getBlock(event.blockNumber));
+        return Promise.all(getBlocksPromises)
+          .then((blocks: any) => {
+            allEvents.forEach((event, index) => {
+              event.time = this.timeConverter(blocks[index].timestamp);
+            });
+            return allEvents;
+          });
       });
-    const getBlocksPromises = allEvents.map(async (event) => await this.w3.eth.getBlock(event.blockNumber));
-    try {
-      const blocks: any = await Promise.all(getBlocksPromises);
-      allEvents.forEach((event, index) => {
-        event.time = this.timeConverter(blocks[index].timestamp);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    return allEvents;
   }
 
-  getMiraAccountTransfers(miraBox: MiraBox) {
+  getMiraAccountTransfers(miraBox: MiraBox): Promise<any> {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
-    return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
-      licenseContract.getPastEvents('Transfer', {
-        filter: {to: miraBoxAddress},
-        fromBlock: 0
-      })
-        .then(events => resolve(events))
-        .catch(err => reject(err));
+    const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
+    const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
+    return licenseContract.getPastEvents('Transfer', {
+      filter: {to: miraBoxAddress},
+      fromBlock: 0
     });
   }
 
-  getMiraAccountLicenseBurns(miraBox: MiraBox) {
+  getMiraAccountLicenseBurns(miraBox: MiraBox): Promise<any> {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
-    return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
-      licenseContract.getPastEvents('Burn', {
-        filter: {burner: miraBoxAddress},
-        fromBlock: 0
-      })
-        .then(events => resolve(events))
-        .catch(err => reject(err));
+    const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
+    const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
+    return licenseContract.getPastEvents('Burn', {
+      filter: {burner: miraBoxAddress},
+      fromBlock: 0
     });
   }
 
-  getActionCoinsSpent(miraBox: MiraBox) {
+  getActionCoinsSpent(miraBox: MiraBox): Promise<any> {
     const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
-    return new Promise((resolve, reject) => {
-      const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
-      const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
-      licenseContract.getPastEvents('PurchasedContract', {
-        filter: {owner: miraBoxAddress},
-        fromBlock: 0
-      })
-        .then(events => resolve(events))
-        .catch(err => reject(err));
+    const licenseContractAbi = require('../../../mirabox/contract-abis/License.json');
+    const licenseContract = new this.w3.eth.Contract(licenseContractAbi, miraConfig.licenseContractAddress);
+    return licenseContract.getPastEvents('PurchasedContract', {
+      filter: {owner: miraBoxAddress},
+      fromBlock: 0
     });
   }
 
-  getAllEvents(miraBox: MiraBox) {
-    const miraBoxAddress = this.w3.eth.accounts.privateKeyToAccount(miraBox.getPrivateKey()).address;
-    return new Promise((resolve, reject) => {
-      const miraContractAbi = require('../../../mirabox/contract-abis/MiraboxContract.json');
-      const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
-      miraContract.getPastEvents('allEvents', {fromBlock: 0})
-        .then(events => resolve(events))
-        .catch(err => reject(err));
-    });
+  getAllEvents(miraBox: MiraBox): Promise<any> {
+    const miraContractAbi = require('../../../mirabox/contract-abis/MiraboxContract.json');
+    const miraContract = new this.w3.eth.Contract(miraContractAbi, miraBox.getMiraBoxItems()[0].contract);
+    return miraContract.getPastEvents('allEvents', {fromBlock: 0});
   }
 
 }

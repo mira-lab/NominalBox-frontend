@@ -7,26 +7,25 @@
     <div class="account-info">Action Coins</div>
   </div>
     <div data-w-id="f6083d89-daa0-ddd5-042f-afe892aa6926" class="right-div">
-      <app-mirabox-currency [miraBox]="miraBox" [privateKey]="privateKey"></app-mirabox-currency>
+      <app-mirabox-items [miraBox]="miraBox" [privateKey]="privateKey"></app-mirabox-items>
     </div>
   <div data-w-id="9a726329-2038-0ba9-07e7-25aae49e600b"  class="left-div">
     <div class="actions-div" *ngIf="!isMiraBoxOpened">
       <div class="block-heading">
         <h5 class="block-header">Actions with MiraBox</h5>
-        <img class="block-header loading-spinner" [ngStyle]="{'visibility': gettingPrivateKeys ? 'unset' : 'hidden'}" src="assets/images/mira-loading.gif">
       </div>
-      <div class="block-content actions"><a (click)="changingPin = !changingPin" class="action-button _3 w-button">Change Pin</a>
-        <input type="button" (click)="getPrivateKeys = !getPrivateKeys" [disabled]="isGetPrivateKeysDisabled" value="Get Private Keys" class="action-button _2 w-button" [ngClass]="{'mirabox-creating-button':isGetPrivateKeysDisabled}" ></div>
+      <div class="block-content actions"><a (click)="showChangePinModal = !showChangePinModal" class="action-button _3 w-button">Change Pin</a>
+        <input type="button" (click)="showGetPKsModal = !showGetPKsModal" value="Get Private Keys" class="action-button _2 w-button"></div>
     </div>
-    <app-change-pin *ngIf="changingPin"
-                    [(modalVisible)]="changingPin"
+    <app-change-pin *ngIf="showChangePinModal"
+                    [(modalVisible)]="showChangePinModal"
                     [miraBox]="miraBox">
     </app-change-pin>
-    <app-get-private-keys *ngIf="getPrivateKeys"
+    <app-get-private-keys *ngIf="showGetPKsModal"
                           (gotPrivateKey)="onPrivateKey($event)"
                           [parentSubject]="parentSubject"
                           [miraBox]="miraBox"
-                          [(modalVisible)]="getPrivateKeys">
+                          [(modalVisible)]="showGetPKsModal">
     </app-get-private-keys>
     <div class="tips-div">
       <div class="block-heading">

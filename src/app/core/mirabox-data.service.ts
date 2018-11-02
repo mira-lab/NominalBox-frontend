@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-
-import {MiraBox} from './mirabox';
 import {Subject} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+import {MiraBox} from '../mirabox/mirabox';
+
+
+@Injectable()
 export class MiraboxDataService {
 
   constructor() {
@@ -15,7 +14,7 @@ export class MiraboxDataService {
 
   miraBox: MiraBox;
 
-  setMiraBox(newMiraBox: MiraBox) {
+  setMiraBox(newMiraBox: MiraBox): void {
     this.miraBox = newMiraBox;
     this.changeInDataSource.next(this.miraBox);
   }

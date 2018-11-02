@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {MiraBox} from '../mirabox/mirabox';
-import {MiraboxDataService} from '../mirabox/mirabox-data.service';
+import {MiraboxDataService} from '../core/mirabox-data.service';
 import {MiraboxService} from '../mirabox/mirabox.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFileContentReceived(fileContent: string) {
+  onFileContentReceived(fileContent: string): any {
     try {
       this.miraBox = MiraBox.fromString(fileContent);
       this.miraBoxDataSvc.setMiraBox(this.miraBox);

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {MiraboxDataService} from '../mirabox/mirabox-data.service';
+import {MiraboxDataService} from '../core/mirabox-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class NoAuthRedirectService {
   constructor(private router: Router,
               private miraBoxDataSvc: MiraboxDataService) {}
 
-  init() {
+  init(): void {
     this.miraBoxDataSvc.changeInData$.subscribe((miraBox: any) => {
       this.isAuthenticated = !!miraBox;
     });

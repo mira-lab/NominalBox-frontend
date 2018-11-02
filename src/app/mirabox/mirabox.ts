@@ -39,36 +39,36 @@ export class MiraBox {
     }
   }
 
-  static fromString(input: string) {
+  static fromString(input: string): MiraBox {
     const miraBoxObj = JSON.parse(input);
     return MiraBox.fromJsonObj(miraBoxObj);
   }
 
-  public addMiraBoxItem(_currency: string, _address: string, _contract: string) {
+  public addMiraBoxItem(_currency: string, _address: string, _contract: string): void {
     this.miraBoxItems.push({currency: _currency, address: _address, contract: _contract});
   }
 
-  public changeTitle(newTitle: string) {
+  public changeTitle(newTitle: string): void {
     this.title = newTitle;
   }
 
-  public getMiraBoxItems() {
+  public getMiraBoxItems(): MiraBoxItem[] {
     return this.miraBoxItems;
   }
 
-  public getPrivateKey() {
+  public getPrivateKey(): string {
     return this.privateKey;
   }
 
-  public getTitle() {
+  public getTitle(): string {
     return this.title;
   }
 
-  public getMiraBoxFileName() {
+  public getMiraBoxFileName(): string {
     return `${this.title}.mbox`;
   }
 
-  public toJsonObj() {
+  public toJsonObj(): any {
     return {
       'version': this.version,
       'title': this.title,
@@ -77,7 +77,7 @@ export class MiraBox {
     };
   }
 
-  public toString() {
+  public toString(): string {
     return JSON.stringify(this.toJsonObj());
   }
 

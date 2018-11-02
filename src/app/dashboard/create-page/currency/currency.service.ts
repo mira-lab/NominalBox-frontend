@@ -12,7 +12,7 @@ export class CurrencyService {
   constructor() {
   }
 
-  changeInCurrencies(newCurrencies) {
+  changeInCurrencies(newCurrencies): void {
     this.currencyList = newCurrencies;
     this.currenciesSource.next(newCurrencies);
   }

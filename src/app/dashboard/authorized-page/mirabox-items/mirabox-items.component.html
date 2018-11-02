@@ -2,7 +2,7 @@
   <div class="block-heading">
     <h5 class="block-header">{{ miraBox.getTitle() }}</h5>
   </div>
-  <div *ngFor="let miraBoxItem of miraBoxShowObj">
+  <div *ngFor="let miraBoxItem of miraBoxItemsUI">
     <div class="currency-line">
       <div class="currency-icon-div"><img src='{{miraBoxItem.currencyImage}}' class="currency-icon"></div>
       <div class="currency-title">
@@ -24,3 +24,4 @@
       </div>
     </div>
   </div>
+</div>

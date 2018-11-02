@@ -25,7 +25,7 @@ export class GetPrivateKeysComponent extends ModalForm implements OnInit {
   ngOnInit() {
   }
 
-  getPrivateKeys() {
+  getPrivateKeys(): void {
     if (!this.pin) {
       this.showErrorMessage('Pin field is empty!');
       return;
@@ -58,7 +58,7 @@ export class GetPrivateKeysComponent extends ModalForm implements OnInit {
     });
   }
 
-  closeGetPrivateKeys() {
+  closeGetPrivateKeys(): void {
     if (!this.formSubmitting) {
       this.pin = '';
       this.closeModalForm();
