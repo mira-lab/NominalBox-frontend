@@ -4,7 +4,7 @@ import {interval, from, Subject, Observable, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 
 import {MiraboxService} from '../../mirabox/mirabox.service';
-import {MiraboxDataService} from '../../mirabox/mirabox-data.service';
+import {MiraboxDataService} from '../../core/mirabox-data.service';
 import {MiraBox, MiraBoxItem} from '../../mirabox/mirabox';
 
 @Component({

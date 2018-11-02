@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {CurrencyService} from '../currency/currency.service';
 import {MiraboxService} from '../../../mirabox/mirabox.service';
 import {MiraBox} from '../../../mirabox/mirabox';
-import {MiraboxDataService} from '../../../mirabox/mirabox-data.service';
+import {MiraboxDataService} from '../../../core/mirabox-data.service';
 import {ModalForm} from '../../../shared/modal-form';
 import {ServerCommunicationService} from '../../../mirabox/server-communication.service';
 import {SaveBox} from './save-box';

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {MiraBox} from '../mirabox/mirabox';
-import {MiraboxDataService} from '../mirabox/mirabox-data.service';
+import {MiraboxDataService} from '../core/mirabox-data.service';
 import {MiraboxService} from '../mirabox/mirabox.service';
 
 @Component({

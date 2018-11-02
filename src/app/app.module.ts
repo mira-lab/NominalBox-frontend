@@ -7,6 +7,7 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {routing} from './app.routing';
 import {SharedModule} from './shared/shared.module';
 import {MiraboxModule} from './mirabox/mirabox.module';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {MiraboxModule} from './mirabox/mirabox.module';
   ],
   imports: [
     BrowserModule,
+    CoreModule.forRoot(),
     DeviceDetectorModule.forRoot(),
     MiraboxModule.forRoot(),
     routing,
