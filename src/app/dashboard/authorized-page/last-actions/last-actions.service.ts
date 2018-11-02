@@ -15,7 +15,7 @@ export class LastActionsService {
   w3;
 
   constructor(private web3Svc: Web3Service) {
-    this.w3 = this.web3Svc.getWeb3();
+    this.w3 = this.web3Svc.w3;
   }
 
   timeConverter(UNIX_timestamp): string {

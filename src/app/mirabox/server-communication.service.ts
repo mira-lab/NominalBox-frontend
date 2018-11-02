@@ -4,9 +4,7 @@ import {Injectable} from '@angular/core';
 import {miraConfig} from './mira-config';
 import {MiraBox} from './mirabox';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class ServerCommunicationService {
 

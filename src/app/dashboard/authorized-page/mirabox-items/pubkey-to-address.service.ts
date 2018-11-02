@@ -8,7 +8,7 @@ export class PubkeyToAddressService {
   w3: any;
 
   constructor(private web3Svc: Web3Service) {
-    this.w3 = web3Svc.getWeb3();
+    this.w3 = web3Svc.w3;
   }
 
   pubToLTCAddress(publicKey: string): string {

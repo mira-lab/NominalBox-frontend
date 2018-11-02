@@ -1,4 +1,3 @@
-import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
 
 import * as Bitcore from 'bitcore-lib';
@@ -9,14 +8,12 @@ import {ServerCommunicationService} from './server-communication.service';
 
 declare const require: any;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MiraboxService {
   w3: any;
   constructor(private web3Svc: Web3Service,
               private serverCommSvc: ServerCommunicationService) {
-    this.w3 = web3Svc.getWeb3();
+    this.w3 = web3Svc.w3;
   }
 
   createMiraAccount(): any {

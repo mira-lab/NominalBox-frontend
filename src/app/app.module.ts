@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {routing} from './app.routing';
 import {SharedModule} from './shared/shared.module';
+import {MiraboxModule} from './mirabox/mirabox.module';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,10 @@ import {SharedModule} from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
+    DeviceDetectorModule.forRoot(),
+    MiraboxModule.forRoot(),
     routing,
     SharedModule,
-    DeviceDetectorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
