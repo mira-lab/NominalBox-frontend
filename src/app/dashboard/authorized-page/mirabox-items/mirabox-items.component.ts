@@ -2,12 +2,13 @@ import {Component, OnInit, Input} from '@angular/core';
 
 import {MiraBox} from '../../../mirabox/mirabox';
 import {CURRENCIES} from '../../create-page/currency/currency-list';
-import {PubkeyToAddressService} from '../../../mirabox/pubkey-to-address.service';
+import {PubkeyToAddressService} from './pubkey-to-address.service';
 
 @Component({
   selector: 'app-mirabox-items',
   templateUrl: './mirabox-items.component.html',
-  styleUrls: ['./mirabox-items.component.css']
+  styleUrls: ['./mirabox-items.component.css'],
+  providers: [PubkeyToAddressService]
 })
 export class MiraboxItemsComponent implements OnInit {
   @Input() miraBox: MiraBox;

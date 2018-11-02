@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 
 import * as bitcore from 'bitcore-lib';
-import {Web3Service} from './web3.service';
+import {Web3Service} from '../../../mirabox/web3.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PubkeyToAddressService {
   w3: any;
 
