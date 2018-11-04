@@ -88,7 +88,17 @@ export class PubkeyToAddressService {
   }
 
   pubToETHAddress(publicKey: string) {
-    return '0x' + this.w3.utils.keccak256('0x' + publicKey.slice(2)).slice(26);
+    if (publicKey.length === 130  &&  publicKey.startsWith('04')) {
+      // uncompressed public key
+      return '0x' + this.w3.utils.keccak256('0x' + publicKey.slice(2)).slice(26);
+    } else if (publicKey.length === 66  &&  (publicKey.startsWith('02') || publicKey.startsWith('03'))) {
+      // compressed public key
+      const pubkey: any  = new bitcore.PublicKey(publicKey);
+      const expub = new bitcore.PublicKey('04' + pubkey.point.x.toString('hex') + pubkey.point.y.toString('hex'));
+      return('0x' + this.w3.utils.keccak256( '0x' + expub.toString().slice(2) ).slice(26) );
+    } else {
+      throw  new Error('Invalid public key' + publicKey.toString());
+    }
   }
 
   publicKeyToAddress(currency: string, pubKey: string) {
